@@ -1,0 +1,36 @@
+= 5.3.5 Release Notes
+
+== New Features
+
+* Added the Advanced Scripting as a BETA future. Advanced Scripting enables writing the scripts in a Python-like language. The following commands are available with this release: link:https://docs.hazelcast.com/clc/5.3.5/clc-script#advanced-script-beta[Advanced Script]. Check out the `scripts` directory for example scripts.
+* CLC now supports loading the `shell.clc` script on startup in the interactive mode. `shell.clc` must be in `$CLC_HOME`. You can find the `$CLC_HGME` using `clc home` command.
+* Added the ability to define "aliases" in the interactive or script modes. An alias, like the shell aliases, enable you to create shortcuts for your CLC commands. For example: `\alias maps -- \\object list map` creates an alias to list Maps in the cluster. In order to make the aliases permanent, you can put them in the `shell.clc` file. Check out the link:https://docs.hazelcast.com/clc/5.3.5/alias[Alias documentation].
+* Added the `map entry-view` command. Check out the link:https://docs.hazelcast.com/clc/5.3.5/clc-map#clc-map-entry-view[entry-view documentation],
+
+== Improvements
+
+* Improved configuration selector.
+* If there's a single configuration, do not display the configuration selector and use that configuration automatically.
+* Updated `job submit` command to deduce the job ID.
+* `clc template list` can show all repositories in an organization.
+* Added the `--source` flag to `clc project create` and `clc template list` commands. This flag enables using templates outside of the `hazelcast-templates` organiation.
+* Added `clc_home` placeholder to Project Creator templates.
+* Added `repeat` and `each` actions to the Project Creator templates.
+* Compact Serializer does not overwrite generated files and displays a prompt. Use the `--yes` flag to aloways overwrite generated fiels.
+* Compact Serializer does not produce code that dependes on the `Notnull` annotation.
+* Compact Serializer respects the `namespace` field when generating the path. The final path is derived from the value of `--output-dir` flag and the namespace.
+
+
+
+== Changes
+
+* Table format is the default format for all commands except `version` and `home`. In order to use the delimited mode, you can append `-f delimited` flag to your command line.
+* Moved `clc project list-templates` command to `clc template list`. The behaviour of the command didn't change.
+* Compact serializer creates only the serializer classes.
+* We've changed our logging implementation, so CLC logs appear slighlty different. You can find your log directory using `clc home logs`.
+
+== Fixes
+
+* Fixed Project Creator template update.
+* Fixed copying hidden directories with the `.keep` suffix in the Project Creator.
+* Fixed Compect Serializer generated files should not have their execute bits set.
