@@ -3,7 +3,8 @@
 Alias commands enable you to add and list user defined shortcuts.
 
 Alias commands can only be used in the interactive and scripting modes.
-In order to persist the aliases you need to add `\alias add` statements in the `$CLC_HOME/shell.clc` script. `shell.clc` script is sourced when CLC starts in the interactive mode.
+
+In order to persist the aliases you need to define the `\alias add` statements in the `$CLC_HOME/shell.clc` script which is automatically run when CLC starts in the interactive mode.
 
 Usage:
 
@@ -66,6 +67,12 @@ clc alias add list-maps -- \\object list map
 clc alias add first-five-desserts -- select name from desserts order by name limit 5;
 ----
 
+To run an alias, prefix its name with an `@`:
+
+Using the above as examples, `@list-maps` and `@first-five-desserts` will run the respective aliases.
+
+NOTE: In order to persist the aliases you need to define the `\alias add` statements in the `$CLC_HOME/shell.clc` script which is automatically run when CLC starts in the interactive mode.
+
 == clc alias remove
 
 Remove an alias with the given name.
@@ -98,6 +105,8 @@ Example:
 clc alias remove my-alias
 ----
 
+NOTE: `alias remove` removes the alias from the current session only. To remove the alias permanently, remove the `\alias add` statement from the `$CLC_HOME/shell.clc` script.
+
 == clc alias list
 
 List existing aliases.
@@ -118,4 +127,4 @@ clc alias list
 
 === Alias Usage
 
-Aliases can be used in interactive and scripting modes with `@` prefix. Let's assume an alias named `my-alias` already created. it can be used as `@my-alias`.
+Aliases can be used in interactive and scripting modes with `@` prefix. Let's assume an alias named `my-alias` already created, it can be used as `@my-alias`.
