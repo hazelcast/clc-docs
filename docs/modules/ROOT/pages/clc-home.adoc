@@ -18,7 +18,7 @@ Parameters:
 |Parameter|Required|Description|Default
 
 |`subdirectory`
-|Optional.
+|Optional
 |If specified, the Hazelcast CLC joins the given subdirectories with `$CLC_HOME`
 |N/A
 
@@ -29,5 +29,5 @@ Example output:
 [source,bash]
 ----
 clc home configs pr-3814
-/home/me/.hazelcast/configs/pr-3814
+/home/me/.local/share/clc/configs/pr-3814
 ----
