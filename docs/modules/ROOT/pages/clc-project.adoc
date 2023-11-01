@@ -12,6 +12,7 @@ clc project [command] [flags]
 == Commands
 
 * <<clc-project-create, clc project create>>
+* <<clc-project-list-templates, clc project list-templates>>
 
 == clc project create
 
@@ -35,11 +36,6 @@ Parameters:
 |Output directory for the project to be created.
 |Template name
 
-|`--source`
-|Optional
-|The Github organization/user account to search for the templates.
-|hazelcast-templates
-
 |`template-name`
 |Required
 |Name of the template.
@@ -54,7 +50,9 @@ Parameters:
 
 === Creating and Using Your Own Templates
 
-Templates are located in https://github.com/hazelcast-templates. You can override it by using the `--source` flag.
+Templates are located in https://github.com/hazelcast-templates. You can override it by using `CLC_EXPERIMENTAL_TEMPLATE_SOURCE` environment variable.
+
+==== Rules while creating your own templates:
 
 * Templates are in link:https://pkg.go.dev/text/template[Go template] format.
 * You can create a "defaults.yaml" file for default values in template's root directory.
@@ -62,17 +60,15 @@ Templates are located in https://github.com/hazelcast-templates. You can overrid
 * Files with "." and "_" prefixes are ignored unless they have the ".keep" extension.
 * All files with ".keep" extension are copied by stripping the ".keep" extension.
 * Other files are copied verbatim.
-*Properties are read from the following resources in order:
-+
+
+==== Properties are read from the following resources in order:
+
 1. `defaults.yaml` (keys cannot contain punctuation)
 2. `config.yaml`
 3. User passed key-values in the "KEY=VALUE" format. The keys can only contain lowercase letters, numbers and the underscore character.
 
-==== Placeholders
-
 You can use the placeholders in "defaults.yaml" and the following configuration item placeholders:
 
-* clc_home
 * cluster_name
 * cluster_address
 * cluster_user
@@ -86,50 +82,6 @@ You can use the placeholders in "defaults.yaml" and the following configuration 
 * ssl_key_password
 * log_path
 * log_level
-
-==== Actions
-
-* `repeat COUNT`: Returns an integer array with number from `0` to `COUNT`. If `COUNT` is `0`, an array with `0` integers are returned.
-+
-Template:
-+
-[source]
------
-{{ range repeat 3 }}
-Number {{.}}
-{{ end -}}
------
-+
-Output:
-+
-[source]
------
-Number 0
-Number 1
-Number 2
------
-
-* `each VALUE ...`: Returns an array with items having the `Index` and `Value`.
-+
-Template:
-+
-[source]
------
-{{ range each "foo" "bar" 38 }}
-Item {{ .Index }} = {{ .Value }}
-{{ end -}}
------
-+
-Output:
-+
-[source]
------
-Item 0 = foo
-Item 1 = bar
-Item 2 = 38
------
-
-=== Usage
 
 Example (Linux and macOS):
 
@@ -149,4 +101,42 @@ clc project create^
 simple-streaming-pipeline^
 --output-dir my-project^
 my_key1=my_value1 my_key2=my_value2
+----
+
+== clc project list-templates
+
+Lists templates that can be used while creating projects.
+
+Usage:
+
+[source,bash]
+----
+clc project list-templates [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|--local
+|false
+|When enabled, it only lists templates that exist in `<clc_home>/templates`
+|
+
+|--force
+|false
+|Templates are fetched and cached in a local data store. iIf you want to force CLC to fetch the latest templates from the remote repositories, you should set this parameter.
+|
+
+|===
+
+WARNING: --force and --local parameters cannot be set at the same time, because they serve for different purposes. --force is used for templates in remote repositories, while --local is used to list templates in local environment.
+
+Example:
+
+[source,bash]
+----
+clc project list-templates
 ----

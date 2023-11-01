@@ -15,7 +15,6 @@ clc map [command] [flags]
 * <<clc-map-get, clc map get>>
 * <<clc-map-set, clc map set>>
 * <<clc-map-entry-set, clc map entry-set>>
-* <<clc-map-entry-view, clc map entry-view>>
 * <<clc-map-key-set, clc map key-set>>
 * <<clc-map-values, clc map values>>
 * <<clc-map-lock, clc map lock>>
@@ -201,68 +200,6 @@ Example:
 [source,bash]
 ----
 clc map entry-set -n myMap
-----
-
-== clc map entry-view
-
-Returns a view of the entry with the given key.
-
-This command doesn't affect entry statistics, such as Hits and entry metadata such as Max Idle.
-
-See this documentation for information about per-entry statistics:
-link:https://docs.hazelcast.com/hazelcast/5.3/data-structures/reading-map-metrics#getting-statistics-about-a-specific-map-entry[Getting Statistics about a Specific Map Entry].
-
-The following information about the entry is returned:
-
-* Key
-* Value
-* Cost
-* Creation Time
-* Expiration Time
-* Hits
-* Last Access Time
-* Last Stored Time
-* Last Update Time
-* Version
-* TTL
-* Max Idle
-
-
-Usage:
-
-[source,bash]
-----
-clc map entry-view [key] [flags]
-----
-
-Parameters:
-
-[cols="1m,1a,2a,1a"]
-|===
-|Parameter|Required|Description|Default
-
-|`--name`, `-n`
-|Optional
-|Name of the map.
-|`default`
-
-|`key`
-|Required
-|Key of the map entry.
-|N/A
-
-|`--key-type`, `-k`
-|Optional
-|Data type of the key. One of: `string`, `bool`, `json`, `i8`, `i16`, `i32`, `i64`, `f32`, `f64`
-|string
-
-|===
-
-Example:
-
-[source,bash]
-----
-clc map entry-view -n my-map my-key
 ----
 
 == clc map key-set
