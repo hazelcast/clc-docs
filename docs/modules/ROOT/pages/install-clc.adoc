@@ -8,7 +8,71 @@
 * Using an install script on Linux or macOS
 * Windows installer
 * Downloading a pre-built binary
+* Building from source
 
+ifdef::snapshot[]
+[NOTE]
+Pre-release versions can only be built from source.
+
+== Build Pre-release from Source
+
+Supported OS:
+
+- Ubuntu 22.04 or later
+- macOS 15 or later
+- Windows 10 or later
+
+Requirements:
+
+- Go 1.21 or later
+- Git
+- For Linux and macOS, GNU Make
+- Command prompt or Windows Powershell
+- For Windows, https://github.com/tc-hib/go-winres[go-winres]
+
+To build from source, complete the following steps:
+
+. Clone the source from Git
++
+[source,shell]
+----
+$ git clone https://github.com/hazelcast/hazelcast-commandline-client.git
+----
+
+. Navigate to your project
++
+[source,shell]
+----
+$ cd hazelcast-commandline-client
+----
+
+. Build the project
++
+[source,shell]
+----
+$ make
+----
++
+The ``clc``, or ``clc.exe``, binary is created in the ``build`` directory.
+
+. Run the project
++
+-- On Linux or macOS:
++
+[source,shell]
+----
+./build/clc
+----
++
+-- On Windows:
++
+[source,shell]
+----
+.\build\clc.exe
+----
+
+endif::[]
+ifndef::snapshot[]
 == Installing on macOS
 
 The Hazelcast CLC is supported on macOS 15 or newer versions.
@@ -154,6 +218,7 @@ Installer::
 clc.exe
 ----
 
+endif::[]
 == Verifying the Hazelcast CLC Installation
 
 To check whether the Hazelcast CLC is installed properly, run the following command on a terminal.

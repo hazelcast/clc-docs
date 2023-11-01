@@ -1,176 +1,22 @@
 = clc script
-:description: Runs the script in the given local or HTTP location. Advanced script currently only supports local files.
+:description: Runs the script in the given local or HTTP location.
 
 {description}
 
-Runs the given script.
-
-Two kinds of scripts are supported:
-
-* Shell scripts: CLC commands or SQL
-* Advanced scripts: a Python-like language
-
-The scripts may be in the following locations:
-
-* Filesystem path: The path may optionally have the file:// prefix.
-* HTTP resource: The path should have the http:// or https:// prefix.
-
-== Shell Script
-
 The script can contain:
 
-1. SQL statements
-2. CLC commands prefixed with backslash.
-3. Comments starting with `--` (double dash)
+1. SQL statements,
+2. CLC commands prefixed with backslash,
+3. Comments starting with -- (double dash).
 
 The script should have either `.clc` or `.sql` extension.
 Files with one of these two extensions are interpreted equivalently.
-
-== Advanced Script (BETA)
-
-Advanced scripts are written in a Python-like language called Starlark.
-See this document for the language reference: https://github.com/google/starlark-go/blob/master/doc/spec.md
-
-CLC commands are mapped to functions using a few straightforward rules:
-
-1. If the command is a top level command, it is mapped as is. E.g., `home` command is mapped to the `home()` function.
-2. Positional arguments are mapped to positional arguments in the function signature.
-3. Flags are mapped to keyword arguments in the function signature.
-
-Examples:
-
-* `clc map set -n mymap foo bar` => `map_set("foo", "bar", name="mymap")`
-
-The script should have the .star extension.
-Only the filesystem is supported as a source for advanced scripts.
-
-The following values are available for advanced scripts:
-
-[cols="1m,1a"]
-|===
-|Value|Description
-
-|`nanosecond`
-|1 nanoscond.
-
-|`microsecond`
-|1 microsecond in nanoseconds.
-
-|`millisecond`
-|1 millisecond in nanoseconds.
-
-|`second`
-|1 second in nanoseconds.
-
-|`minute`
-|1 minute in nanoseconds.
-
-|`hour`
-|1 hour in nanoseconds.
-
-|`day`
-|1 day in nanoseconds.
-
-|===
-
-The following functions are available for advanced scripts:
-
-[cols="1m,1a"]
-|===
-|Function|Description
-
-|`ARGS_LIST = argv()`
-|Returns the arguments passed to the script as a list. 0th item in the list is the script name.
-
-| `DATA_TYPE_NAME = `data_type(DATA_VALUE)`
-|Returns the type name of the given data value.
-
-| `VALUE = `data_value(DATA_VALUE)`
-|Attempts to convert the data value to the corresponding script value.
-
-|`ERROR = last_error()`
-|Returns the last error or `None`. This function should be used together with the `--ignore-errors` flag.
-
-|`log_debug(STRING)`
-|Adds a DEBUG message to the CLC log.
-
-|`log_error(STRING_OR_ERROR)`
-|Adds an ERROR message to the CLC log. You can pass a `string` message or an `error`.
-
-|`log_warn(STRING)`
-|Adds a WARN message to the CLC log.
-
-|`map_clear(name=MAP_NAME)`
-|Clears the given Map.
-
-|`map_destroy(name=MAP_NAME)`
-|Deletes the given Map.
-
-|`LIST_OF_KEY_VALUE_TUPLES = map_entry_set(name=MAP_NAME)`
-|Returns a list of tuples that has the key in index 0 and the value in index 1. Keys and values are `data_value`s.
-
-|`ENTRY_VIEW = map_entry_view(KEY, name=MAP_NAME)`
-|`ENTRY_VIEW` is a dictionary with the following fields:
-
-* `Key`: `data_value`
-* `Value` `data_value`
-* `Cost`: `integer`
-* `Hits`: `integer`
-* `Creation Time`: `integer` (UNIX time in milliseconds)
-* `Expiration Time`: `integer` (UNIX time in milliseconds)
-* `Last Access Time`: `integer` (UNIX time in milliseconds)
-* `Last Stored Time`: `integer` (UNIX time in milliseconds)
-* `Last Update Time`: `integer` (UNIX time in milliseconds)
-* `Version`: `integer`
-* `TTL`: `integer` (milliseconds)
-* `Max Idle`: `integer` (milliseconds)
-
-|`VALUE = map_get(KEY, name=MAP_NAME)`
-|Returns the `data_value` for the given key.
-
-|`KEYS_LIST = map_key_set(name=MAP_NAME)`
-|Returns a list of keys as `data_value`.
-
-|`map_lock(KEY, name=MAP_NAME, ttl=NANOSECONDS)`
-|Locks a key in the Map.
-
-|`map_load_all(name=MAP_NAME, replace=BOOL)` or map_load_all(KEY1, ..., name=MAP_NAME, replace=BOOL)`
-|Loads the given keys or all keys in the MapStore if no key was specifed.
-
-|`VALUE = map_remove(KEY, name=MAP_NAME)`
-|Deletes the given key from the Map and returns the corresponding value.
-
-|`map_set(KEY, VALUE, name=MAP_NAME)`
-|Sets the given value for the given key.
-
-|`SIZE = map_size(name=MAP_NAME)`
-|Returns the size of the Map.
-
-|`BOOL = map_try_lock(KEY, name=MAP_NAME, ttl=NANOSECONDS)`
-|Attempts to lock the entry for the given key. Returns `True` if successful.
-
-|`map_unlock(KEY, name=MAP_NAME)`
-|Unlocks the entry for the given key.
-
-|`VALUES_LIST = map_values(name=MAP_NAME)`
-|Returns the values in the Map as a list.
-
-|`NANOSECONDS = now()`
-|Returns the current time in nanoseconds.
-
-|`LIST_OF_SERVICE_OBJECT_PAIRS = object_list()` or `OBJECT = object_list(SERVICE)`
-|Returns the data structure objects in the
-
-|`sleep(NANOSECONDS)`
-|Sleeps for the given nanoseconds. For example, to sleep for 10 seconds: `sleep(10*second)`.
-
-|===
 
 Usage:
 
 [source,bash]
 ----
-clc script [path/location] [flags] -- [parameter, ...]
+clc script [path/location] [flags]
 ----
 
 Parameters:
@@ -179,24 +25,14 @@ Parameters:
 |===
 |Parameter|Required|Description|Default
 
-|`parameter`
-|Optional
-|Arguments to be passed to an advanced script. The arguments can be retrieved using the `argv()` function.
-|
-
 |`--echo`
 |Optional
-|Print the executed command. Not used in advanced script.
+|Print the executed command
 |`false`
 
 |`--ignore-errors`
 |Optional
 |Ignore errors during script execution
-|`false`
-
-|`--debug`
-|Optional
-|Enable the debug mode for advanced scripts.
 |`false`
 
 |===

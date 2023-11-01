@@ -115,7 +115,7 @@ clc -c dev job list
 ==== 
 Unix::
 +
-.	Create a new shell script in your favorite text editor. For example:
+. Create a new shell script in your favorite text editor. For example:
 +
 [source,shell]
 ----
