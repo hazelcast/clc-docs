@@ -4,30 +4,11 @@
 
 {description}
 
-The Hazelcast Command Line Client (CLC) is a single binary with no dependencies. Within minutes of installation, you can start to perform common tasks on clusters including:
-
-* Connect to Hazelcast clusters on {hazelcast-cloud}, your own cloud, localhost or on-premises.
-* Single binary download with no dependencies.  Supports TLS connections using the client configuration.
-* Run SQL queries against your cluster.
-* Query data structures, such as maps, lists, and sets.
-* Display the output as a table or in a variety of text formats, such as JSON and CSV.
-* Create and manage {hazelcast-cloud} clusters, and custom classes on those clusters.  Directly access the logs of your {hazelcast-cloud} members.
-* Create data pipelines and upload Jet jobs directly to the cluster (requires {hazelcast-cloud} or Hazelcast Platform 5.3.x or later)
-* Work interactively or in non-interactive mode to script and execute repetitive administration, integration, or testing tasks.
-* Standardize the creation of Hazelcast Projects using the template feature.
-* New: Supports advanced scripting in CLC using a Python dialect.
-
-See the <<Use-Cases, Use Cases>> section for more information.
+The Hazelcast CLC is a single binary with no dependencies. Within minutes of installation, you can start to perform common tasks on clusters.
 
 == Install
 
-For MacOS and Linux users, the quickest way to install Hazelcast CLC is via:
-[source,bash]
-----
-curl https://hazelcast.com/clc/install.sh | bash
-----
-
-See xref:install-clc.adoc[installation documentation] for further download options.
+See xref:install-clc.adoc[installation documentation].
 
 == Use Cases
 
