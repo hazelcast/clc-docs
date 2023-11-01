@@ -58,7 +58,7 @@ Interactive mode::
 [source,bash]
 ----
 clc
-> SELECT * FROM cities
+CLC> SELECT * FROM cities
 ---------------------------------------------------------------------------------
       __key | country                   | city                      | population
 ---------------------------------------------------------------------------------
