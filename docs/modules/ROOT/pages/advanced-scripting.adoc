@@ -807,3 +807,10 @@ This time the output is:
 OK Caught the error.
 ----
 
+== Conclusion
+
+Advanced Scripting is a powerful tool. It enables many use cases which is not possible with using regular CLC scripts.
+
+Be sure to check out the link:clc-script.adoc[script] command reference for all commands.
+
+
