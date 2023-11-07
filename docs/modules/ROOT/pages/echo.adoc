@@ -1,0 +1,19 @@
+= echo
+
+Echo command prints the given string.
+
+Echo command can only be used in the interactive and scripting modes.
+
+Usage:
+
+[source,bash]
+----
+clc echo {STRING}
+----
+
+Example:
+
+[source,bash]
+----
+clc echo "lorem ipsum"
+----
