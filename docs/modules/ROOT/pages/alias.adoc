@@ -2,8 +2,9 @@
 
 Alias commands enable you to add and list user defined shortcuts.
 
-Alias commands can only be used in the interactive and scripting modes.
 In order to persist the aliases you need to add `\alias add` statements in the `$CLC_HOME/shell.clc` script. `shell.clc` script is sourced when CLC starts in the interactive mode.
+
+NOTE: Alias commands can only be used in the interactive and scripting modes.
 
 Usage:
 
