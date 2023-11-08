@@ -1,10 +1,10 @@
 = exit
 
-Exit command exits with the given code.
+Exits with the specified code.
 
-Exit command can only be used in the interactive and scripting modes.
+NOTE: Exit command can only be used in the interactive and scripting modes.
 
-If the given code is not in `[0,255]` range, it exists with code `255`.
+If the given code is not in the `[0,255]` range, it exits with code `255`.
 
 Usage:
 

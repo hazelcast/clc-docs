@@ -1,6 +1,6 @@
 = clc def
 
-Define a variable with the given name and value.
+Define a variable with a given name and value.
 
 NOTE: This command is not available in non-interactive mode.
 
@@ -28,14 +28,7 @@ Examples:
 Log Path : {{.log_path}}"
 ----
 
-In these examples, `config_name` action, and `version` and `log_path` placeholders are used.
-
-Other available placeholders are:
-
-* config
-* version
-* log_path
-* log_level
+In these examples, the `config_name` action, and the `version` and `log_path` placeholders are used.
 
 Other available actions are:
 
@@ -44,3 +37,10 @@ Other available actions are:
 * nl is used to add a new line, which is equivalent of `\n`.
 * repeat
 * each
+
+Other available placeholders are:
+
+* config
+* version
+* log_path
+* log_level

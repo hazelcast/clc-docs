@@ -1,8 +1,8 @@
 = echo
 
-Echo command prints the given string.
+Echo command prints the specified string.
 
-Echo command can only be used in the interactive and scripting modes.
+NOTE: Echo command can only be used in the interactive and scripting modes.
 
 Usage:
 
