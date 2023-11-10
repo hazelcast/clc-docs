@@ -1,0 +1,749 @@
+= Advanced Scripting Guide
+
+:description: This guide shows you how to write Advanced Scripts for CLC.
+
+{description}
+
+== Introduction
+
+Hazelcast CLC provides scriptability using a Python-like language called Starlark.
+
+The Advanced Scripts have the `.star` extension.
+Throughout this guide, we refer to the advanced script as the script.
+
+The code in a script is organized by top-level and optional functions.
+The `main` function runs after all top-level statements have completed. For example, the following script prints lines for `Top-Level A`, `Top-Level C`, and `Main B` in that order.
+
+[source,python]
+----
+print("Top-Level A")
+
+def main():
+    print("Main B")
+
+print("Top-Level C")
+----
+
+Top-level code has the following constraints:
+
+* Variables defined in the top-level become global immutable variables; they cannot be reassigned.
+* Loops are not allowed.
+* Conditional statements are not allowed.
+
+These constraints do not exist in code written in functions.
+The `main` function provides a convenient location for your code.
+
+== Your First Script
+
+Keeping these points in mind, let's write our first script.
+This script prints the total number of entries across all maps.
+Open your favorite code editor and optionally turn on the Starlark mode, if available, or the Python 3 mode.
+Save the following code as `hello.star`:
+
+[source,python]
+----
+def main():
+    total_entries = 0
+    for map_name in object_list("map"):
+        total_entries += map_size(name=map_name)
+    print("OK There are {} entries.".format(total_entries))
+----
+
+This code does the following:
+
+* Iterates on the Map names in the cluster
+* Retrieves the entry count for the corresponding Maps
+* Sums the entry counts
+* Displays the total number of entries
+
+Before running the script, let's make sure we have a few Maps in the cluster.
+Run the following commands in a terminal window to create populated Maps:
+
+[source,bash]
+----
+clc demo map-setmany -n map1 10
+clc demo map-setmany -n map2 20
+clc demo map-setmany -n map3 30
+----
+
+You are ready to run the script:
+
+[source,bash]
+----
+clc script hello.star
+----
+
+The output is similar to:
+
+----
+OK There are 60 entries.
+----
+
+== Data Types
+
+Advanced scripts support various data types.
+Some of the data types are common to all Starlark scripts.
+And others are CLC-specific.
+
+Here is a summary of the Starlark-provided types:
+
+[source,python]
+----
+just_none = None
+a_boolean = True
+an_integer = 38
+a_float = 42.24
+a_string = "Hazelcast"
+a_list = [1, "two", 3.33, False]
+a_tuple = (1, "two")
+a_dictionary = {1: "one", "two": 2}
+a_user_function = lambda: "some value"
+a_builtin_function = len
+----
+
+For further information on these data types, refer to the link:https://github.com/google/starlark-go/blob/master/doc/spec.md#data-types[Starlark documentation^].
+
+=== Data Value [[data_value]]
+
+CLC introduces the `data` type, which contains the data object returned from distributed data structure (DDS) calls, such as `map_get`.
+The data object is a serialized object that can be directly passed to another DDS call.
+It's crucial to keep these object in their serialized form.
+Otherwise they might be serialized in a way that cannot be deserialized by CLC, such as Java Serializable objects.
+By keeping the objects in their original serialized form, CLC can use those objects as keys and values in an opaque way.
+
+Currently, the only way to create data values is by reading one using a DDS call.
+Here's some code that does that, save it as `data_value.star`
+
+[source,python]
+----
+map_set("some-key", "some-value")
+obj = map_get("some-key")
+print(type(obj))
+----
+
+Running it:
+
+[source,bash]
+----
+clc script data_value.star
+----
+
+Outputs:
+----
+data
+----
+
+Once a data object is retrieved, you can check its type or deserialize it if its one of the supported data types.
+You can use the following methods and functions with a data object:
+
+* `X.type`: Returns the serialization identifier.
+* `data_type(X)`: Returns the name of the serializer.
+* `data_value(X)`: Deserializes the value. Note that CLC cannot deserialize all values. An error will be raised in case the value was not deserialized.
+
+These methods are summarized in the following script, which you can save  as `data_value2.star`:
+
+[source,python]
+----
+map_set("some-key", "some-value")
+obj = map_get("some-key")
+print("String value of the data object     :", obj)
+print("Numeric type of the enclosed object :", obj.type)
+print("String value of the enclosed object :", data_type(obj))
+print("The deserialized object             :", data_value(obj))
+----
+
+Running it:
+
+[source,bash]
+----
+clc script data_value2.star
+----
+
+Outputs:
+----
+String value of the data object     : data(STRING)
+Numeric type of the enclosed object : -11
+String value of the enclosed object : STRING
+The deserialzed object              : some-value
+----
+
+== User Defined Functions
+
+You can define regular functions using the `def` keyword and anonymous functions using the `lambda` keyword.
+
+Here's an example function that calculates the square of the given number.
+Save it as `fun.star`:
+
+[source,python]
+----
+def sqr(a):
+    return a * a
+
+print(sqr(5))
+----
+
+Running the script outputs:
+----
+25
+----
+
+For further information on functions, refer to the link:https://github.com/google/starlark-go/blob/master/doc/spec.md#function-definitions[Starlark documentation^].
+
+Anonymous functions are useful to define trivial, inline functions.
+The following example iterates a list of numbers and creates a new list by calling a function with each item.
+Save the script as `anonymous.star`:
+
+[source,python]
+----
+def main():
+    my_list = [1, 2, 3, 5, 10]
+    funs = [
+        ("identity", lambda x: x),
+        ("squared", lambda x: x * x),
+        ("10 more", lambda x: x + 10),
+    ]
+    for label, f in funs:
+        new_list = [f(x) for x in my_list]
+        print(label, new_list)
+----
+
+Running the script outputs:
+----
+identity [1, 2, 3, 5, 10]
+squared [1, 4, 9, 25, 100]
+10 more [11, 12, 13, 15, 20]
+----
+
+For further information on anonymous functions, refer to the link:https://github.com/google/starlark-go/blob/master/doc/spec.md#lambda-expressions[Starlark documentation^].
+
+== Builtin Functions
+
+=== Map Functions
+
+You can use several Map functions in your advanced scripts.
+See the link:clc-script.adoc[script] command documentation for the list of the functions available to advance scripts.
+In this section, you are going to use some of those functions.
+
+The `map_set` function sets a value for a key in a Map.
+The key may be any Starlark value or it can be encoded data.
+The `map_get` function returns the encoded data for the given key.
+Save the following script as `map1.star`.
+[source,python]
+----
+def main():
+    map_name = "num-map"
+    for i in range(3):
+        map_set(i, "value-{}".format(i), name=map_name)
+    print("Map size:", map_size(name=map_name))
+    for i in range(3):
+        value = map_get(i, name=map_name)
+        decoded_value = data_value(value)
+        print("Value:", decoded_value)
+----
+Running this script outputs:
+----
+Map size: 3
+Data for 0 is data(STRING) and its value is value-0
+Data for 1 is data(STRING) and its value is value-1
+Data for 2 is data(STRING) and its value is value-2
+----
+
+Note the `value = map_get(i, name=map_name)` line.
+The `map_get` function returns the encoded data, not the actual value you passed to `map_set`.
+This behavior differs from official Hazelcast client libraries, which decode the data and return the decoded the value.
+The reason for this behavior is covered in the <<data_value>> section.
+
+`map_key_set` returns the list of keys for a member. To make the above example more robust by getting the keys from the cluster instead of manually specifying them.
+Save the following script as `map2.star`:
+[source, python]
+-----
+def main():
+    map_name = "num-map"
+    for i in range(3):
+        map_set(i, "value-{}".format(i), name=map_name)
+    print("Map size:", map_size(name=map_name))
+    for key in map_key_set(name=map_name):
+        value = map_get(key, name=map_name)
+        decoded_value = data_value(value)
+        print("Value:", decoded_value)
+-----
+
+You can also use the `map_entry_set` function to list `(key, value)` pairs in a map.
+Let's modify the script above to use that function.
+Save the following script as `map3.star`:
+[source, python]
+-----
+def main():
+    map_name = "num-map"
+    for i in range(3):
+        map_set(i, "value-{}".format(i), name=map_name)
+    print("Map size:", map_size(name=map_name))
+    for key, value in map_entry_set(name=map_name):
+        decoded_value = data_value(value)
+        print("Value:", decoded_value)
+-----
+
+=== Utilities
+
+CLC provides the functions below that may be useful in many kinds of scripts.
+
+==== argv
+
+The `argv` function returns the arguments passed to the script in a list.
+The first item (index 0) is the script's name.
+
+Save the following script as `args.star`:
+
+[source,python]
+----
+def main():
+    args = argv()
+    print("Script     :", args[0])
+    for i, arg in enumerate(args[1:]):
+        print("Argument", i + 1, ":", arg)
+----
+
+1. Let's run it with no arguments:
++
+[source,bash]
+----
+clc script args.star
+----
++
+Output:
++
+----
+Script     : args.star
+----
++
+2. Let's run it with 3 arguments:
++
+[source,bash]
+----
+clc script args.star -- foo bar quux
+----
++
+Output:
++
+----
+Script     : args.star
+Argument 1 : foo
+Argument 2 : bar
+Argument 3 : quux
+----
++
+3. Now let's try passing a flag to our script.
+Remember that flags have a dash (`-`) as a prefix:
++
+[source,bash]
+----
+clc script args.star -- foo --my-flag
+----
++
+Output:
++
+----
+Script     : args.star
+Argument 1 : foo
+Argument 2 : --my-flag
+----
+
+The `--` is required after the script path because the flags for the script command can appear anywhere in the command line, even at the end.
+You must use `--` before any flag that must be passed to the script itself to help the argument parser.
+If no flags are passed to the script, you can omit the double dash, but its use reduces errors.
+
+==== env
+
+You can access the environment variables using the `env` command.
+When run without arguments, it returns the list of (name, value) pairs.
+Save the following script as `env1.star`.
+
+[source,python]
+----
+def main():
+    for name, value in env():
+        print(name, "=", value)
+----
+
+Running the script outputs all environment variables.
+----
+DESKTOP_SESSION = plasma
+DISPLAY = :0
+EDITOR = /usr/bin/vim
+GDK_BACKEND = x11
+----
+
+You can also get the value of a single environment variable, by passing its name to `env`.
+Here's an example:
+[source, python]
+----
+user_home = env("HOME")
+print("My home directory:", user_home)
+----
+
+==== now
+
+`now()` function returns the current local time in nanoseconds.
+
+You can convert the time to other units using the predefined time units, such as `millisecond`, `second` and `day`.
+For the valid values, see the link:clc-script.adoc[clc script] topic.
+The following example measures the duration of an object_list operation, and prints the result in various time units.
+
+[python,source]
+----
+time = now()
+print(time)
+----
+
+You can convert the time from nanoseconds to other time units using the provided built-in values.
+Here's an example that shows how to convert nanoseconds to other time units.
+Save the following script as `time.star`:
+
+[source,python]
+----
+tic = now()
+object_list()
+toc = now()
+took = toc - tic
+
+print("The operation took:")
+print("  ", took//nanosecond, "nanoseconds")
+print("  ", took//microsecond, "microseconds")
+print("  ", took//millisecond, "milliseconds")
+print("  ", took//second, "seconds")
+----
+
+Running it outputs:
+----
+The operation took:
+   4152911 nanoseconds
+   4152 microseconds
+   4 milliseconds
+   0 seconds
+----
+
+==== sleep
+
+It is sometimes necessary to wait for a specified period before continuing.
+`sleep` command waits for the given time in nanoseconds.
+You can also specify other time units, such as milliseconds and seconds, as described in the link:clc-script.adoc[clc script] topic.
+Here's a script that just waits for two seconds.
+
+[source,python]
+----
+print("Falling asleep...")
+sleep(2*second)
+print("Woke up")
+----
+
+=== Logging
+
+CLC provides several logging functions, which log messages using CLC's logging mechanism.
+
+* `log_error(STRING_OR_ERROR)`: Logs a message or an error with the ERROR level.
+* `log_warn(STRING)`: Logs a message with the WARN level.
+* `log_info(STRING)`: Logs a message with the INFO level.
+* `log_debug(STRING)`: Logs a message with the DEBUG level.
+
+If the logging level set with `--log.level` is higher than the log level of a message, that message is not written to the log.
+For example, if `--log.level error` specified then only `log_error` functions log messages.
+
+The `--log.path PATH` flag can be used to redirect the log messages to the given file or to STDERR (usually the terminal) if `stderr` is used.
+
+Here is a sample script to try the interplay of the log messages and logging levels.
+Save it as `logging.star`.
+
+[source,python]
+----
+log_error("This is an error log")
+log_warn("This is is a warn log")
+log_info("This is an info log")
+log_debug("This is a debug log")
+----
+
+First, run it as follows.
+Note that we set `--log.path stderr` to see the logs on the screen.
+Otherwise they would written to the default log file.
+
+[source, bash]
+----
+clc script --log.path stderr --log.level error logging.star
+----
+
+As this specifies ERROR level log messages, the output is similar to the following:
+
+----
+2023-11-01T11:24:18+03:00  ERROR  [logging.star:2:10] This is an error log
+----
+
+Let's try once more with a different log level.
+This time with DEBUG:
+
+[source, bash]
+----
+clc script --log.path stderr --log.level debug logging.star
+----
+
+This time all log messages are displayed and the output is similar to the following:
+
+----
+2023-11-01T21:30:13+03:00  ERROR  [logging.star:2:10] This is an error log
+2023-11-01T21:30:13+03:00   WARN  [logging.star:3:9] This is is a warn log
+2023-11-01T21:30:13+03:00   INFO  [logging.star:4:9] This is an info log
+2023-11-01T21:30:13+03:00  DEBUG  [logging.star:5:10] This is a debug log
+----
+
+=== Debugging
+
+Debug functions start with double underscores (`__`).
+They run only when the debug mode is activated by passing the `--debug` flag to the `script` command.
+They are ignored if the debug mode is not active.
+
+==== __trace
+
+You can use the `__trace` function to print the script name, line and column of the location whenever it is run.
+You can also customize the trace message by passing a string to `__trace`.
+Save the following script as `trace.star`.
+
+[source,python]
+----
+def fun1():
+    __trace()
+    print("Fun 1")
+
+__trace("Start-up")
+fun1()
+----
+
+Running the script normally:
+----
+clc script trace.star
+----
+Outputs:
+----
+Fun 1
+----
+That's because the `__trace` calls are removed.
+Try again with the `--debug` flag:
+----
+clc script --debug trace.star
+----
+Outputs:
+----
+>> Start-up: trace.star:5:8
+>> TRACE: trace.star:2:12
+Fun 1
+----
+
+== Output
+
+Just like CLC commands, advanced scripts can produce both structured and unnecessary output.
+The `print` function produces unnecessary output, which can be suppressed with the `--quiet` (shortcut `-q`) flag, and the `output` command produces structured output. The structured output is written out as a table, but you can change it to other formats using the `--format` (shortcut `-f`) flag.
+
+Here's an example to demonstrate that.
+Save the script as `output1.star`:
+[source,python]
+----
+def main():
+    fruits = ["apple", "grapes", "pear"]
+    print("There are {} fruits.".format(len(fruits)))
+    print("Unnecessary output lines will dissapear when you use -q\n")
+
+    for i, fruit in enumerate(fruits):
+        output(Index=i, Fruit=fruit)
+----
+
+Let's first run it normally:
+[source,bash]
+----
+clc script output1.star
+----
+
+Outputs:
+----
+There are 3 fruits.
+Unnecessary output lines will dissapear when you use -q
+
+----------------
+ Index | Fruit
+----------------
+     0 | apple
+     1 | grapes
+     2 | pear
+----------------
+    OK Returned 3 row(s).
+----
+
+Let's now use the `-q` flag to suppress unnecessary output:
+[source,bash]
+----
+clc script output1.star -q
+----
+
+Outputs:
+----
+----------------
+ Index | Fruit
+----------------
+     0 | apple
+     1 | grapes
+     2 | pear
+----------------
+----
+
+As expected, unnecessary output was not produced.
+Using a different output format also works:
+[source,bash]
+----
+clc script output1.star -q -f csv
+----
+
+Outputs:
+----
+Index,Fruit
+0,apple
+1,grapes
+2,pear
+----
+
+Separating unnecessary and structured output makes it much easier to extract the result using a pipe.
+This example uses the link:https://jqlang.github.io/jq/[jq] utility:
+:
+[source,bash]
+----
+clc script output1.star -q -f json | jq '.Fruit'
+----
+Outputs:
+----
+"apple"
+"grapes"
+"pear"
+----
+
+
+Passing keyword arguments to `output` for column label and value can sometimes be limiting.
+This is because only valid Starlark identifiers can be used as the column label.
+For example, running the following script returns an error:
+[source,python]
+----
+def main():
+    output(1=2)
+----
+Because of that, CLC also supports passing a dictionary to the `output` function.
+The dictionary must be passed as a positional argument and it must be the only argument to `output`.
+The script can also be formatted as follows:
+[source,python]
+----
+def main():
+    output({1: 2})
+----
+
+The output function handles rows with missing values.
+Here's a script to demonstrate that.
+Save it as `output2.star`:
+[source,python]
+----
+def main():
+    for i in range(3):
+        output({i: "OK"})
+----
+Running it outputs the following:
+----
+--------------
+ 0  | 1  | 2
+--------------
+ OK | -  | -
+ -  | OK | -
+ -  | -  | OK
+--------------
+----
+Different output formats handle missing values differently.
+JSON printer just skips the missing values:
+[source,bash]
+----
+clc script output2.star -f json
+----
+Outputs:
+----
+{"0":"OK"}
+{"1":"OK"}
+{"2":"OK"}
+----
+
+== Error Handling
+
+Whenever an error occurs, CLC stops the script and prints an error message.
+This is usually the safest way to handle the error.
+But there are times when you want to try something that can result in an error, and handle it without giving back the control.
+
+The `script` command supports `the --ignore-errors` flag which suppresses errors while running the script.
+You can use the `last_error()` function to get the error so you can act on it.
+
+Let's demonstrate that with an example using the `data_value` function.
+Passing a string to `data_value` ends with an error; since that function expects an argument of type `data`.
+Save the following sctipt as `error.star`:
+
+[source,python]
+----
+def main():
+    v = data_value("foo")
+    print(v)
+----
+
+And run it:
+
+[source,bash]
+----
+clc script error.star
+----
+
+This displays the following error:
+----
+ERROR Error.star:2:19: argument 1 is expected to be 'serialization.Data', got 'string'
+----
+
+This time, run the script with the `--ignore-errors` flag:
+
+[source,bash]
+----
+clc script --ignore-errors error.star
+----
+
+The output is now similar to the following:
+----
+None
+----
+
+The error in the `data_value` line is ignored and `v` is set to `None`.
+
+Let's now try to use the `last_error` function and act on errors.
+Save the following script as `error2.star`:
+
+[source,python]
+----
+def main():
+    v = data_value("foo")
+    if last_error():
+        v = "OK Caught the error."
+    print(v)
+----
+
+Run the script with the `--ignore-errors` flag:
+[source,bash]
+----
+clc script --ignore-errors error2.star
+----
+
+This time the output is:
+
+----
+OK Caught the error.
+----
+Since you have used the `--ignore-errors` flag, the program didn't end with an error in the `data_value` line but the error was recorded.
+Using the `last_error` function, the existence of an error was checked and `v` was set to `OK Caught the error.`.
+
+== Conclusion
+
+Advanced Scripting is a powerful tool. It supports many use cases, which are not possible using standard CLC scripts
+
+Be sure to check out the link:clc-script.adoc[script] command reference for all commands.
