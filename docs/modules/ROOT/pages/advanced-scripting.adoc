@@ -497,7 +497,7 @@ This time all log messages are displayed and the output is similar to the follow
 
 Debug functions start with double underscores (`__`).
 They run only when the debug mode is activated by passing the `--debug` flag to the `script` command.
-If the debug mode is not active, they are no-ops.
+They are ignored if the debug mode is not active.
 
 ==== __trace
 
