@@ -1,0 +1,46 @@
+= clc def
+
+Define a variable with a given name and value.
+
+NOTE: This command is not available in non-interactive mode.
+
+Usage:
+
+[source,bash]
+----
+clc def [name] [value]
+----
+
+Examples:
+
+- Setting the shell prompt:
+
+[source,bash]
+----
+\def prompt "{{config_name}}@SQL> "
+----
+
+- Configuring the banner:
+
+[source,bash]
+----
+\def banner "Hazelcast CLC {{.version}} (c) 2023 Hazelcast Inc. {{nl}}
+Log Path : {{.log_path}}"
+----
+
+In these examples, the `config_name` action, and the `version` and `log_path` placeholders are used.
+
+Other available actions are:
+
+* date
+* time
+* nl is used to add a new line, which is equivalent of `\n`.
+* repeat
+* each
+
+Other available placeholders are:
+
+* config
+* version
+* log_path
+* log_level

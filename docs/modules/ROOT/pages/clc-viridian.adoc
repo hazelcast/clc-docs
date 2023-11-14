@@ -181,6 +181,11 @@ Parameters:
 |Sets the API key. Overrides the `CLC_VIRIDIAN_API_KEY` environment variable. If not given, one of the existing API keys will be used.
 |
 
+|`--wait`
+|Optional
+|Waits for the cluster to be stopped.
+|`false`
+
 |===
 
 == clc viridian resume-cluster
@@ -206,6 +211,11 @@ Parameters:
 |Optional
 |Sets the API key. Overrides the `CLC_VIRIDIAN_API_KEY` environment variable. If not given, one of the existing API keys will be used.
 |
+
+|`--wait`
+|Optional
+|Waits for the cluster to be resumed.
+|`false`
 
 |===
 
@@ -237,6 +247,11 @@ Parameters:
 |Optional
 |Skips confirming the delete operation.
 |
+
+|`--wait`
+|Optional
+|Waits for the cluster to be deleted.
+|`false`
 
 |===
 

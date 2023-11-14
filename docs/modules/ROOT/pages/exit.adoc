@@ -1,0 +1,21 @@
+= exit
+
+Exits with the specified code.
+
+NOTE: Exit command can only be used in the interactive and scripting modes.
+
+If the given code is not in the `[0,255]` range, it exits with code `255`.
+
+Usage:
+
+[source,bash]
+----
+clc exit [code]
+----
+
+Example:
+
+[source,bash]
+----
+clc exit 10
+----
