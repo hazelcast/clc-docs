@@ -16,6 +16,7 @@
 .Guides
 * xref:advanced-scripting.adoc[Advanced Scripting]
 * xref:using-compact-serializer-generator.adoc[Using Compact Serializer Generator]
+* xref:project-creator.adoc[Project Creator]
 
 .Reference
 * xref:clc-commands.adoc[Command Reference]

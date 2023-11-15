@@ -1,0 +1,110 @@
+= Project Creator Guide
+
+:description: This guide shows you how to create projects using CLC's project creator feature.
+
+{description}
+
+== Introduction
+
+Hazelcast CLC provides a solution that makes it easy to create Hazelcast projects that can be easily ran after creation without needing to apply extra configuration.
+
+Templates are located in https://github.com/hazelcast-templates.
+
+== Creating a Viridian Cluster
+
+For this guide, let's create a Hazelcast Viridian Cluster. First link:https://viridian.hazelcast.com/[Sign in to {hazelcast-cloud}], and follow the steps in link:get-started.adoc[get started documentation].
+
+== Creating Your First Project with Default Hazelcast Templates
+
+Before creating a project, we should list the templates with the following command:
+
+[source,bash]
+----
+clc template list
+----
+
+* When a project is created its template is stored in `$CLC_HOME/templates` directory. If you want to list only the templates stored in your local environment, you need to add `--local` flag to your command.
+
+* If you want to force it to fetch the latest updates from repositories while listing them you need to add `--refresh` flag.
+
+* Keep in mind that `--local` and `--refresh` flags are mutually exclusive which means they cannot be used together in a single `template list` command.
+
+Let's create our first project by using link:https://github.com/hazelcast-templates/go-client-getting-started[go-client-getting-started] template. It includes two following files that has special extensions.
+
+```
+go-client-getting-started
+├── README.md.keep
+├── config.go.template
+└── ...
+```
+
+`.keep` and `.template` extensions are special ones for project creator. `.template` extension specifies that it is a link:https://pkg.go.dev/text/template[Go template] file, and it includes placeholders and actions. `.keep` extension is used to keep the files that are required for the created project. For example, the `README.md` file in the template will be replaced with `README.md.keep` one when the project is created.
+
+Let's look a bit deeper to `config.go.template` to see what placeholders are included:
+
+* config
+* cluster_name
+* cluster_discovery_token
+* cluster_address
+* ssl_key_path
+* ssl_cert_path
+* ssl_key_password
+* cluster_api_base
+
+are the ones that are used in this template. More placeholders are listed in link:clc-project.adoc[project creator reference documentation].
+
+To create a project, run the following command:
+
+[source,bash]
+----
+clc -c <your-config> project create go-client-getting-started
+----
+
+The project will be created in the current working directory. If you want it to be created in a different directory, you can use `--output-dir` flag. After creating the project, you can directly run it without any effort, because placeholders already configured the project based on the given configuration.
+
+== Creating and Using Your Own Templates
+
+It is also possible users to create their own templates and use them. While creating your own template the following rules should be kept in mind:
+
+* Templates are in link:https://pkg.go.dev/text/template[Go template] format.
+* You can create a "template.yaml" file in template's root directory and add it a "defaults" node to add default values.
+* Template files must have the ".template" extension.
+* Files with "." and "_" prefixes are ignored unless they have the ".keep" extension.
+* All files with ".keep" extension are copied by stripping the ".keep" extension.
+* Other files are copied verbatim.
+*Properties are read from the following resources in order:
++
+1. defaults node of `templates.yaml` (keys cannot contain punctuation)
+2. `config.yaml`
+3. User passed key-values in the "KEY=VALUE" format. The keys can only contain lowercase letters, numbers and the underscore character.
+
+After creating your own template, you need to push it into a Github repository. That repository should be in a separate organization, so it is better to create an account/organization for your templates.
+
+To list them, you can use the `template list` command with `--source` flag:
+
+[source,bash]
+----
+clc template list --source=<your-organization-name>
+----
+
+To create a project from your template, run the following command:
+
+[source,bash]
+----
+clc -c <your-config> project create <your-template> --source=<your-organization-name>
+----
+
+You can also use any placeholder you want in your templates, and pass them with the create command:
+
+[source,bash]
+----
+clc -c <your-config> project create <your-template> foo=bar --source=<your-organization-name>
+----
+
+`foo` placeholder in your template will be replaced with `bar` after project is created.
+
+== Conclusion
+
+In this guide, you learned how to use default Hazelcast templates, and moreover how to create your own templates and use them to create projects. This is a powerful tool that creates projects for you just using a single command, and it is ready to run.
+
+Be sure to check out the link:clc-template.adoc[template] and link:clc-project.adoc[project] commands' references for all commands.
