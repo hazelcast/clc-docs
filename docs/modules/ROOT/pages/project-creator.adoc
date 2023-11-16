@@ -72,13 +72,16 @@ If preferred, you can use templates that you have created. When creating your te
 * File names that start with a period (`.`) or underscore (`_`) are ignored, unless they also have a _.keep_ extensions.
 * Any files with a _.keep_ extension are copied to the project with the _.keep_ extension removed. All other files are copied without changes.
 *Properties are read from the following resources in order:
-+
-1. The defaults node of the templates.yaml file.
 
+.. The defaults node of the templates.yaml file.
++
 NOTE: The keys must not contain any punctuation characters.
 
-2. `config.yaml`
-3. User passed key-values in the "KEY=VALUE" format. The keys can only contain lowercase letters, numbers and the underscore character.
+.. `config.yaml`
+
+.. User passed key-values in the "KEY=VALUE" format.
++
+NOTE: The keys must contain only lowercase, numerical, and underscore characters.
 
 After creating your template, push it to a GitHub repository that resides in a separate organization. Hazelcast recommends creating an account/organization specifically for your templates.1
 
