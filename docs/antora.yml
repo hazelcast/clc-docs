@@ -13,7 +13,7 @@ asciidoc:
     full-version: '5.3.5'
     # Allows us to use UI macros. See https://docs.asciidoctor.org/asciidoc/latest/macros/ui-macros/
     experimental: true
-    snapshot: true
+    snapshot: false
     page-toclevels: 3@
     # Required Go version for build
     go-version: 1.21
