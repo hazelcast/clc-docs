@@ -2,10 +2,10 @@ name: clc
 title: Hazelcast CLC
 start_page: overview.adoc
 # Version in the URL
-version: '5.3'
+version: '5.3.4'
 # Version in the version selector (we display only the latest major.minor version)
 display_version: '5.3.4'
-# Displays a banner to inform users that this is a prerelease version 
+# Displays a banner to inform users that this is a prerelease version
 prerelease: false
 asciidoc:
   attributes:
