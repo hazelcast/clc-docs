@@ -1,0 +1,266 @@
+= YAML Job Definition
+
+The stages of a Jet job can be defined with in a yaml file without any Java code interaction. A basic streaming job consists of three main stages. These are source, transform and sink stages. The transformation stage is optional, and a pipeline can have multiple transformation steps. In order to define these stages for your job, you can benefit from a yaml definition without any codding effort.
+
+NOTE: This feature is only available on Viridian.
+
+
+== YAML File Structure
+
+The structure of pipeline definition in a yaml file.
+
+[source, yaml]
+----
+pipeline:
+  source:
+    type: # Type of the source, see th table for available types.
+
+  transform: # Optional Step
+    - type: PYTHON # Only supported transform method for now.
+
+  sink:
+    type: # Where the output will be sink into. See th table for available types.
+----
+
+=== Source Stages
+There different types of sources can be defined in yaml job definition. 
+
+==== File Source
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: FILE
+|Yes
+|Defines the source type of the pipeline as a file.
+|
+
+|path: /path/to/file_or_directory
+|Yes
+|File path to source.
+|
+
+|glob: "*.json"
+|Yes
+|A global filter pattern to select files in given directory.
+| *
+|===
+
+[source, yaml]
+----
+pipeline:
+  source:
+    type: FILE
+    path: "src/my_logs"
+    glob: "*.json"
+----
+
+=== Item Source
+
+This source type acts as a batch resource.
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: ITEMS
+|Yes
+|Defines the source type of the pipeline as a item source.
+|
+
+|items: [1, 2, 3]
+|Yes
+|Item list to be sourced to job.
+|
+
+|===
+
+[source, yaml]
+----
+pipeline:
+  source:
+    type: ITEMS
+    items: [1, 2, 3]
+----
+
+=== Item Stream Source
+
+Item stream produces sequential numbers continuously to the pipeline in a defined frequency.
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: ITEM-STREAM
+|Yes
+|Defines the source type of the pipeline as a item stream source.
+|
+
+|items-per-second: 10
+|Yes
+|Number of items to be produced in a second.
+|
+
+|===
+
+[source, yaml]
+----
+pipeline:
+  source:
+    type: ITEM-STREAM
+    items-per-second: 10
+----
+
+=== JDBC Source
+
+A JDBC source can be used to provide data to the pipeline. This source works as a batch stage. link:https://docs.hazelcast.com/hazelcast/latest/integrate/jdbc-connector#jdbc-as-a-source[For more details about JDBC connector.]
+
+TIP: Please, make sure that Hazelcast can serialize your object type. link:https://docs.hazelcast.com/hazelcast/latest/serialization/serialization[Details for serialization.]
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: JDBC
+|Yes
+|Defines the source type of the pipeline as a JDBC source.
+|
+
+|url: "jdbc:mysql://localhost:3306/mysql"
+|Yes
+|Query string to the JDBC source.
+|
+
+|query: SELECT * FROM person
+|Yes
+|Query statement to be run while fetching data to the pipeline.
+|
+
+|===
+
+[source, yaml]
+----
+pipeline:
+  source:
+    type: JDBC
+    url: "jdbc:mysql://localhost:3306/mysql"
+    query: |
+      SELECT * FROM person
+----
+
+=== Kafka Source
+
+A Kafka topic can be defined as a source. This source types works as a stream stage. link:https://docs.hazelcast.com/hazelcast/latest/integrate/kafka-connector#hide-nav[For more details.]
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: KAFKA
+|Yes
+|Defines the source type of the pipeline as a Kafka source.
+|
+
+|topic: "topic_name"
+|Yes
+|Topic name to be subscribed.
+|
+
+|key-deserializer: "type_name"
+|Yes
+|The serializer to be used for key value.  
+|
+
+|value-deserializer: "type_name"
+|Yes
+|The serializer to be used for value.  
+|
+
+|properties:
+|Yes
+|Kafka props to be passed to Kafka consumer.
+|
+
+|===
+
+[source, yaml]
+----
+pipeline:
+    source:
+        type: KAFKA
+        topic: "topic_name"
+        key-deserializer: "string"
+        value-deserializer: "json"
+        properties:
+        bootstrap.servers: "server_address:port"
+        auto.offset.reset: earliest
+----
+
+=== MAP Source
+
+This sources type allows you to work on map. This stage works as a batch.
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: MAP
+|Yes
+|Defines the source type of the pipeline as a map.
+|
+
+|map: "myMapName"
+|Yes
+|Map name to be used as a batch data source.
+|
+
+|===
+
+[source, yaml]
+----
+pipeline:
+    source:
+        type: MAP
+        map: "myMapName"
+----
+
+=== MAP Journal Source
+
+This sources type allows you to work on a entry that is put into defined map. This stage works as a stream.
+
+TIP: This feature requires additional configuration on the map. You should enable _Event Journal_ for your map. link:https://docs.hazelcast.com/hazelcast/latest/data-structures/event-journal#hide-nav[For details.]
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: MAP-JOURNAL
+|Yes
+|Defines the source type of the pipeline as a streamed map.
+|
+
+|map: "myMapName"
+|Yes
+|Map name to be used as a data source.
+|
+
+|start-from: 
+|Yes
+|The point where pipeline will start consuming the data from event journal. Options: `OLDEST` or `CURRENT`
+|
+
+|===
+
+[source, yaml]
+----
+pipeline:
+    source:
+        type: MAP-JOURNAL
+        map: "myMapName"
+        start-from: OLDEST
+----
+
+=== Transform Step
+
+In this step, you can shape you data or do computation. The return value will be passed to next step. If the next step is 
