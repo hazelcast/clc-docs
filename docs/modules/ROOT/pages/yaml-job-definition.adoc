@@ -7,7 +7,9 @@ NOTE: This feature is only available on Viridian.
 
 == YAML File Structure
 
-The structure of pipeline definition in a yaml file.
+The structure of pipeline definition in a yaml file can be seen below. The yaml file should be named as `jet_config.yaml`.
+
+*Example*
 
 [source, yaml]
 ----
@@ -23,7 +25,7 @@ pipeline:
 ----
 
 === Source Stages
-There different types of sources can be defined in yaml job definition. 
+There are three types of source can be defined in a yaml job definition. 
 
 ==== File Source
 
@@ -56,7 +58,7 @@ pipeline:
     glob: "*.json"
 ----
 
-=== Item Source
+==== Item Source
 
 This source type acts as a batch resource.
 
@@ -84,7 +86,7 @@ pipeline:
     items: [1, 2, 3]
 ----
 
-=== Item Stream Source
+==== Item Stream Source
 
 Item stream produces sequential numbers continuously to the pipeline in a defined frequency.
 
@@ -112,7 +114,7 @@ pipeline:
     items-per-second: 10
 ----
 
-=== JDBC Source
+==== JDBC Source
 
 A JDBC source can be used to provide data to the pipeline. This source works as a batch stage. link:https://docs.hazelcast.com/hazelcast/latest/integrate/jdbc-connector#jdbc-as-a-source[For more details about JDBC connector.]
 
@@ -129,7 +131,7 @@ TIP: Please, make sure that Hazelcast can serialize your object type. link:https
 
 |url: "jdbc:mysql://localhost:3306/mysql"
 |Yes
-|Query string to the JDBC source.
+|Connection string to the JDBC source.
 |
 
 |query: SELECT * FROM person
@@ -149,9 +151,9 @@ pipeline:
       SELECT * FROM person
 ----
 
-=== Kafka Source
+==== Kafka Source
 
-A Kafka topic can be defined as a source. This source types works as a stream stage. link:https://docs.hazelcast.com/hazelcast/latest/integrate/kafka-connector#hide-nav[For more details.]
+A Kafka topic can be defined as a source. This source works as a stream stage. link:https://docs.hazelcast.com/hazelcast/latest/integrate/kafka-connector#hide-nav[For more details.]
 
 [cols="1m,1a,2a,1a"]
 |===
@@ -193,13 +195,13 @@ pipeline:
         key-deserializer: "string"
         value-deserializer: "json"
         properties:
-        bootstrap.servers: "server_address:port"
-        auto.offset.reset: earliest
+            bootstrap.servers: "server_address:port"
+            auto.offset.reset: earliest
 ----
 
-=== MAP Source
+==== MAP Source
 
-This sources type allows you to work on map. This stage works as a batch.
+This source type allows you to work on map. This stage works as a batch.
 
 [cols="1m,1a,2a,1a"]
 |===
@@ -225,7 +227,7 @@ pipeline:
         map: "myMapName"
 ----
 
-=== MAP Journal Source
+==== MAP Journal Source
 
 This sources type allows you to work on a entry that is put into defined map. This stage works as a stream.
 
@@ -242,7 +244,7 @@ TIP: This feature requires additional configuration on the map. You should enabl
 
 |map: "myMapName"
 |Yes
-|Map name to be used as a data source.
+|Name of the map to be used as a data source.
 |
 
 |start-from: 
@@ -263,4 +265,278 @@ pipeline:
 
 === Transform Step
 
-In this step, you can shape you data or do computation. The return value will be passed to next step. If the next step is 
+In this step, you can shape you data or do computation. The return value will be passed to next step. 
+
+NOTE: Currently, only supported language on transform step is Python. You can transform your data using Python. Also, this step only works with streaming sources.
+
+
+==== Transformation in Python
+
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: PYTHON
+|Yes
+|Defines the transformation type.
+|
+
+|base-image: "hazelcast/python-runtime-base:3.11"
+|Yes
+|The base image to be used to run given Python code. You can customize the image using the base one.
+|
+
+|module: "transformation.transform" 
+|Optional
+|The name of package and transformation function. The format is `package_name.func_name`.
+|transformation.transform
+
+|===
+
+[source,yaml]
+----
+  transform:
+    - type: PYTHON
+      base-image: "hazelcast/python-runtime-base:3.11"
+      module: "transformation.transform"
+----
+
+The Jet Python step expects two functions in your Python code.
+
+[cols="1m,1a,2a,1a"]
+|===
+|Function|Required|Description|Type
+
+|on_setup(config)
+|Optional
+|This function is invoked while runtime is starting. You can register your serializers  to `config` object. `config` object is type of Hazelcast Python client config. link:https://hazelcast.readthedocs.io/en/latest/config.html[For details.] 
+|Hazelcast Python Client Config Object
+
+|transform(data)
+|Yes
+|The function will be invoked when data reaches to the step. If you have a custom type you can prepare and register your serializer in `on_step(config)` function.
+|The `data` argument type depends on previous step in the pipeline.
+
+|===
+
+*Example*
+
+Assume that you have a map journal source, and the source contains `City` object. When a new object put the source map, it will be streamed to the pipeline. In transform step, here, the object type of `data` argument will be a key value pair since source is a map and holds key value pairs. The key value is an integer number in this example, and value is `City` object.
+
+In order to de/serialize the `City` object, you should implement its serializer.
+
+[source, python]
+----
+# This is a built in key-value pair type. It is provided at runtime.
+from runtime.data import DeserializingMapEntry
+
+# We know that City object is serialized using Hazelcast Compact serializer.
+from hazelcast.serialization.api import CompactSerializer, CompactSerializableType, CompactWriter, CompactReader
+import typing
+
+# City DTO
+class City:
+    def __init__(self, city: str, country: str, population: int):
+        self.country = country
+        self.city = city
+        self.population = population
+
+
+# Compact City Serializer
+class CitySerializer(CompactSerializer):
+    def read(self, reader: CompactReader) -> CompactSerializableType:
+        c = City(reader.read_string("city"), reader.read_string("country"), reader.read_int32("population"))
+        return c
+
+    def write(self, writer: CompactWriter, obj: CompactSerializableType) -> None:
+        writer.write_string("city", obj.city)
+        writer.write_string("country", obj.country)
+        writer.write_int32("population", obj.population)
+
+    def get_class(self) -> typing.Type[City]:
+        return City
+
+    def get_type_name(self) -> str:
+        return "city"
+
+
+# Register the serializer so that runtime can understand the City object.
+def on_setup(config):
+    config.compact_serializers = [CitySerializer()]
+
+# 'data' is a key-value pair type of DeserializingMapEntry.
+def transform(data):
+    c = data.get_value()
+    # enlarge the population
+    c.population = c.population * 2
+
+    # Return a new key value pair since we modified the current one.
+    # Return type should be a key-value pair because we assumed that it will be sink to
+    # a map.
+    return DeserializingMapEntry(key=data.get_key(), value=c)
+----
+
+You should also check the yaml definition of the example. In this pipeline, source is a streamed map which is a journal. Transform step is our Python example. The sink is a map.
+
+[source,yaml]
+----
+pipeline:
+
+  source:
+    type: MAP-JOURNAL
+    map: "cities"
+    start-from: OLDEST
+
+  transform:
+    - type: PYTHON
+      base-image: "hazelcast/python-runtime-base:3.11"
+      module: "transformation.transform"
+
+  sink:
+    type: MAP
+    map: "sinkMap"
+----
+
+
+If you have a dependencies, prepare a `requirements.txt` file, and place all files in a directory.
+
+The folder should contain;
+[source]
+----
+--/
+--transformation.py
+--jet_config.yaml
+--requirements.txt
+----
+
+Then, you can submit this directory using `clc job submit -c MY_CLUSTER --name my_job .`
+Please, link:https://docs.hazelcast.com/clc/latest/clc-job#clc-job-submit[visit] clc job command for more information on submitting.
+
+
+=== Sink Step
+
+After streaming process is completed, data should sink to some of these places.
+
+==== JDBC Sink
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: JDBC
+|Yes
+|Defines the sink place of pipeline.
+|
+
+|url: "jdbc:mysql://localhost:3306/mysql"
+|Yes
+|Connection string to the JDBC source.
+|
+
+|query: REPLACE INTO into(value) values(?)
+|Yes
+|Query statement to be run while inserting data to the JDBC.link:https://docs.hazelcast.com/hazelcast/latest/integrate/jdbc-connector#dbc-as-a-sink[For more details about JDBC connector.]
+|
+
+|===
+
+[source, yaml]
+----
+pipeline:
+  sink:
+    type: JDBC
+    url: "jdbc:mysql://localhost:3306/mysql"
+    query: |
+      REPLACE INTO into(value) values(?)
+----
+
+==== Kafka Sink
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: KAFKA
+|Yes
+|Defines the sink type of the pipeline.
+|
+
+|topic: "topic_name"
+|Yes
+|Topic name to be pushed.
+|
+
+|key-deserializer: "type_name"
+|Yes
+|The serializer to be used for key value.  
+|
+
+|value-deserializer: "type_name"
+|Yes
+|The serializer to be used for value.  
+|
+
+|properties:
+|Yes
+|Kafka props to be passed to Kafka producer.
+|
+
+|===
+
+[source, yaml]
+----
+pipeline:
+  sink:
+    type: KAFKA
+    topic: "topic_name"
+    key-deserializer: "string"
+    value-deserializer: "json"
+    properties:
+      bootstrap.servers: "kafka_address:9092"
+      auto.offset.reset: earliest
+----
+
+=== Logger Sink
+
+It is a simple sink option. It sinks to server logs.
+
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: LOGGER
+|Yes
+|Defines the sink type of the pipeline as logger.
+|
+
+|===
+
+[source, yaml]
+----
+pipeline:
+  sink:
+    type: LOGGER
+----
+
+=== Map Sink
+
+Sinks streamed data to a map. The given value should be a key-value pair.
+
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|type: MAP
+|Yes
+|Defines the sink type of the pipeline as map.
+|
+
+|map: "myMapName"
+|Yes
+|Map name to be sink.
+|
+
+|===
