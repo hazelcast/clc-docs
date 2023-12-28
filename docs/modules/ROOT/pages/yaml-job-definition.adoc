@@ -1,8 +1,8 @@
 = YAML Job Definition
 
-The stages of a Jet job can be defined with in a yaml file without any Java code interaction. A basic streaming job consists of three main stages. These are source, transform and sink stages. The transformation stage is optional, and a pipeline can have multiple transformation steps. In order to define these stages for your job, you can benefit from a yaml definition without any codding effort.
+The stages of a Jet job can be defined with in a yaml file without any Java code interaction. A basic streaming job consists of two or more stages. These are source, transform and sink stages. The transformation stage is optional, and a pipeline can have multiple transformation steps. In order to define these stages for your job, you can benefit from a yaml definition without any coding effort.
 
-NOTE: This feature is only available on Viridian.
+NOTE: This feature is only available if your cluster is running on Viridian.
 
 
 == YAML File Structure
@@ -231,7 +231,7 @@ pipeline:
 
 This sources type allows you to work on a entry that is put into defined map. This stage works as a stream.
 
-TIP: This feature requires additional configuration on the map. You should enable _Event Journal_ for your map. link:https://docs.hazelcast.com/hazelcast/latest/data-structures/event-journal#hide-nav[For details.]
+TIP: This feature requires additional configuration on the map. You should enable _Event Journal_ for your map. See link:https://docs.hazelcast.com/hazelcast/latest/data-structures/event-journal#hide-nav[event journal documentation] for details.
 
 [cols="1m,1a,2a,1a"]
 |===
@@ -322,7 +322,7 @@ The Jet Python step expects two functions in your Python code.
 
 *Example*
 
-Assume that you have a map journal source, and the source contains `City` object. When a new object put the source map, it will be streamed to the pipeline. In transform step, here, the object type of `data` argument will be a key value pair since source is a map and holds key value pairs. The key value is an integer number in this example, and value is `City` object.
+Assume that you have a map journal source, and the source contains `City` object. When a new object put the source map, it will be streamed to the pipeline. In transform step, the object type of `data` argument will be a key value pair since source is a map and holds key value pairs. The key value is an integer number in this example, and value is `City` object.
 
 In order to de/serialize the `City` object, you should implement its serializer.
 
