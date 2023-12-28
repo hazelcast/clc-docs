@@ -309,7 +309,7 @@ The Jet Python step expects two functions in your Python code.
 |Function|Required|Description|Type
 
 |on_setup(config)
-|Optional
+|No
 |This function is invoked while runtime is starting. You can register your serializers  to `config` object. `config` object is type of Hazelcast Python client config. link:https://hazelcast.readthedocs.io/en/latest/config.html[For details.] 
 |Hazelcast Python Client Config Object
 
