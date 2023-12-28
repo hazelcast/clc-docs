@@ -23,9 +23,12 @@ clc job [command] [options]
 
 == clc job submit
 
-Creates a Jet job using the provided Jar file.
+Creates a Jet job using the provided Jar file or yaml job definition.
 
 This command requires a Hazelcast {hazelcast-cloud} or Hazelcast Platform cluster of version 5.3.0 or above.
+
+TIP: Please, visit the link:yaml-job-definition[YAML Job Definition] for more information about codeless job definition.
+
 
 Usage:
 
@@ -78,6 +81,8 @@ Must include the package name, such as: `com.example.JetJob`.
 
 |===
 
+asd
+
 == clc job cancel
 
 Cancels the job with the given ID or name.
@@ -90,7 +95,7 @@ clc job cancel [job-ID/name] [flags]
 ----
 
 Parameters:
-
+    
 [cols="1m,1a,2a,1a"]
 |===
 |Parameter|Required|Description|Default
