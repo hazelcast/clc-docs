@@ -246,7 +246,7 @@ Map size: 3
 Value: value-0
 Value: value-1
 Value: value-2
-~----
+----
 
 Note the `value = map_get(i, name=map_name)` line.
 The `map_get` function returns the encoded data, not the actual value you passed to `map_set`.

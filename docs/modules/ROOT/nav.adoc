@@ -21,6 +21,7 @@
 .Reference
 * xref:clc-commands.adoc[Command Reference]
 ** xref:clc.adoc[]
+** xref:clc-atomiclong.adoc[]
 ** xref:clc-completion.adoc[]
 ** xref:clc-config.adoc[]
 ** xref:clc-home.adoc[]

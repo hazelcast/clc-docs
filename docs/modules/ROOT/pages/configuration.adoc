@@ -23,25 +23,21 @@ Known configurations can be directly specified by their names, instead of the fu
 ----
 # List configurations
 $ clc config list
+--------------------
+ Configuration Name
+--------------------
 default
 pr-3066
+--------------------
 
 # Start CLC shell with configuration named pr-3066
 $ clc -c pr-3066
 ----
 
-If no configuration is specified, the `default` configuration is used.
+. If no configuration is specified, and there is a single configuration, that configuration is used.
+. If there are more than one configurations and the `default` configuration exists, that is used.
+. Otherwise CLC displays a selector to choose the cluster.
 The name of the default configuration may be overriden using the `CLC_CONFIG` environment variable.
-
-If there's only a single named configuration, then it is used if the configuration is not specified with `-c`/`--config`.
-
-== CLC Configuration with Command-Line Parameters
-
-Command-line parameters are for overriding some configuration settings in the configuration file, such as the log settings.
-
-You can override the values in the configuration file by providing the following command-line parameters to any `clc` command:
-
-include::partial$global-parameters.adoc[]
 
 == Related Resources
 

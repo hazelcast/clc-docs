@@ -1,0 +1,187 @@
+= clc atomiclong
+
+atomiclong commands are a group of AtomicLong operations.
+
+Usage:
+
+[source,bash]
+----
+clc atomiclong [command] [flags]
+----
+
+== Commands
+
+* <<clc-atomiclong-get, clc atomiclong get>>
+* <<clc-atomiclong-set, clc atomiclong set>>
+* <<clc-atomiclong-increment-get, clc atomiclong increment-get>>
+* <<clc-atomiclong-decrement-get, clc atomiclong decrement-get>>
+* <<clc-atomiclong-destroy, clc atomiclong destroy>>
+
+== clc atomiclong get
+
+Get the value of the AtomicLong.
+
+Usage:
+
+[source,bash]
+----
+clc atomiclong get [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicLong.
+|`default`
+
+|===
+
+Example:
+
+[source,bash]
+----
+clc atomiclong get --name transactionCount
+----
+
+== clc atomiclong set
+
+Sets the value of the AtomicLong.
+
+Usage:
+
+[source,bash]
+----
+clc atomiclong set [value] [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicLong.
+|`default`
+
+|`value`,
+|Required
+|Value to set for the atomic long.
+|N/A
+
+|===
+
+Example:
+
+[source,bash]
+----
+clc atomiclong set --name atomicSum  123
+----
+
+== clc atomiclong increment-get
+
+Increment the AtomicLong by the given value.
+
+Usage:
+
+[source,bash]
+----
+clc atomiclong increment-get [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicLong.
+|`default`
+
+|`--by`
+|Optional
+|Value to increment by
+|1
+
+|===
+
+Example:
+
+[source,bash]
+----
+clc atomiclong increment-get --name atomicSum --by 10
+----
+
+== clc atomiclong decrement-get
+
+Decrement the AtomicLong by the given value.
+
+Usage:
+
+[source,bash]
+----
+clc atomiclong decrement-get [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicLong.
+|`default`
+
+|`--by`
+|Optional
+|Value to decrement by
+|1
+
+|===
+
+Example:
+
+[source,bash]
+----
+clc atomiclong decrement-get --name atomicSum --by 10
+----
+
+== clc atomiclong destroy
+
+Deletes the atomic long and related data.
+
+Usage:
+
+[source,bash]
+----
+clc atomiclong destroy [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the atomic long.
+|`default`
+
+|`--yes`
+|Optional
+|Skip confirming the destroy operation.
+|`false`
+
+|===
+
