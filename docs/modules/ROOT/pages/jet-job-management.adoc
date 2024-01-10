@@ -10,7 +10,7 @@ You need the following:
 - xref:install-clc.adoc[Hazelcast CLC] installed on your local machine
 - One running {hazelcast-cloud} cluster. You can create a xref:managing-viridian-clusters.adoc#creating-a-cluster-on-viridian[development cluster] using the Hazelcast CLC.
 - xref:cloud:ROOT:developer.adoc[{hazelcast-cloud} API key and secret]
-- JRE 8 or above.
+- JRE 11 or above.
 - Gradle 8 or above.
 
 [[step-1-authenticating-with-viridian]]
@@ -58,28 +58,18 @@ Now you're ready to build the sample Jet job.
 
 . Clone the GitHub repository.
 +
-[tabs] 
-====
-HTTPS:: 
-+ 
---
-```bash
+[source,shell]
+----
 git clone https://github.com/hazelcast/hazelcast-commandline-client
+----
 
+. Switch to the project directory.
+[source,shell]
+----
 cd hazelcast-commandline-client/examples/platform/simple-streaming-pipeline
-```
---
-SSH:: 
-+ 
---
-```bash
-git clone git@github.com:hazelcast/hazelcast-commandline-client.git
+----
 
-cd hazelcast-commandline-client/examples/platform/simple-streaming-pipeline
-```
---
-====
-+
+
 . Build the project with the following command:
 +
 
@@ -108,63 +98,35 @@ The Hazelcast CLC waits until the job starts to run.
 ----
 clc -c dev job list
 ----
-+
-. See how the size of `my-map` increases as entries are written to it.
-+
-[tabs] 
-==== 
-Unix::
-+
-.	Create a new shell script in your favorite text editor. For example:
+
+.	Create a new advanced script in your favorite text editor. For example:
 +
 [source,shell]
 ----
-vi monitor.sh
+nano monitor.star
 ----
+
 . Add the following:
 +
-[source,shell]
+[source,python]
 ----
-#! /bin/bash
-while true; 
-do clc -c dev map size -n my-map; sleep 3;
-done
+def main():
+    for i in range(1000):
+        size = map_size(name="my-map")
+        print(size)
+        sleep(3 * SECOND)
 ----
 
 . Run your script.
 +
 [source,shell]
 ----
-./monitor.sh
+clc -c dev script run monitor.star
 ----
-. Press kbd:[Ctrl + C] when you're ready to cancel the script.
 
-Windows::
-+
-. Create a new batch file in your favorite text editor. For example:
-+
-[source,shell]
-----
-notepad monitor.bat
-----
-. Add the following:
-+
-[source,shell]
-----
-@echo off
-:start
-clc -c dev map size -n my-map
-timeout 5
-goto start
-----
-. Run the batch file.
-+
-[source,shell]
-----
-monitor
-----
-. Press kbd:[Ctrl + C] when you're ready to cancel the script.
-====
+. See how the size of `my-map` increases as entries are written to it.
+
+. Press kbd:[Ctrl + C] when you're ready to stop the script.
 
 [[step-6-cancel-jet-job]]
 == Step 6. Cancel the Jet job

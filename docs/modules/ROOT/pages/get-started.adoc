@@ -22,7 +22,7 @@ To allow the Hazelcast CLC to to interact with {hazelcast-cloud} clusters, you m
 clc viridian login
 ----
 
-. When prompted, enter your API key and secret. If both are correct, the token is retrieved and saved.
+. When prompted, enter your API key and secret. If both are correct, the token is retrieved and saved. You don't have to run this command again unless you change your API key.
 
 == Step 2. Create Two Clusters on {hazelcast-cloud}
 
@@ -52,7 +52,7 @@ clc viridian create-cluster --name Test2
 clc viridian list-clusters
 ----
 +
-The details of all clusters linked to your {hazelcast-cloud} account are returned, including the Cluster ID, Cluster Name, Current Status, Hazelcast Version.
+The details of all clusters linked to your {hazelcast-cloud} account are returned, including the Cluster ID, Cluster Name, Cluster State, Hazelcast Version.
 
 
 [[step-2-prod-configure]]
@@ -81,12 +81,10 @@ clc -c Test1
 [source, shell]
 ----
 > \object list
-Connected to cluster: pr-<CLUSTER-ID>
+    OK No objects found.
 ----
 +
 As this is a new cluster, no objects are returned.
-+
-NOTE: This command shows the cluster ID prefixed with `pr` instead of the cluster name. You can see the cluster ID in *Cluster Details* on the {hazelcast-cloud} console.
 
 . Press kbd:[Ctrl+D] or type `\exit` to shut down the Hazelcast CLC while you complete the configuration of your second production cluster.
 
@@ -200,53 +198,30 @@ SELECT * FROM currencydata ORDER BY Code;
 ----
 +
 . Save your script as `myscript.sql`.
-
-[tabs] 
-==== 
-Linux and macOS::
-+ 
---
-. To run the script on your Test1 cluster, execute the following command.
++. To run the script on your Test1 cluster, execute the following command.
 +
 [source,shell]
 ----
-cat myscript.sql | clc -c Test1
+clc -c Test1 script run myscript.sql
 ----
 +
 . Then, to run the script on your Test2 cluster, execute the same command replacing the cluster name.
 +
 [source,shell]
 ----
-cat myscript.sql | clc -c Test2
+clc -c Test2 script run myscript.sql
 ----
-
---
-Windows::
-+
---
-. To run the script on your Test1 cluster, execute the following command.
-+
-[source,shell]
-----
-type myscript.sql | clc -c Test1
-----
-+
-. Then, to run the script on your Test2 cluster, execute the same command replacing the cluster name.
-+
-[source,shell]
-----
-type myscript.sql | clc -c Test2
-----
-
---
-====
 
 == Step 7. Clean Up
 
-To delete both test clusters from your account.
 
-. link:https://viridian.hazelcast.com/[Sign in to {hazelcast-cloud}] and select a test cluster.
-. Click *Delete* and confirm your deletion.
+
+To delete both test clusters from your account.
+[source,shell]
+----
+clc viridian delete-cluster Test1
+clc viridian delete-cluster Test2
+----
 
 == Summary
 

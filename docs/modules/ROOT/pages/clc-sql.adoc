@@ -16,15 +16,10 @@ Parameters:
 |===
 |Parameter|Required|Description|Default
 
-|`--format`, `-f`
+|`--use-mapping-suggestion`
 |Optional
-|Output format. Supported formats:
-
-- `csv`
-- `delimited`
-- `json`
-- `table`
-|`delimited` in non-interactive mode, `table` in interactive mode.
+|Executes the proposed `CREATE MAPPING` suggestion and retries the query.
+|`false`
 
 |===
 
@@ -46,10 +41,14 @@ Non-Interactive mode::
 [source,bash]
 ----
 $ clc sql -c prod "SELECT * from cities"
-1	United Kingdom	London	9540576
-4	United States	Los Angeles	3985520
-5	Turkey	Ankara	5309690
-7	Brazil	Sao Paulo	22429800
+---------------------------------------------------------------------------------
+      __key | country                   | city                      | population
+---------------------------------------------------------------------------------
+          1 | United Kingdom            | London                    |    9540576
+          4 | United States             | Los Angeles               |    3985520
+          5 | Turkey                    | Ankara                    |    5309690
+          7 | Brazil                    | Sao Paulo                 |   22429800
+---------------------------------------------------------------------------------
 ----
 --
 Interactive mode::

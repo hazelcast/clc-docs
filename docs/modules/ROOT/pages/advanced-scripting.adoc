@@ -70,7 +70,7 @@ You are ready to run the script:
 
 [source,bash]
 ----
-clc script hello.star
+clc script run hello.star
 ----
 
 The output is similar to:
@@ -125,7 +125,7 @@ Running it:
 
 [source,bash]
 ----
-clc script data_value.star
+clc script run data_value.star
 ----
 
 Outputs:
@@ -138,7 +138,7 @@ You can use the following methods and functions with a data object:
 
 * `X.type`: Returns the serialization identifier.
 * `data_type(X)`: Returns the name of the serializer.
-* `data_value(X)`: Deserializes the value. Note that CLC cannot deserialize all values. An error will be raised in case the value was not deserialized.
+* `decode_data(X)`: Deserializes the value. Note that CLC cannot deserialize all values. An error will be raised in case the value was not deserialized.
 
 These methods are summarized in the following script, which you can save  as `data_value2.star`:
 
@@ -149,14 +149,14 @@ obj = map_get("some-key")
 print("String value of the data object     :", obj)
 print("Numeric type of the enclosed object :", obj.type)
 print("String value of the enclosed object :", data_type(obj))
-print("The deserialized object             :", data_value(obj))
+print("The deserialized object             :", decode_data(obj))
 ----
 
 Running it:
 
 [source,bash]
 ----
-clc script data_value2.star
+clc script run data_value2.star
 ----
 
 Outputs:
@@ -237,20 +237,20 @@ def main():
     print("Map size:", map_size(name=map_name))
     for i in range(3):
         value = map_get(i, name=map_name)
-        decoded_value = data_value(value)
+        decoded_value = decode_data(value)
         print("Value:", decoded_value)
 ----
 Running this script outputs:
 ----
 Map size: 3
-Data for 0 is data(STRING) and its value is value-0
-Data for 1 is data(STRING) and its value is value-1
-Data for 2 is data(STRING) and its value is value-2
-----
+Value: value-0
+Value: value-1
+Value: value-2
+~----
 
 Note the `value = map_get(i, name=map_name)` line.
 The `map_get` function returns the encoded data, not the actual value you passed to `map_set`.
-This behavior differs from official Hazelcast client libraries, which decode the data and return the decoded the value.
+This behavior differs from official Hazelcast client libraries, which decode the data and return the decoded value.
 The reason for this behavior is covered in the <<data_value>> section.
 
 `map_key_set` returns the list of keys for a member. To make the above example more robust by getting the keys from the cluster instead of manually specifying them.
@@ -264,7 +264,7 @@ def main():
     print("Map size:", map_size(name=map_name))
     for key in map_key_set(name=map_name):
         value = map_get(key, name=map_name)
-        decoded_value = data_value(value)
+        decoded_value = decode_data(value)
         print("Value:", decoded_value)
 -----
 
@@ -279,7 +279,7 @@ def main():
         map_set(i, "value-{}".format(i), name=map_name)
     print("Map size:", map_size(name=map_name))
     for key, value in map_entry_set(name=map_name):
-        decoded_value = data_value(value)
+        decoded_value = decode_data(value)
         print("Value:", decoded_value)
 -----
 
@@ -307,7 +307,7 @@ def main():
 +
 [source,bash]
 ----
-clc script args.star
+clc script run args.star
 ----
 +
 Output:
@@ -320,7 +320,7 @@ Script     : args.star
 +
 [source,bash]
 ----
-clc script args.star -- foo bar quux
+clc script run args.star -- foo bar quux
 ----
 +
 Output:
@@ -337,7 +337,7 @@ Remember that flags have a dash (`-`) as a prefix:
 +
 [source,bash]
 ----
-clc script args.star -- foo --my-flag
+clc script run args.star -- foo --my-flag
 ----
 +
 Output:
@@ -385,7 +385,7 @@ print("My home directory:", user_home)
 
 `now()` function returns the current local time in nanoseconds.
 
-You can convert the time to other units using the predefined time units, such as `millisecond`, `second` and `day`.
+You can convert the time to other units using the predefined time units, such as `MILLISECOND`, `SECOND` and `DAY`.
 For the valid values, see the link:clc-script.adoc[clc script] topic.
 The following example measures the duration of an object_list operation, and prints the result in various time units.
 
@@ -407,10 +407,10 @@ toc = now()
 took = toc - tic
 
 print("The operation took:")
-print("  ", took//nanosecond, "nanoseconds")
-print("  ", took//microsecond, "microseconds")
-print("  ", took//millisecond, "milliseconds")
-print("  ", took//second, "seconds")
+print("  ", took//NANOSECOND, "nanoseconds")
+print("  ", took//MICROSECOND, "microseconds")
+print("  ", took//MILLISECOND, "milliseconds")
+print("  ", took//SECOND, "seconds")
 ----
 
 Running it outputs:
@@ -432,7 +432,7 @@ Here's a script that just waits for two seconds.
 [source,python]
 ----
 print("Falling asleep...")
-sleep(2*second)
+sleep(2*SECOND)
 print("Woke up")
 ----
 
@@ -467,7 +467,7 @@ Otherwise they would written to the default log file.
 
 [source, bash]
 ----
-clc script --log.path stderr --log.level error logging.star
+clc script run --log.path stderr --log.level error logging.star
 ----
 
 As this specifies ERROR level log messages, the output is similar to the following:
@@ -481,7 +481,7 @@ This time with DEBUG:
 
 [source, bash]
 ----
-clc script --log.path stderr --log.level debug logging.star
+clc script run --log.path stderr --log.level debug logging.star
 ----
 
 This time all log messages are displayed and the output is similar to the following:
@@ -517,7 +517,7 @@ fun1()
 
 Running the script normally:
 ----
-clc script trace.star
+clc script run trace.star
 ----
 Outputs:
 ----
@@ -526,7 +526,7 @@ Fun 1
 That's because the `__trace` calls are removed.
 Try again with the `--debug` flag:
 ----
-clc script --debug trace.star
+clc script run --debug trace.star
 ----
 Outputs:
 ----
@@ -556,7 +556,7 @@ def main():
 Let's first run it normally:
 [source,bash]
 ----
-clc script output1.star
+clc script run output1.star
 ----
 
 Outputs:
@@ -577,7 +577,7 @@ Unnecessary output lines will dissapear when you use -q
 Let's now use the `-q` flag to suppress unnecessary output:
 [source,bash]
 ----
-clc script output1.star -q
+clc script run output1.star -q
 ----
 
 Outputs:
@@ -595,7 +595,7 @@ As expected, unnecessary output was not produced.
 Using a different output format also works:
 [source,bash]
 ----
-clc script output1.star -q -f csv
+clc script run output1.star -q -f csv
 ----
 
 Outputs:
@@ -611,7 +611,7 @@ This example uses the link:https://jqlang.github.io/jq/[jq] utility:
 :
 [source,bash]
 ----
-clc script output1.star -q -f json | jq '.Fruit'
+clc script run output1.star -q -f json | jq '.Fruit'
 ----
 Outputs:
 ----
@@ -661,7 +661,7 @@ Different output formats handle missing values differently.
 JSON printer just skips the missing values:
 [source,bash]
 ----
-clc script output2.star -f json
+clc script run output2.star -f json
 ----
 Outputs:
 ----
@@ -676,17 +676,17 @@ Whenever an error occurs, CLC stops the script and prints an error message.
 This is usually the safest way to handle the error.
 But there are times when you want to try something that can result in an error, and handle it without giving back the control.
 
-The `script` command supports `the --ignore-errors` flag which suppresses errors while running the script.
+The `script` command supports the `--ignore-errors` flag which suppresses errors while running the script.
 You can use the `last_error()` function to get the error so you can act on it.
 
-Let's demonstrate that with an example using the `data_value` function.
-Passing a string to `data_value` ends with an error; since that function expects an argument of type `data`.
+Let's demonstrate that with an example using the `decode_data` function.
+Passing a string to `decode_data` ends with an error; since that function expects an argument of type `data`.
 Save the following sctipt as `error.star`:
 
 [source,python]
 ----
 def main():
-    v = data_value("foo")
+    v = decode_data("foo")
     print(v)
 ----
 
@@ -694,19 +694,19 @@ And run it:
 
 [source,bash]
 ----
-clc script error.star
+clc script run error.star
 ----
 
 This displays the following error:
 ----
-ERROR Error.star:2:19: argument 1 is expected to be 'serialization.Data', got 'string'
+ ERROR At error.star:2:19: expected argument 'value' to be data, got string
 ----
 
 This time, run the script with the `--ignore-errors` flag:
 
 [source,bash]
 ----
-clc script --ignore-errors error.star
+clc script run --ignore-errors error.star
 ----
 
 The output is now similar to the following:
@@ -722,7 +722,7 @@ Save the following script as `error2.star`:
 [source,python]
 ----
 def main():
-    v = data_value("foo")
+    v = decode_data("foo")
     if last_error():
         v = "OK Caught the error."
     print(v)
@@ -731,7 +731,7 @@ def main():
 Run the script with the `--ignore-errors` flag:
 [source,bash]
 ----
-clc script --ignore-errors error2.star
+clc script run --ignore-errors error2.star
 ----
 
 This time the output is:
@@ -739,7 +739,7 @@ This time the output is:
 ----
 OK Caught the error.
 ----
-Since you have used the `--ignore-errors` flag, the program didn't end with an error in the `data_value` line but the error was recorded.
+Since you have used the `--ignore-errors` flag, the program didn't end with an error in the `decode_data` line but the error was recorded.
 Using the `last_error` function, the existence of an error was checked and `v` was set to `OK Caught the error.`.
 
 == Conclusion

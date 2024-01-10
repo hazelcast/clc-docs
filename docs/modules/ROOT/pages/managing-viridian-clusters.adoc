@@ -28,8 +28,8 @@ clc viridian login
 +
 [source, bash]
 ----
-Viridian token was fetched and saved.
-OK
+    OK [1/2] Retrieved the access token.
+    OK [2/2] Saved the access token.
 ----
 +
 If an error is displayed, make sure that your API key and secret are correct and try again.
@@ -40,15 +40,17 @@ Next, execute the following command to create a development cluster called `my-c
 
 [source, bash]
 ----
-clc viridian create-cluster --name my-cluster
+clc viridian create-cluster --development --name my-cluster
 ----
 
 You should see the following output.
 
 [source, bash]
 ----
-Imported configuration: my-cluster
-OK
+    OK [1/3] Initiated cluster creation.
+    OK [2/3] Cluster is ready.
+    OK [3/3] Imported the configuration.
+    OK Created the cluster and imported configuration 'my-cluster'.
 ----
 
 [[step-3-list-cluster]]
@@ -64,8 +66,11 @@ The details of all clusters linked to your {hazelcast-cloud} account are returne
 
 [source, bash, subs="attributes+"]
 ----
-x1qvpphn        my-cluster     RUNNING {full-version}
-OK
+-----------------------------------------------------
+ ID       | Name       | State   | Hazelcast Version
+-----------------------------------------------------
+ nxdzeerp | my-cluster | RUNNING | 5.3.6
+-----------------------------------------------------
 ----
 
 == Step 4. Create Some Data on Your Cluster
@@ -93,8 +98,11 @@ You should see the following output.
 +
 [source, bash]
 ----
-my-value
-OK
+----------
+ this
+----------
+ my-value
+----------
 ----
 
 == Step 5. Downloading the Cluster Logs
@@ -109,13 +117,6 @@ clc viridian download-logs my-cluster
 ----
 +
 In this command `my-cluster` is the cluster name rather than the configuration name.
-+
-. Use the following command to quickly check the location of your working directory.
-+
-[source, bash]
-----
-clc home
-----
 
 . Now, try downloading the logs to a directory of your choice by adding the `--output-dir` flag. Replace the placeholder `$DIRECTORY_PATH` with the absolute or relative path to your chosen directory.
 +
@@ -142,15 +143,17 @@ clc viridian stop-cluster my-cluster
 clc viridian resume-cluster my-cluster
 ----
 
+. If you get the `Cannot resume cluster because state 'STOP_IN_PROGRESS' cannot be transitioned into 'RESUME_IN_PROGRESS'` error, wait a couple of minutes and try again.
+
 == Step 7. Delete Your Cluster
 
 You can also xref:cloud:ROOT:deleting-a-cluster.adoc[delete an existing cluster] on {hazelcast-cloud} using its name or ID. 
 
-. Run the following command to delete `my-cluster` replacing the placeholder `CLUSTER_ID`. See <<step-3-list-cluster,Step 3>>, for details of how to look up a cluster ID.
+. Run the following command to delete `my-cluster`
 +
 [source, bash]
 ----
-clc viridian delete-cluster $CLUSTER_ID
+clc viridian delete-cluster my-cluster
 ----
 +
 A confirmation message is displayed.
