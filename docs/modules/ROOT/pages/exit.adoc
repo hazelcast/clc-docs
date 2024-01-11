@@ -1,21 +1,33 @@
-= exit
+= \exit
 
 Exits with the specified code.
 
 NOTE: Exit command can only be used in the interactive and scripting modes.
 
-If the given code is not in the `[0,255]` range, it exits with code `255`.
-
 Usage:
 
 [source,bash]
 ----
-clc exit [code]
+\exit [code]
 ----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`code`
+|Required
+|The exit code. If the given code is not in the `[0,255]` range, it exits with code `255`.
+|N/A
+
+|===
+
 
 Example:
 
 [source,bash]
 ----
-clc exit 10
+\exit 10
 ----

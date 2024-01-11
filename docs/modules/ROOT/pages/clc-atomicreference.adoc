@@ -1,0 +1,393 @@
+= clc atomicreference
+
+AtomicReference operations
+
+Usage:
+
+[source,bash]
+----
+clc atomicreference [command] [flags]
+----
+
+== Commands
+
+* <<clc-atomicreference-clear, clc atomicreference clear>>
+* <<clc-atomicreference-compare-and-set, clc atomicreference compare-and-set>>
+* <<clc-atomicreference-contains, clc atomicreference contains>>
+* <<clc-atomicreference-destroy, clc atomicreference destroy>>
+* <<clc-atomicreference-get, clc atomicreference get>>
+* <<clc-atomicreference-get-and-set, clc atomicreference get-and-set>>
+* <<clc-atomicreference-is-null, clc atomicreference is-null>>
+* <<clc-atomicreference-set, clc atomicreference set>>
+
+== clc atomicreference clear
+
+Deletes the AtomicReference value.
+
+Usage:
+
+[source,bash]
+----
+clc atomicreference clear [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicReference.
+|`default`
+
+|===
+
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
+
+Example:
+
+[source,bash]
+----
+clc atomicreference --name ref1 clear ref1
+----
+
+== clc atomicreference compare-and-set
+
+Sets the value for the given key if it has the expected value.
+
+Usage:
+
+[source,bash]
+----
+clc atomicreference compare-and-set [expected value] [new value] [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicReference.
+|`default`
+
+|`expected value`,
+|Required
+|Old value of the atomic reference.
+|N/A
+
+|`new value`,
+|Required
+|New value of the atomic reference.
+|N/A
+
+|`--value-type`, `-v`
+|Optional
+|Data type of the value. One of: `string`, `bool`, `json`, `i8`, `i16`, `i32`, `i64`, `f32`, `f64`
+|string
+
+|`--show-type`
+|Optional
+|Add a type column to the output.
+|`false`
+
+|===
+
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
+
+Example:
+
+[source,bash]
+----
+clc atomicreference --name ref1 compare-and-set previous-value next-value
+----
+
+== clc atomicreference contains
+
+Checks whether the AtomcReference has the given value.
+
+Usage:
+
+[source,bash]
+----
+clc atomicreference contains [value] [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicReference.
+|`default`
+
+|`value`,
+|Required
+|Value to be checked for existence.
+|N/A
+
+|`--value-type`, `-v`
+|Optional
+|Data type of the value. One of: `string`, `bool`, `json`, `i8`, `i16`, `i32`, `i64`, `f32`, `f64`
+|string
+
+|`--show-type`
+|Optional
+|Add a type column to the output.
+|`false`
+
+
+|===
+
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
+
+Example:
+
+[source,bash]
+----
+clc atomicreference --name ref1 contains my-value
+----
+
+== clc atomicreference get
+
+Gets the AtomicReference value.
+
+Usage:
+
+[source,bash]
+----
+clc atomicreference get [value] [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicReference.
+|`default`
+
+|`value`,
+|Required
+|Value to be checked for existence.
+|N/A
+
+|`--value-type`, `-v`
+|Optional
+|Data type of the value. One of: `string`, `bool`, `json`, `i8`, `i16`, `i32`, `i64`, `f32`, `f64`
+|string
+
+|`--show-type`
+|Optional
+|Add a type column to the output.
+|`false`
+
+|===
+
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
+
+Example:
+
+[source,bash]
+----
+clc atomicreference --name ref1 get my-value
+----
+
+== clc atomicreference get-and-set
+
+Sets a value in the given AtomicReference and returns the old value.
+
+Usage:
+
+[source,bash]
+----
+clc atomicreference get-and-set [value] [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicReference.
+|`default`
+
+|`value`,
+|Required
+|Value to be checked for existence.
+|N/A
+
+|`--value-type`, `-v`
+|Optional
+|Data type of the value. One of: `string`, `bool`, `json`, `i8`, `i16`, `i32`, `i64`, `f32`, `f64`
+|string
+
+|`--show-type`
+|Optional
+|Add a type column to the output.
+|`false`
+
+|===
+
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
+
+Example:
+
+[source,bash]
+----
+clc atomicreference --name ref1 get-and-set my-value
+----
+
+== clc atomicreference is-null
+
+Checks whether the stored value in the reference is null.
+
+Usage:
+
+[source,bash]
+----
+clc atomicreference is-null [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicReference.
+|`default`
+
+|`--show-type`
+|Optional
+|Add a type column to the output.
+|`false`
+
+|===
+
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
+
+Example:
+
+[source,bash]
+----
+clc atomicreference --name ref1 is-null
+----
+
+
+== clc atomicreference set
+
+Sets a value in the given AtomicReference.
+
+Usage:
+
+[source,bash]
+----
+clc atomicreference set [value] [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the AtomicReference.
+|`default`
+
+|`value`,
+|Required
+|Value to be checked for existence.
+|N/A
+
+|`--value-type`, `-v`
+|Optional
+|Data type of the value. One of: `string`, `bool`, `json`, `i8`, `i16`, `i32`, `i64`, `f32`, `f64`
+|string
+
+|===
+
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
+
+Example:
+
+[source,bash]
+----
+clc atomicreference --name ref1 set my-value
+----
+
+== clc atomicreference destroy
+
+Deletes the AtomicReference and related data.
+Once destroyed, an AtomicReference with the same name cannot be used.
+
+Usage:
+
+[source,bash]
+----
+clc atomicreference destroy [flags]
+----
+
+Parameters:
+
+[cols="1m,1a,2a,1a"]
+|===
+|Parameter|Required|Description|Default
+
+|`--name`, `-n`
+|Optional
+|Name of the atomic reference.
+|`default`
+
+|`--yes`
+|Optional
+|Skip confirming the destroy operation.
+|`false`
+
+|===
+

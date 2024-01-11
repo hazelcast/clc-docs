@@ -1,4 +1,4 @@
-= echo
+= \echo
 
 Echo command prints the specified string.
 
@@ -8,12 +8,12 @@ Usage:
 
 [source,bash]
 ----
-clc echo {STRING}
+\echo {STRING}
 ----
 
 Example:
 
 [source,bash]
 ----
-clc echo "lorem ipsum"
+\echo "lorem ipsum"
 ----

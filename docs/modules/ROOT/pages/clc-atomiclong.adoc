@@ -159,6 +159,7 @@ clc atomiclong decrement-get --name atomicSum --by 10
 == clc atomiclong destroy
 
 Deletes the atomic long and related data.
+Once destroyed, an AtomicLong with the same name cannot be used.
 
 Usage:
 

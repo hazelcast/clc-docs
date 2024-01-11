@@ -1,4 +1,4 @@
-= clc def
+= \def
 
 Define a variable with a given name and value.
 
@@ -8,7 +8,7 @@ Usage:
 
 [source,bash]
 ----
-clc def [name] [value]
+\def [name] [value]
 ----
 
 Examples:
