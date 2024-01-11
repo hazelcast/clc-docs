@@ -1,4 +1,4 @@
-= clc script
+= clc script run
 :description: Runs the script in the given local or HTTP location. Advanced script currently only supports local files.
 
 {description}
