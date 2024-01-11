@@ -40,10 +40,10 @@ Parameters:
 |The Github organization/user account to search for the templates.
 |hazelcast-templates
 
-|`template-name`
-|Required
+|`--template`, `-t`
+|Optional
 |Name of the template.
-|
+|Template selector is displayed
 
 |`placeholder-values`
 |Optional
