@@ -676,7 +676,7 @@ Whenever an error occurs, CLC stops the script and prints an error message.
 This is usually the safest way to handle the error.
 But there are times when you want to try something that can result in an error, and handle it without giving back the control.
 
-The `script` command supports the `--ignore-errors` flag which suppresses errors while running the script.
+The `script run` command supports the `--ignore-errors` flag, which suppresses errors while running the script.
 You can use the `last_error()` function to get the error so you can act on it.
 
 Let's demonstrate that with an example using the `decode_data` function.

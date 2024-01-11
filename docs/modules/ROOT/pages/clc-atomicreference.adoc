@@ -221,7 +221,7 @@ clc atomicreference --name ref1 get my-value
 
 == clc atomicreference get-and-set
 
-Sets a value in the given AtomicReference and returns the old value.
+Sets a value in the given AtomicReference and returns the previous value.
 
 Usage:
 

@@ -34,8 +34,8 @@ pr-3066
 $ clc -c pr-3066
 ----
 
-. If no configuration is specified, and there is a single configuration, that configuration is used.
-. If there are more than one configurations and the `default` configuration exists, that is used.
+. If no configuration is specified, but a single configuration exists, that configuration is used.
+. If there are more than one configuration exists, and the `default` configuration exists, the `default` configuration is used.
 . Otherwise CLC displays a selector to choose the cluster.
 The name of the default configuration may be overriden using the `CLC_CONFIG` environment variable.
 

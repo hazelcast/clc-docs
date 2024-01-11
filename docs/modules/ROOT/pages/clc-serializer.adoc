@@ -1,6 +1,6 @@
 = clc serializer (Beta)
 
-Generates serializer code for various serialization systems.
+Generates serialization code.
 
 Usage:
 
@@ -65,7 +65,7 @@ A schema allows you to:
 
 Schemas are written in YAML.
 
-Schema format is given below:
+The schema format is as follows:
 
 [source,yaml]
 ----
@@ -88,18 +88,18 @@ The options apply to all serializer classes generated from the classes in this f
 
 ==== classes
 
-Defines class informations in the schema.
+Defines class information in the schema.
 
 All class informations have the following attributes:
 
 * `name`: Full name of the class, including package/namespace.
-* `typename`: This is an optional type name to be used. Compact serialization mechanism distinguishes data types in the cluster using their type names. Hence, type names must be unique across the cluster. If not specified, the full type name of the class is used.
-* `fields`: Field informations of the class
+* `typename`: This is an optional type name to be used. The compact serialization mechanism distinguishes data types in the cluster using their type names. This means that type names must be unique across the cluster. If not specified, the full type name of the class is used.
+* `fields`: Field information of the class
 
 A field information has the following attributes:
 
 * `name`: Name of the field
-* `type`: EIther one of the builtin type names llsted below, or full name of the field type, including package/namespace.
+* `type`: Either one of the built0in type names listed below, or the full name of the field type, including the package/namespace.
 
 ==== Builtin types:
 

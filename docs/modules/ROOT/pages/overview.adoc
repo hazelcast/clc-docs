@@ -32,7 +32,7 @@ Get xref:clc-map.adoc[direct access to map data] for quick debugging of prototyp
 
 === Scripting for Automation
 
-Write scripts execute repetitive administration, integration, or testing tasks.
+Write scripts to execute repetitive administration, integration, or testing tasks.
 
 == Modes
 
@@ -79,7 +79,7 @@ In the interactive mode, you can run SQL queries directly. Make sure to add a se
 ---------------------------------------------------------------------------------
 ----
 
-In order to run CLC commands, prefix them with a backslash (`\`):
+To run CLC commands, prefix them with a backslash (`\`):
 ----
 > \object list
 ------------------------------------
@@ -92,8 +92,8 @@ In order to run CLC commands, prefix them with a backslash (`\`):
 ------------------------------------
 ----
 
-You can enter multiline CLC commands by adding a backslash (`\`) character at the very end of every line, except the last one.
-The continuation lines are concatenated, so it may be necessary to put one or more spaces before the backslash:
+You can enter multi-line CLC commands by adding a backslash (`\`) character at the very end of every line, except the last one.
+The continuation lines are concatenated, so you might need to add one or more spaces before the backslash:
 ----
   > \map --name \
 ... set my-map \
@@ -111,7 +111,7 @@ If a value contains whitespace, you can wrap it with single or double quotes:
 -----------------------
 ----
 
-Alternatively, you can escape space character with a backslash:
+Alternatively, you can escape the space character with a backslash:
 ----
 > \map --name my-map set key\ with\ whitespace value\ with\ whitespace
 > \map --name my-map entry-set
