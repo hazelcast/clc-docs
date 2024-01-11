@@ -99,7 +99,7 @@ All class informations have the following attributes:
 A field information has the following attributes:
 
 * `name`: Name of the field
-* `type`: Either one of the built0in type names listed below, or the full name of the field type, including the package/namespace.
+* `type`: Either one of the built-in type names listed below, or the full name of the field type, including the package/namespace.
 
 ==== Builtin types:
 
