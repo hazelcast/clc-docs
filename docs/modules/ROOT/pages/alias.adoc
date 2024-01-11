@@ -1,4 +1,4 @@
-= User Defined Aliases
+= \alias
 
 Alias commands enable you to add and list user defined shortcuts.
 
@@ -6,20 +6,22 @@ In order to persist the aliases you need to add `\alias add` statements in the `
 
 NOTE: Alias commands can only be used in the interactive and scripting modes.
 
+Aliases can be used with the `@` prefix. For example, an alias named `my-alias` can be used as `@my-alias`.
+
 Usage:
 
 [source,bash]
 ----
-clc alias [command]
+\alias [command]
 ----
 
 == Commands
 
-* <<clc-alias-add, clc alias add>>
-* <<clc-alias-remove, clc alias remove>>
-* <<clc-alias-list, clc alias list>>
+* <<alias-add, \alias add>>
+* <<alias-remove, \alias remove>>
+* <<alias-list, \alias list>>
 
-== clc alias add
+== \alias add
 
 Add an alias with the given name and command.
 
@@ -50,7 +52,6 @@ Parameters:
 |
 |
 
-|
 |===
 
 Examples:
@@ -58,16 +59,16 @@ Examples:
 - Adds an alias to list maps in the cluster:
 [source,bash]
 ----
-clc alias add list-maps -- \\object list map
+\alias add list-maps -- \\object list map
 ----
 
 - Adds an alias to query SQL:
 [source,bash]
 ----
-clc alias add first-five-desserts -- select name from desserts order by name limit 5;
+\alias add first-five-desserts -- select name from desserts order by name limit 5;
 ----
 
-== clc alias remove
+== \alias remove
 
 Remove an alias with the given name.
 
@@ -75,7 +76,7 @@ Usage:
 
 [source,bash]
 ----
-clc alias remove [name]
+\alias remove [name]
 ----
 
 Parameters:
@@ -89,17 +90,16 @@ Parameters:
 |Name of the alias.
 |
 
-|
 |===
 
 Example:
 
 [source,bash]
 ----
-clc alias remove my-alias
+\alias remove my-alias
 ----
 
-== clc alias list
+== \alias list
 
 List existing aliases.
 
@@ -107,14 +107,14 @@ Usage:
 
 [source,bash]
 ----
-clc alias list
+\alias list
 ----
 
 Example:
 
 [source,bash]
 ----
-clc alias list
+\alias list
 ----
 
 === Alias Usage

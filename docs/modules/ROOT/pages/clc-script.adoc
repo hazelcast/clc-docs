@@ -1,4 +1,4 @@
-= clc script
+= clc script run
 :description: Runs the script in the given local or HTTP location. Advanced script currently only supports local files.
 
 {description}
@@ -50,25 +50,25 @@ The following values are available for advanced scripts:
 |===
 |Value|Description
 
-|`nanosecond`
+|`NANOSECOND`
 |1 nanoscond.
 
-|`microsecond`
+|`MICROSECOND`
 |1 microsecond in nanoseconds.
 
-|`millisecond`
+|`MILLISECOND`
 |1 millisecond in nanoseconds.
 
-|`second`
+|`SECOND`
 |1 second in nanoseconds.
 
-|`minute`
+|`MINUTE`
 |1 minute in nanoseconds.
 
-|`hour`
+|`HOUR`
 |1 hour in nanoseconds.
 
-|`day`
+|`DAY`
 |1 day in nanoseconds.
 
 |===
@@ -85,7 +85,7 @@ The following functions are available for advanced scripts:
 | `DATA_TYPE_NAME = `data_type(DATA_VALUE)`
 |Returns the type name of the given data value.
 
-| `VALUE = `data_value(DATA_VALUE)`
+| `VALUE = `decode_data(DATA_VALUE)`
 |Attempts to convert the data value to the corresponding script value.
 
 |`ERROR = last_error()`
@@ -155,14 +155,14 @@ The following functions are available for advanced scripts:
 |`VALUES_LIST = map_values(name=MAP_NAME)`
 |Returns the values in the Map as a list.
 
-|`NANOSECONDS = now()`
+|`TIME = now()`
 |Returns the current time in nanoseconds.
 
 |`LIST_OF_SERVICE_OBJECT_PAIRS = object_list()` or `OBJECT = object_list(SERVICE)`
 |Returns the data structure objects in the
 
-|`sleep(NANOSECONDS)`
-|Sleeps for the given nanoseconds. For example, to sleep for 10 seconds: `sleep(10*second)`.
+|`sleep(TIME)`
+|Sleeps for the given nanoseconds. For example, to sleep for 10 seconds: `sleep(10*SECOND)`.
 
 |===
 
@@ -170,7 +170,7 @@ Usage:
 
 [source,bash]
 ----
-clc script [path/location] [flags] -- [parameter, ...]
+clc script run [path/location] [flags] -- [parameter, ...]
 ----
 
 Parameters:

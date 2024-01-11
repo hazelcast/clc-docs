@@ -32,31 +32,32 @@ Get xref:clc-map.adoc[direct access to map data] for quick debugging of prototyp
 
 === Scripting for Automation
 
-Work in <<non-interactive-mode, non-interactive mode>> to script and execute repetitive administration, integration, or testing tasks.
+Write scripts to execute repetitive administration, integration, or testing tasks.
 
 == Modes
 
-The Hazelcast CLC works in two modes:
+The Hazelcast CLC works in three modes:
 
 - Non-interactive
 - Interactive
+- Scripting
 
 You can easily switch between modes to suit the context in which you're working.
 
 [[non-interactive-mode]]
 === Non-Interactive Mode
 
-This is the default mode for the Hazelcast CLC. You need to manually enter and execute commands at the command line. This mode is useful for scripting.
+This is the default mode for the Hazelcast CLC. You need to manually enter and execute commands at the command line. This mode is useful for quickly running one-off commands and using CLC in shell scripts.
 
 [source,bash,subs="attributes+"]
 ----
-clc map -c dev --name myMap set myKey myValue
+clc map --name my-map set my-key my-value
 ----
 
 [[interactive-mode]]
 === Interactive Mode
 
-Interactive mode presents a shell to you. This mode is useful for exploring CLC commands, and for manual tasks.
+Interactive mode presents a shell to you. This mode is useful for running CLC commands and SQL. In this mode, CLC opens a persistent connection to the cluster if necessary. That makes running commands that require a cluster connection slightly faster.
 
 To start the Hazelcast CLC in interactive mode, do the following:
 
@@ -78,7 +79,7 @@ In the interactive mode, you can run SQL queries directly. Make sure to add a se
 ---------------------------------------------------------------------------------
 ----
 
-In order to run CLC commands, prefix them with a backslash `\`:
+To run CLC commands, prefix them with a backslash (`\`):
 ----
 > \object list
 ------------------------------------
@@ -89,6 +90,47 @@ In order to run CLC commands, prefix them with a backslash `\`:
  map          | currency
  map          | default
 ------------------------------------
+----
+
+You can enter multi-line CLC commands by adding a backslash (`\`) character at the very end of every line, except the last one.
+The continuation lines are concatenated, so you might need to add one or more spaces before the backslash:
+----
+  > \map --name \
+... set my-map \
+... key1 value1
+----
+
+If a value contains whitespace, you can wrap it with single or double quotes:
+----
+> \map --name set my-map "key with whitespace" "value with whitespace"
+> \map --name get my-map "key with whitespace"
+-----------------------
+ this
+-----------------------
+ value with whitespace
+-----------------------
+----
+
+Alternatively, you can escape the space character with a backslash:
+----
+> \map --name my-map set key\ with\ whitespace value\ with\ whitespace
+> \map --name my-map entry-set
+---------------------------------------------
+ __key               | this
+---------------------------------------------
+ key with whitespace | value with whitespace
+---------------------------------------------
+----
+
+You must escape backslash characters in values with another backslash:
+----
+> \map --name my-map set doc1 "C:\\Users\\Celine L Carmack\\report.doc"
+> \map --name my-map get doc1
+--------------------------------------
+ this
+--------------------------------------
+ C:\Users\Celine L Carmack\report.doc
+--------------------------------------
 ----
 
 To return to non-interactive mode, use either of the following methods:

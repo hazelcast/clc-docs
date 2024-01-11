@@ -11,30 +11,28 @@ You need the following:
 - Hazelcast cluster
 
 == Creating Schemas for Business Objects
-Let's assume we have the following entities in our application:
+
+Let's assume you have the following entities in your application:
 
 * Student
-** ID
-** Name
+** ID: an integer
+** Name: a string
 * Classroom
-** ID
-** Students
+** ID: an integer
+** Students: an array of `Student`.
 * School
-** ID
-** Classrooms
+** ID: an integer
+** Classrooms: an aray of `Classroom`.
 
-The relationships between these entities are as follows:
-
-* School has classrooms (1->n classrooms)
-* Classrooms have students (n->n students)
 
 The schema definitions are as follows:
 
 [source,yaml]
 ----
-namespace: "org.example"
+serializer:
+  namespace: org.example.serializers
 classes:
-  - name: Student
+  - name: org.example.Student
     fields:
       - name: id
         type: int32
@@ -44,11 +42,10 @@ classes:
 
 [source,yaml]
 ----
-namespace: "org.example"
-imports:
-  - people.yaml
+serializer:
+  namespace: org.example.serializers
 classes:
-  - name: Classroom
+  - name: org.example.Classroom
     fields:
       - name: id
         type: int32
@@ -58,11 +55,10 @@ classes:
 
 [source,yaml]
 ----
-namespace: "org.example"
-imports:
-  - classroom.yaml
+serializer:
+  namespace: org.example.serializers
 classes:
-  - name: School
+  - name: org.example.School
     fields:
       - name: id
         type: int32
@@ -73,8 +69,7 @@ classes:
 Schema definitions contain following information:
 
 * A description of the content of the `Student`, `Classroom`, and `School` compact classes.
-* Any imported schemas, identified using `imports`.
-* The namespaces for the schema files, identified using `namespace`.
+* The namespaces for the schema files, identified using `serializer.namespace`.
 
 == Generating Compact Classes from Schemas
 
@@ -98,11 +93,11 @@ The following classes are generated:
 * `SchoolSerializer.java`
 * `ClassroomSerializer.java`
 
-in `com/education` directory.
+in `org/example/serializers` directory.
 
 == Creating Compact Serialization Configuration
 
-The `generate` command lists the configuration options. You can configure the configuration options in any of the following ways:
+You can configure the configuration options in any of the following ways:
 
 * Java Configuration
 * XML Configuration
@@ -115,9 +110,9 @@ In the following code, we use the Java configuration to register the generated c
 ClientConfig clientConfig = new ClientConfig();
 clientConfig.getSerializationConfig()
     .getCompactSerializationConfig()
-    .setSerializers(new com.education.ClassroomSerializer(),
-            new com.education.StudentSerializer(),
-            new com.education.SchoolSerializer());
+    .setSerializers(new com.example.serializers.ClassroomSerializer(),
+            new com.example.serializers.StudentSerializer(),
+            new com.example.serializers.SchoolSerializer());
 ----
 
 == Using SQL Support
