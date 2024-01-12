@@ -1,0 +1,176 @@
+= 5.3.6 Release Notes
+
+== New Features
+
+=== AtomicRef support
+
+Added the following `atomicreference` commands:
+
+* `clear`
+* `compare-and-set`
+* `contains`
+* `destroy`
+* `get`
+* `get-and-set`
+* `is-null`
+* `set`
+
+The following advanced script functions are also supported:
+
+* `atomicreference_clear(name='default')`
+* `atomicreference_compare_and_set(expected:any, value:any, name='default')`
+* `atomicreference_contains(value:any, name='default')`
+* `atomicreference_destroy(name='default')`
+* `atomicreference_get(name='default')`
+* `atomicreference_get_and_set(value:any, name='default')`
+* `atomicreference_is_null(name='default')`
+* `atomicreference_set(value:any, name='default')`
+
+=== Viridian advanced script functions
+
+Added the `viridian_api` type.
+Create an instance using `Viridian(API_KEY)`.
+
+The type has the following methods:
+
+* `create_cluster(name:string, development=False, prerelease=False, wait=False) -> Cluster`
+* `list_clusters() -> list(Cluster)`
+* `delete_cluster(cluster:id | name | Cluster)`
+* `get_cluster(cluster:id | name | Cluster) -> Cluster`
+* `import_config(cluster:id | name | Cluster, name='') -> path`
+* `stop_cluster(cluster:id | name | Cluster, wait=False)`
+* `resume_cluster(cluster:id | name | Cluster, wait=False)`
+* `list_custom_classes(cluster:id | name | Cluster) -> list(Class)`
+* `upload_custom_class(cluster:id | name | Cluster, path:string, wait=False)`
+* `download_custom_class(cluster:id | name | Cluster, artifact:any, output_path:string) -> path`
+* `delete_custom_class(cluster:id | name | Cluster, artifact_id:any, wait=False)`
+* `download_logs(cluster:id | name | Cluster, dir:string) -> list(path)`
+
+Added the `viridian_cluster` type with the following attributes:
+
+* `id`
+* `name`
+* `cluster_type`
+* `state`
+* `desired_state`
+* `creation_time`
+* `start_time`
+* `client_count`
+* `hot_backup_enabled`
+* `hot_restart_enabled`
+* `ip_white_list_enabled`
+
+Add `viridian_custom_class` type with the following attributes:
+
+* `id`
+* `name`
+* `status`
+* `temporary_id`
+* `generated_filename`
+
+=== Job advanced script functions
+
+* `job_submit(path:string, params:string*, name='', snapshot='', class_name='')`
+* `job_list(include_sql=False, include_user_cancelled=False) -> list(dict)`
+* `job_cancel(job_name_or_id:string, force=False)`
+* `job_restart(job_name_or_id:string, force=False)`
+* `job_suspend(job_name_or_id:string, force=False)`
+* `job_resume(job_name_or_id:string)`
+* `job_export_snapshot(job_name_or_id:string, name:string, cancel=False)`
+
+=== Snapshot advanced script functions
+
+* `snapshot_list() -> list(dict)`
+* `snapshot_delete(name:string)`
+
+=== Configuration advanced script functions
+
+* `config_add(config_name_or_path:string, config:dict) -> path`
+* `config_list() -> list(config_name)`
+
+=== List advanced script functions
+
+* `list_add(value:any, name='default', index=0)`
+* `list_clear(name='default')`
+* `list_contains(value:any, name='default')`
+* `list_destroy(name='default')`
+* `list_remove_index(index:int, name='default')`
+* `list_remove_value(value:any, name='default')`
+* `list_set(index:int, value:any, name='default')`
+* `list_size(name='default')`
+
+=== MultiMap advanced script functions
+
+* `multimap_clear(name='default')`
+* `multimap_destroy(name='default')`
+* `multimap_entry_set(name='default')`
+* `multimap_get(key:any, name='default')`
+* `multimap_key_set(name='default')`
+* `multimap_lock(key:any, name='default', ttl=-1)`
+* `multimap_put(key:any, value:any, name='default')`
+* `multimap_remove(key:any, name='default')`
+* `multimap_size(name='default')`
+* `multimap_try_lock(key:any, name='default', ttl=-1)`
+* `multimap_unlock(key:any, name='default')`
+* `multimap_values(name='default')`
+
+=== Queue advanced script functions
+
+* `queue_clear(name='default')`
+* `queue_destroy(name='default')`
+* `queue_offer(value:any*, name='default')`
+* `queue_poll(name='default')`
+* `queue_size(name='default')`
+
+=== Topic advanced script functions
+
+* `topic_destroy(name='default')`
+* `topic_publish(value:any+, name='default')`
+
+=== Other advanvced script functions
+
+* `object_list(dds:string?, show_hidden=False) -> list(object_name) | list(service_name, object_name)`
+* `exit(code:int)`
+* `home() -> path`
+* `version() -> string`
+* `write(value:any, location:string, format='')`
+* `read(location:string, format='default')`
+* `write_data(data:data, location:string)`
+* `read_data(location:string)`
+* `decode_data(value:data)`
+
+=== Other features
+
+* Added doc strings support to advanced scripts. All lines starting with `# doc: ` are doc strings.
+* Added `script list` command.
+* Added the `sql` advanced script command.
+* Added the `file` template action which can read from a file with one of the extensions: `.yaml`, `.json` or `.txt`.
+* Added the `\exit` and `\echo` commands. These commands are available in the script and interactive modes. See: [echo](https://docs.hazelcast.com/clc/latest/echo) and [exit](https://docs.hazelcast.com/clc/latest/exit) command documentation.
+* Added `--wait` flag to `viridian` commands.
+* Added the ability to change the interactive mode prompt and banner. See: [def](https://docs.hazelcast.com/clc/latest/def).
+
+== Improvements
+
+* `clc demo map-setmany` command shows a progress bar and it is faster for small values.
+* `\echo` command takes 0 or more arguments.
+* Viridian commands display an API key selector if the there exists more than one API keys.
+* Viridian cluster list is paged.
+
+== Changes
+
+* Project creator uses the `defaults` field in `template.yaml` instead of the `defaults.yaml`.
+* Templte name is optional with `clc project create` command. A selector is displayed if the template name is not specified.
+* `clc viridian download-logs` command outputs all log paths instead of the parent directory.
+* The behaviour of `clc compact serializer` was improved.
+* `multi-map` is renamed to `multimap`.
+* `atomic-long` was renamed to `atomiclong`.
+
+== Fixes
+
+* `\di` command panics when indexes for a map cannot be retrieved.
+* Removed the extra `OK` line in `config list`.
+* Restored the `--format` flag to `home` and `version` commands.
+* Fixed column names produced by advanced script `output` function.
+* Fixed `time` and `date` actions in templates.
+* Fixed the prompt suffix.
+
