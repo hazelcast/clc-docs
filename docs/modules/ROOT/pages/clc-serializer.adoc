@@ -56,15 +56,9 @@ clc serializer generate my-schema.yaml --language java --output-dir my-dir
 
 === Schema Creation
 
-A schema allows you to:
-
-* Describe the contents of a compact class using supported field types.
-* Import other schema.
-* Specify a namespaces for schema files and reference other namespaces.
-* Reference classes that are not present in the given schemas.
-
-Schemas are written in YAML.
-
+A schema allows you to describe the contents of a compact class using supported field types.
+A schema allows you to describe the contents of a compact class using supported field types.
+Schemas are written in YAML, and the schema files should have the `.schema.yaml` extension.
 The schema format is as follows:
 
 [source,yaml]
