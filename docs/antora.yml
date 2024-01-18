@@ -12,8 +12,8 @@ asciidoc:
     # The full major.minor.patch version, which is used as a variable in the docs for things like download links
     full-version: '5.3.6'
     # Allows us to use UI macros. See https://docs.asciidoctor.org/asciidoc/latest/macros/ui-macros/
-    experimental: true
-    snapshot: true
+    experimental: false
+    snapshot: false
     page-toclevels: 3@
     # Required Go version for build
     go-version: 1.21
