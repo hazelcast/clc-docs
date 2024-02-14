@@ -438,7 +438,7 @@ Submit this directory using the `clc job submit -c MY_CLUSTER --name my_job` com
 NOTE: For further information on submitting, see the link:https://docs.hazelcast.com/clc/latest/clc-job#clc-job-submit[clc job command^] section of the Hazelcst CLC documentation.
 
 
-=== Sink Step
+=== Sink Stage
 
 After streaming process is completed, data should sink to some of these places.
 
