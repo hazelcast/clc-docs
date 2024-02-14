@@ -220,7 +220,7 @@ pipeline:
 
 ==== MAP Source
 
-This source type allows you to work on map. This stage works as a batch.
+You can use a MAP source to work on map. This stage works as a batch.
 
 [cols="1m,1a,2a,1a"]
 |===
