@@ -493,7 +493,7 @@ pipeline:
 
 |topic: "topic_name"
 |Yes
-|Topic name to be pushed.
+|Topic name to push.
 |
 
 |key-deserializer: "type_name"
