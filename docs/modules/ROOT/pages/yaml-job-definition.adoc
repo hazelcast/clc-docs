@@ -137,7 +137,7 @@ pipeline:
 
 You can use a JDBC source to provide data to the pipeline. This source works as a batch stage. For further information on using the JDBC connector as a source, see the xref:integrate:jdbc-connector.adoc#jdbc-as-a-source[] section of the JDBC Connector topic.
 
-TIP: Please, make sure that Hazelcast can serialize your object type. link:https://docs.hazelcast.com/hazelcast/latest/serialization/serialization[Details for serialization.]
+TIP: Ensure that Hazelcast can serialize your object type. For further information on serialization, see the xref:serialization:serialization.adoc[] topic.
 
 [cols="1m,1a,2a,1a"]
 |===
