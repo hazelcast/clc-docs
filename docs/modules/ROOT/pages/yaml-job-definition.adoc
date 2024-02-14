@@ -488,7 +488,7 @@ pipeline:
 
 |type: KAFKA
 |Yes
-|Defines the sink type of the pipeline.
+|Defines the sink as Kafka.
 |
 
 |topic: "topic_name"
