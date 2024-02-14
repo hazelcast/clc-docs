@@ -30,7 +30,7 @@ pipeline:
     - type: PYTHON # Only supported transform method.
 
   sink:
-    type: # Where the output will be sink into. See th table for available types.
+    type: # The location of the sink for the output. See the table for available types.
 ----
 
 === Source Stages
