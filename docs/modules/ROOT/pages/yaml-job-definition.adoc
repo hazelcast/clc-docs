@@ -308,7 +308,7 @@ NOTE: You can transform only streaming sources, and must use Python to transform
 
 |module: "transformation.transform" 
 |Optional
-|The name of package and transformation function. The format is `package_name.func_name`.
+|The name of package and transformation function, in the format `package_name.func_name`.
 |transformation.transform
 
 |===
