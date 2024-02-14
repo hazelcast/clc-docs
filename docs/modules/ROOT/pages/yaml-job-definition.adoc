@@ -286,7 +286,7 @@ pipeline:
 
 In this step, you can shape you data or do computation. The return value will be passed to next step. 
 
-NOTE: Currently, only supported language on transform step is Python. You can transform your data using Python. Also, this step only works with streaming sources.
+NOTE: You can transform only streaming sources, and must use Python to transform the data.
 
 
 ==== Transformation in Python
