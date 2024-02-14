@@ -282,7 +282,7 @@ pipeline:
         start-from: OLDEST
 ----
 
-=== Transform Step
+=== Transform Stage
 
 In this step, you can shape you data or do computation. The return value will be passed to next step. 
 
