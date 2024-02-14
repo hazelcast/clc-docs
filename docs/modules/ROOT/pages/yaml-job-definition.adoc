@@ -434,7 +434,7 @@ If you have a dependencies, create a _requirements.txt_ file in a directory. The
 --requirements.txt
 ----
 
-Then, you can submit this directory using `clc job submit -c MY_CLUSTER --name my_job .`
+Submit this directory using the `clc job submit -c MY_CLUSTER --name my_job` command.
 Please, link:https://docs.hazelcast.com/clc/latest/clc-job#clc-job-submit[visit] clc job command for more information on submitting.
 
 
