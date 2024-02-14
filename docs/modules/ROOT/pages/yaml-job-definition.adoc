@@ -200,7 +200,7 @@ You can define a Kafka topic as a source. This source works as a stream stage. F
 
 |properties:
 |Yes
-|Kafka props to be passed to Kafka consumer.
+|Kafka properties to be passed to the Kafka consumer.
 |
 
 |===
