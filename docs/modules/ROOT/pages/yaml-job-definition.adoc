@@ -341,7 +341,9 @@ Two functions must be present in your Python code, as described in the following
 
 ==== Example Transformation
 
-Assume that you have a map journal source, and the source contains `City` object. When a new object put the source map, it will be streamed to the pipeline. In transform step, the object type of `data` argument will be a key value pair since source is a map and holds key value pairs. The key value is an integer number in this example, and value is `City` object.
+In this example, we use a map journal source, containing a `City` object. When a new object is put to the source map, it is streamed to the pipeline. 
+
+In the transform stage, the `data` object type is a key/value pair, as the source is a map containing key/value pairs. In this example, the key is an integer and the value is the `City` object.
 
 In order to de/serialize the `City` object, you should implement its serializer.
 
