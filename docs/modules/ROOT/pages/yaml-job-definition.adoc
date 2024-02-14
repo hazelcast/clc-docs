@@ -24,7 +24,7 @@ The structure of a YAML pipeline definition file is as follows:
 ----
 pipeline:
   source:
-    type: # Type of the source, see th table for available types.
+    type: # Type of the source, see the table for available types.
 
   transform: # Optional Step
     - type: PYTHON # Only supported transform method for now.
