@@ -250,7 +250,7 @@ pipeline:
 
 Use a MAP Journal source to work on a entry that is put into defined map. This stage works as a stream.
 
-TIP: This feature requires additional configuration on the map. You should enable _Event Journal_ for your map. See link:https://docs.hazelcast.com/hazelcast/latest/data-structures/event-journal#hide-nav[event journal documentation] for details.
+TIP: To use a MAP Journal source, you must enable _Event Journal_ in your map configuration. For further information on the event journal, see the xref:data-structures:event-journal.adoc[] topic.
 
 [cols="1m,1a,2a,1a"]
 |===
