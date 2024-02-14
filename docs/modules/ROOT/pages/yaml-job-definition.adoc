@@ -135,7 +135,7 @@ pipeline:
 
 ==== JDBC Source
 
-A JDBC source can be used to provide data to the pipeline. This source works as a batch stage. link:https://docs.hazelcast.com/hazelcast/latest/integrate/jdbc-connector#jdbc-as-a-source[For more details about JDBC connector.]
+You can use a JDBC source to provide data to the pipeline. This source works as a batch stage. For further information on using the JDBC connector as a source, see the xref:integrate:jdbc-connector.adoc#jdbc-as-a-source[] section of the JDBC Connector topic.
 
 TIP: Please, make sure that Hazelcast can serialize your object type. link:https://docs.hazelcast.com/hazelcast/latest/serialization/serialization[Details for serialization.]
 
