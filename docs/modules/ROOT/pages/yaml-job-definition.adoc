@@ -233,7 +233,7 @@ You can use a MAP source to work on map. This stage works as a batch.
 
 |map: "myMapName"
 |Yes
-|Map name to be used as a batch data source.
+|Map name used as a batch data source.
 |
 
 |===
