@@ -330,7 +330,7 @@ Two functions must be present in your Python code, as described in the following
 |on_setup(config)
 |No
 |This function is invoked during start-up. You can register your serializers to the `config` object, which is a type of Hazelcast Python client configuration. For further information on Python client configuration, refer to the https://hazelcast.readthedocs.io/en/latest/config.html[Hazelcast Python Client documentation^]. 
-|Hazelcast Python Client Config Object
+|Hazelcast Python Client Configuration Object
 
 |transform(data)
 |Yes
