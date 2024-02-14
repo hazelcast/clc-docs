@@ -64,7 +64,7 @@ Use a file source to identify a source that is located in a file.
 
 |glob: "*.json"
 |Yes
-|A global filter pattern to select files in given directory.
+|A global filter pattern used to select matching files in the specified directory.
 | *
 |===
 
