@@ -303,7 +303,7 @@ NOTE: You can transform only streaming sources, and must use Python to transform
 
 |base-image: "hazelcast/python-runtime-base:3.11"
 |Yes
-|The base image to be used to run given Python code. You can customize the image using the base one.
+|The base image to use when running the Python code. You can customize the base image.
 |
 
 |module: "transformation.transform" 
