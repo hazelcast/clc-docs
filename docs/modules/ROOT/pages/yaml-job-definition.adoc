@@ -79,7 +79,7 @@ pipeline:
 
 ==== Item Source
 
-This source type acts as a batch resource.
+Use an item source as a batch resource to identify specific items.
 
 [cols="1m,1a,2a,1a"]
 |===
@@ -107,7 +107,7 @@ pipeline:
 
 ==== Item Stream Source
 
-Item stream produces sequential numbers continuously to the pipeline in a defined frequency.
+Use an item stream source to define the frequency of sequential numbers sourced continuously to the pipeline.
 
 [cols="1m,1a,2a,1a"]
 |===
@@ -284,12 +284,10 @@ pipeline:
 
 === Transform Stage
 
-In this step, you can shape you data or do computation. The return value will be passed to next step. 
+You can optionally transform your data to pass the returned value to the next stage.
 
 NOTE: You can transform only streaming sources, and must use Python to transform the data.
 
-
-==== Transformation in Python
 
 
 [cols="1m,1a,2a,1a"]

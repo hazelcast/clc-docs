@@ -81,8 +81,6 @@ Must include the package name, such as: `com.example.JetJob`.
 
 |===
 
-asd
-
 == clc job cancel
 
 Cancels the job with the given ID or name.
