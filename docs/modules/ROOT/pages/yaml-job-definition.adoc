@@ -268,7 +268,7 @@ TIP: To use a MAP Journal source, you must enable _Event Journal_ in your map co
 
 |start-from: 
 |Yes
-|The point where pipeline will start consuming the data from event journal. Options: `OLDEST` or `CURRENT`
+|The point at which the pipeline starts to consume data from the event journal. Valid values are `OLDEST` or `CURRENT`
 |
 
 |===
