@@ -398,7 +398,11 @@ def transform(data):
     return DeserializingMapEntry(key=data.get_key(), value=c)
 ----
 
-You should also check the yaml definition of the example. In this pipeline, source is a streamed map which is a journal. Transform step is our Python example. The sink is a map.
+The YAML definition file for this example is provided below. In this pipeline, we define the following:
+
+* A map journal as our source
+* Our Python example for the transform stage
+* A map as our sink
 
 [source,yaml]
 ----
