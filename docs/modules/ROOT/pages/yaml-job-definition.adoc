@@ -172,7 +172,7 @@ pipeline:
 
 ==== Kafka Source
 
-A Kafka topic can be defined as a source. This source works as a stream stage. link:https://docs.hazelcast.com/hazelcast/latest/integrate/kafka-connector#hide-nav[For more details.]
+You can define a Kafka topic as a source. This source works as a stream stage. For further information on connecting to a Kafka topic, see the xref:integrate:kafka-connector.adoc[] topic.
 
 [cols="1m,1a,2a,1a"]
 |===
