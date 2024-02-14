@@ -335,7 +335,7 @@ Two functions must be present in your Python code, as described in the following
 |transform(data)
 |Yes
 |Invoked when data reaches the transform stage. If you have a custom type, you can prepare and register your serializer in the `on_step(config)` function.
-|The `data` argument type depends on previous step in the pipeline.
+|The `data` argument type depends on the previous step in the pipeline.
 
 |===
 
