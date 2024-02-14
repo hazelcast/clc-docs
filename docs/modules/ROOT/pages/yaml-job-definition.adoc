@@ -440,7 +440,12 @@ NOTE: For further information on submitting, see the link:https://docs.hazelcast
 
 === Sink Stage
 
-After streaming process is completed, data should sink to some of these places.
+After the streaming process completes, data is sent to the specified sink from the following options:
+
+* xref:yaml-job-definition.adoc#jdbc-sink[JDBC]
+* xref:yaml-job-definition.adoc#kafka-sink[Kafka]
+* xref:yaml-job-definition.adoc#logger-sink[Logger]
+* xref:yaml-job-definition.adoc#map-sink[Map]
 
 ==== JDBC Sink
 
