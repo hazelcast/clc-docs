@@ -185,7 +185,7 @@ You can define a Kafka topic as a source. This source works as a stream stage. F
 
 |topic: "topic_name"
 |Yes
-|Topic name to be subscribed.
+|Name of topic to subscribe to.
 |
 
 |key-deserializer: "type_name"
