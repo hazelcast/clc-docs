@@ -19,7 +19,7 @@ NOTE: This feature is only available if your cluster is running on Viridian.
 The YAML file must be named _jet_config.yaml_.
 
 *Example*
-
+The structure of a YAML pipeline definition file is as follows:
 [source, yaml]
 ----
 pipeline:
