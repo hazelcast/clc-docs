@@ -16,7 +16,7 @@ NOTE: This feature is only available if your cluster is running on Viridian.
 
 == YAML File Structure
 
-The structure of pipeline definition in a yaml file can be seen below. The yaml file should be named as `jet_config.yaml`.
+The YAML file must be named _jet_config.yaml_.
 
 *Example*
 
