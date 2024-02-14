@@ -493,7 +493,7 @@ pipeline:
 
 |value-deserializer: "type_name"
 |Yes
-|The serializer to be used for value.  
+|The serializer used for the value.  
 |
 
 |properties:
