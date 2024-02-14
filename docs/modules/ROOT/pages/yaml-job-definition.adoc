@@ -298,7 +298,7 @@ NOTE: You can transform only streaming sources, and must use Python to transform
 
 |type: PYTHON
 |Yes
-|Defines the transformation type.
+|Defines the transformation type. Must be set to ``PYTHON``.
 |
 
 |base-image: "hazelcast/python-runtime-base:3.11"
