@@ -339,7 +339,7 @@ Two functions must be present in your Python code, as described in the following
 
 |===
 
-*Example*
+==== Example Transformation
 
 Assume that you have a map journal source, and the source contains `City` object. When a new object put the source map, it will be streamed to the pipeline. In transform step, the object type of `data` argument will be a key value pair since source is a map and holds key value pairs. The key value is an integer number in this example, and value is `City` object.
 
