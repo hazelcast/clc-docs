@@ -47,7 +47,7 @@ You can define the following source types in a YAML job definition:
 * xref:yaml-job-definition.adoc#map-journal-source[MAP Journal]
 
 ==== File Source
-
+Use a file source to identify a source that is located in a file.
 [cols="1m,1a,2a,1a"]
 |===
 |Parameter|Required|Description|Default
