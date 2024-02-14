@@ -555,7 +555,7 @@ Streamed data can sink to a map. The provided data must be a key/value pair.
 
 |map: "myMapName"
 |Yes
-|Map name to be sink.
+|Name of the Map to use as sink.
 |
 
 |===
