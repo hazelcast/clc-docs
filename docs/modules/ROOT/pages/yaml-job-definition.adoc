@@ -33,7 +33,7 @@ pipeline:
     type: # The location of the sink for the output. See the table for available types.
 ----
 
-=== Source Stages
+=== Source Stage
 There are three types of source can be defined in a yaml job definition. 
 
 ==== File Source
