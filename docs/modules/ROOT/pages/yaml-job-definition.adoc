@@ -321,7 +321,7 @@ NOTE: You can transform only streaming sources, and must use Python to transform
       module: "transformation.transform"
 ----
 
-The Jet Python step expects two functions in your Python code.
+Two functions must be present in your Python code, as described in the following table:
 
 [cols="1m,1a,2a,1a"]
 |===
