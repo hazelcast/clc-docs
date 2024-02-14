@@ -498,7 +498,7 @@ pipeline:
 
 |properties:
 |Yes
-|Kafka props to be passed to Kafka producer.
+|Kafka properties to pass to the Kafka producer.
 |
 
 |===
