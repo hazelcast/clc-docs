@@ -455,7 +455,7 @@ After the streaming process completes, data is sent to the specified sink from t
 
 |type: JDBC
 |Yes
-|Defines the sink place of pipeline.
+|Defines the sink as JDBC
 |
 
 |url: "jdbc:mysql://localhost:3306/mysql"
