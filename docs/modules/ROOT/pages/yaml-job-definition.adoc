@@ -34,7 +34,17 @@ pipeline:
 ----
 
 === Source Stage
-There are three types of source can be defined in a yaml job definition. 
+The source stage defines the source type used for the pipeline.
+
+You can define the following source types in a YAML job definition:
+
+* xref:yaml-job-definition.adoc#file-source[File]
+* xref:yaml-job-definition.adoc#item-source[Item]
+* xref:yaml-job-definition.adoc#item-stream-source[Item Stream]
+* xref:yaml-job-definition.adoc#jdbc-source[JDBC]
+* xref:yaml-job-definition.adoc#kafka-source[Kafka]
+* xref:yaml-job-definition.adoc#map-source[MAP]
+* xref:yaml-job-definition.adoc#map-journal-source[MAP Journal]
 
 ==== File Source
 
