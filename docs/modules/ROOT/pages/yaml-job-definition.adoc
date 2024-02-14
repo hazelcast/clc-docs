@@ -435,7 +435,7 @@ If you have a dependencies, create a _requirements.txt_ file in a directory. The
 ----
 
 Submit this directory using the `clc job submit -c MY_CLUSTER --name my_job` command.
-Please, link:https://docs.hazelcast.com/clc/latest/clc-job#clc-job-submit[visit] clc job command for more information on submitting.
+NOTE: For further information on submitting, see the link:https://docs.hazelcast.com/clc/latest/clc-job#clc-job-submit[clc job command^] section of the Hazelcst CLC documentation.
 
 
 === Sink Step
