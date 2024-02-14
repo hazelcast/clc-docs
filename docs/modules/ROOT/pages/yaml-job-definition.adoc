@@ -1,6 +1,15 @@
 = YAML Pipeline Definition
 
-The stages of a Jet job can be defined with in a yaml file without any Java code interaction. A basic streaming job consists of two or more stages. These are source, transform and sink stages. The transformation stage is optional, and a pipeline can have multiple transformation steps. In order to define these stages for your job, you can benefit from a yaml definition without any coding effort.
+You can define the stages of a Jet job in a YAML file without Java code interaction. A basic streaming job consists of the following stages: 
+
+* Source
+*Optionally, transform
++
+NOTE: A pipeline can have multiple transform stages. 
+
+* Sink 
+
+To define the stages for your job, you can use a YAML definition file without any coding effort.
 
 NOTE: This feature is only available if your cluster is running on Viridian.
 
