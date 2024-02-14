@@ -465,7 +465,7 @@ After the streaming process completes, data is sent to the specified sink from t
 
 |query: REPLACE INTO into(value) values(?)
 |Yes
-|Query statement to be run while inserting data to the JDBC.link:https://docs.hazelcast.com/hazelcast/latest/integrate/jdbc-connector#dbc-as-a-sink[For more details about JDBC connector.]
+|Query statement to be run while inserting data to the JDBC. For further information on using JDBC as a sink, see the xref:integrate/jdbc-connector.adoc#jdbc-as-a-sink[] section of the JDBC Connector topic.
 |
 
 |===
