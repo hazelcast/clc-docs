@@ -345,7 +345,7 @@ In this example, we use a map journal source, containing a `City` object. When a
 
 In the transform stage, the `data` object type is a key/value pair, as the source is a map containing key/value pairs. In this example, the key is an integer and the value is the `City` object.
 
-In order to de/serialize the `City` object, you should implement its serializer.
+To serialize or deserialize the `City` object, you must configure a serializer, as shown below:
 
 [source, python]
 ----
