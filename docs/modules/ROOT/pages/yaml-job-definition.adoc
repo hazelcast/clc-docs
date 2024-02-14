@@ -248,7 +248,7 @@ pipeline:
 
 ==== MAP Journal Source
 
-This sources type allows you to work on a entry that is put into defined map. This stage works as a stream.
+Use a MAP Journal source to work on a entry that is put into defined map. This stage works as a stream.
 
 TIP: This feature requires additional configuration on the map. You should enable _Event Journal_ for your map. See link:https://docs.hazelcast.com/hazelcast/latest/data-structures/event-journal#hide-nav[event journal documentation] for details.
 
