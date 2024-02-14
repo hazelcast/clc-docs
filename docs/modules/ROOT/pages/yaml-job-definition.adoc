@@ -424,7 +424,7 @@ pipeline:
 ----
 
 
-If you have a dependencies, prepare a `requirements.txt` file, and place all files in a directory.
+If you have a dependencies, create a _requirements.txt_ file in a directory. The directory must contain the following:
 
 The folder should contain;
 [source]
