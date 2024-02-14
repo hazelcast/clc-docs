@@ -493,7 +493,7 @@ pipeline:
 
 |key-deserializer: "type_name"
 |Yes
-|The serializer to be used for key value.  
+|The serializer used for the key.  
 |
 
 |value-deserializer: "type_name"
