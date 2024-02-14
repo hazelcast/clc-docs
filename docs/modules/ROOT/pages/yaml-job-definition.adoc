@@ -518,7 +518,7 @@ pipeline:
 
 === Logger Sink
 
-It is a simple sink option. It sinks to server logs.
+This is the simplest sink option, where the data sinks to server logs.
 
 
 [cols="1m,1a,2a,1a"]
