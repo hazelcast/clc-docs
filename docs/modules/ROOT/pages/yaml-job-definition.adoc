@@ -541,7 +541,7 @@ pipeline:
 
 === Map Sink
 
-Sinks streamed data to a map. The given value should be a key-value pair.
+Streamed data can sink to a map. The provided data must be a key/value pair.
 
 
 [cols="1m,1a,2a,1a"]
