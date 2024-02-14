@@ -195,7 +195,7 @@ You can define a Kafka topic as a source. This source works as a stream stage. F
 
 |value-deserializer: "type_name"
 |Yes
-|The serializer to be used for value.  
+|The serializer used for value.  
 |
 
 |properties:
