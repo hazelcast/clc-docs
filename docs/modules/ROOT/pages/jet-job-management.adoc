@@ -8,12 +8,12 @@
 You need the following:
 
 - xref:install-clc.adoc[Hazelcast CLC] installed on your local machine
-- One running {hazelcast-cloud} cluster. You can create a xref:managing-viridian-clusters.adoc#creating-a-cluster-on-viridian[development cluster] using the Hazelcast CLC.
+- One running {hazelcast-cloud} cluster. You can create a xref:managing-cloud-clusters.adoc#creating-a-cluster-on-cloud[development cluster] using the Hazelcast CLC.
 - xref:cloud:ROOT:developer.adoc[{hazelcast-cloud} API key and secret]
 - JRE 11 or above.
 - Gradle 8 or above.
 
-[[step-1-authenticating-with-viridian]]
+[[step-1-authenticating-with-cloud]]
 == Step 1. Authenticating with {hazelcast-cloud}
 
 To allow the Hazelcast CLC to perform cluster operations, including submitting Jet jobs, you must generate a {hazelcast-cloud} token.
@@ -22,7 +22,7 @@ To allow the Hazelcast CLC to perform cluster operations, including submitting J
 +
 [source,shell]
 ----
-clc viridian login
+clc cloud login
 ----
 
 . When prompted, enter your API key and secret. If both are correct, the token is retrieved and saved.
@@ -34,7 +34,7 @@ Next, check that the Hazelcast CLC can access your cluster by running the follow
 
 [source,shell]
 ----
-clc viridian list-clusters
+clc cloud list-clusters
 ----
 
 The details of all clusters linked to your {hazelcast-cloud} account are returned, including the Cluster ID, Cluster Name, Current Status, Hazelcast Version.
@@ -48,7 +48,7 @@ Run the following command to save the cluster configuration with the name `dev`.
 
 [source,shell]
 ----
-clc viridian import-config $CLUSTER_NAME --name dev
+clc cloud import-config $CLUSTER_NAME --name dev
 ----
 
 [[step-4-build-jet-job]]

@@ -20,7 +20,7 @@ Run xref:clc-sql.adoc[SQL] queries against your cluster and display the output a
 
 === Manage {hazelcast-cloud} Clusters
 
-xref:clc-viridian.adoc[Create and manage] {hazelcast-cloud} clusters, and the custom classes on those clusters.
+xref:clc-cloud.adoc[Create and manage] {hazelcast-cloud} clusters, and the custom classes on those clusters.
 
 === Create Data Pipelines
 

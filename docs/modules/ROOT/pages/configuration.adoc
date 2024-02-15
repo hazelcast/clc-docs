@@ -41,7 +41,7 @@ The name of the default configuration may be overriden using the `CLC_CONFIG` en
 
 == Related Resources
 
-- xref:connect-to-viridian.adoc[Connecting to {hazelcast-cloud} with Hazelcast CLC].
+- xref:connect-to-cloud.adoc[Connecting to {hazelcast-cloud} with Hazelcast CLC].
 
 - xref:connect-to-platform.adoc[Connecting to Hazelcast Platform with Hazelcast CLC].
 
