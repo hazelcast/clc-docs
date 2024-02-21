@@ -12,6 +12,8 @@ clc config [command] [flags]
 == Commands
 
 * <<clc-config-add, clc config add>>
+* <<clc-config-import-cloud, clc config import-cloud>>
+* <<clc-config-import-java, clc config import-java>>
 * <<clc-config-list, clc config list>>
 
 == clc config add
@@ -27,101 +29,19 @@ Usage:
 clc config add [target] [source] [flags] [key=value...]
 ----
 
-Configuration keys:
+You can pass key=value pairs to add configuration items.
 
-[cols="1m,1a,1a,1"]
-|===
-|Key|Value|Default Value|Note
+.Configuration keys
+[%collapsible]
+====
+include::partial$configuration-items.adoc[]
+====
 
-|cluster.name
-|Any string
-|dev
-|
-
-|cluster.address
-|HOST:PORT / HOST / :PORT
-|localhost:5701
-|
-
-|cluster.user
-|Any string
-|
-| Hazelcast Enterprise only
-
-|cluster.password
-|Any string
-|
-| Hazelcast Enterprise only
-
-|cluster.discovery-token
-|Any string
-|
-|{hazelcast-cloud} only
-
-|ssl.enabled
-|true / false
-|false
-|{hazelcast-cloud} or Hazelcast Enterprise
-
-|ssl.server
-|DOMAIN_NAME (must match SSL certificate)
-|
-|{hazelcast-cloud} (automatically set) or Hazelcast Enterprise
-
-|ssl.skip-verify
-|true / false
-|false
-|{hazelcast-cloud} or Hazelcast Enterprise. Disables SSL host name and client-side verification. Never set to true in production.
-
-|ssl.ca-path
-|An absolute or relative path
-|
-|{hazelcast-cloud} or Hazelcast Enterprise. Sets the path to the CA certificate.
-
-|ssl.key-path
-|An absolute or relative path
-|
-|{hazelcast-cloud} or Hazelcast Enterprise. Sets the path to the certificate key.
-
-|ssl.key-password
-|Any string
-|
-|{hazelcast-cloud} or Hazelcast Enterprise. Sets the password for the certificate key.
-
-|log.path
-|An absolute or relative path or `stderr` to log to stderr.
-|`$CLC_HOME/logs/YYYY-MM-DD.log` where the date is today.
-|
-
-|log.level
-|One of:
-
-. `error`
-. `warn`
-. `info`
-. `debug`
-| `info`
-|
-
-|===
-
-Parameters:
-
-[cols="1m,1a,2a,1a"]
-|===
-|Parameter|Required|Description|Default
-
-|`target`
-|Required
-|Name of the configuration or its path. If a name is used, the configuration is saved to `$CLC_HOME/configs/NAME`
-|N/A
-
-|`key=value`
-|Optional
-|Zero or more `config_item=value` pairs.
-|N/A
-
-|===
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
 
 Example output:
 
@@ -129,6 +49,97 @@ Example output:
 ----
 clc config add dev cluster.name=dev cluster.address=localhost:5701
 ----
+
+== clc config import-cloud
+
+Imports configuration from a {hazelcast-cloud} CLI sample.
+
+In order to get the URL for the {hazelcast-cloud}, follow the steps below:
+
+1. On {hazelcast-cloud} console, visit:
++
+	Dashboard -> Connect Client -> CLI
+
+2. Copy the URL in box 2 and pass it as the second parameter.
+Make sure the text is quoted before running:
++
+[source,bash]
+----
+clc config import-cloud my-config "https://api..."
+----
+
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
+
+== clc config import-java
+
+This command imports a subset of Hazelcast Java client configuration and saves it as CLC configuration.
+
+Java keystore and truststore referred in the XML configuration are converted to PEM files.
+
+Usage:
+
+[source,bash]
+----
+clc config import-java [target] [source] [flags] [key=value...]
+----
+
+You can pass `key=value` pairs to override configuration items.
+
+.Configuration keys
+[%collapsible]
+====
+include::partial$configuration-items.adoc[]
+====
+
+Parameters:
+
+[cols="1m,1m,2a,1m"]
+|===
+|Parameter|Required|Description|Default
+
+|`target`
+|Required
+|Name or path to the configuration to be created
+|
+
+| `source`
+|Required
+|Path to the Java client XML configuration
+|
+
+|`--ca-alias`
+|Optional
+|Alias of the CA certificate in the Java truststore
+|
+
+|`--cert-alias`
+|Optional
+|Alias of the certificate in the Java truststore
+|
+
+|`--key-alias`
+|Optional
+|Alias of the key in the Java keystore
+|
+
+|===
+
+## Limitations
+
+* Only PKCS12 keystores/truststores are supported, not JKS
+* <import> and <config-replacers> tags are not supported
+* Variables in .xml configuration are not supported
+
+.Global parameters
+[%collapsible]
+====
+include::partial$global-parameters.adoc[]
+====
+
 
 == clc config list
 

@@ -1,0 +1,75 @@
+[cols="1m,1a,1a,1"]
+|===
+|Key|Value|Default Value|Note
+
+|cluster.name
+|Any string
+|dev
+|
+
+|cluster.address
+|HOST:PORT / HOST / :PORT
+|localhost:5701
+|
+
+|cluster.user
+|Any string
+|
+| Hazelcast Enterprise only
+
+|cluster.password
+|Any string
+|
+| Hazelcast Enterprise only
+
+|cluster.discovery-token
+|Any string
+|
+|{hazelcast-cloud} only
+
+|ssl.enabled
+|true / false
+|false
+|{hazelcast-cloud} or Hazelcast Enterprise
+
+|ssl.server
+|DOMAIN_NAME (must match SSL certificate)
+|
+|{hazelcast-cloud} (automatically set) or Hazelcast Enterprise
+
+|ssl.skip-verify
+|true / false
+|false
+|{hazelcast-cloud} or Hazelcast Enterprise. Disables SSL host name and client-side verification. Never set to true in production.
+
+|ssl.ca-path
+|An absolute or relative path
+|
+|{hazelcast-cloud} or Hazelcast Enterprise. Sets the path to the CA certificate.
+
+|ssl.key-path
+|An absolute or relative path
+|
+|{hazelcast-cloud} or Hazelcast Enterprise. Sets the path to the certificate key.
+
+|ssl.key-password
+|Any string
+|
+|{hazelcast-cloud} or Hazelcast Enterprise. Sets the password for the certificate key.
+
+|log.path
+|An absolute or relative path or `stderr` to log to stderr.
+|`$CLC_HOME/logs/YYYY-MM-DD.log` where the date is today.
+|
+
+|log.level
+|One of:
+
+. `error`
+. `warn`
+. `info`
+. `debug`
+| `info`
+| Log level filter
+
+|===
