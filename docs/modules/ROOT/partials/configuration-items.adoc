@@ -40,26 +40,31 @@
 |ssl.skip-verify
 |true / false
 |false
-|{hazelcast-cloud} or Hazelcast Enterprise. Disables SSL host name and client-side verification. Never set to true in production.
+|{hazelcast-cloud} or Hazelcast Enterprise.
+Disables SSL host name and client-side verification.
+Never set to true in production.
 
 |ssl.ca-path
 |An absolute or relative path
 |
-|{hazelcast-cloud} or Hazelcast Enterprise. Sets the path to the CA certificate.
+|{hazelcast-cloud} or Hazelcast Enterprise.
+Sets the path to the CA certificate.
 
 |ssl.key-path
 |An absolute or relative path
 |
-|{hazelcast-cloud} or Hazelcast Enterprise. Sets the path to the certificate key.
+|{hazelcast-cloud} or Hazelcast Enterprise.
+Sets the path to the certificate key.
 
 |ssl.key-password
 |Any string
 |
-|{hazelcast-cloud} or Hazelcast Enterprise. Sets the password for the certificate key.
+|{hazelcast-cloud} or Hazelcast Enterprise.
+Sets the password for the certificate key.
 
 |log.path
 |An absolute or relative path or `stderr` to log to stderr.
-|`$CLC_HOME/logs/YYYY-MM-DD.log` where the date is today.
+|`$CLC_HOME/logs/YYYY-MM-DD.log` where YYY-MM-DD is the date on which the log was created.
 |
 
 |log.level
