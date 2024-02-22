@@ -159,7 +159,7 @@ Add `viridian_custom_class` type with the following attributes:
 == Changes
 
 * Project creator uses the `defaults` field in `template.yaml` instead of the `defaults.yaml`.
-* Templte name is optional with `clc project create` command. A selector is displayed if the template name is not specified.
+* Template name is optional with `clc project create` command. A selector is displayed if the template name is not specified.
 * `clc viridian download-logs` command outputs all log paths instead of the parent directory.
 * The behaviour of `clc compact serializer` was improved.
 * `multi-map` is renamed to `multimap`.

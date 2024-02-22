@@ -1,0 +1,33 @@
+= 5.3.7 Release Notes
+
+== New Features
+
+=== Configuration
+
+==== Hazelcast Java Client XML Configuration
+
+We have added the `clc config import-java` command that imports a subset of the Java client configuration and associated keystore/trustore files.
+
+Refer to the documentation for the <<clc-config.adoc#clc-config-import-java, clc config import-java>> command for more information about this command.
+
+=== Project Creator
+
+==== Custom Template Actions
+
+You can now define custom template actions using advanced scripts.
+
+Refer to the <<clc-project.adoc#custom-template-actions, Custom Template Actions>> section for more information about this feature.
+
+==== Success Note
+
+You can add a success note when a project is created successfully.
+
+Refer to the <<clc-project.adoc#success-note, Success Note>> section for more information about this command.
+
+== Changes
+
+* Viridian is renamed to Hazelcast Cloud.
+* `clc viridian` commands are renamed to `clc cloud`. `clc viridian` is set an alias to `clc cloud`.
+* `clc config import` command is renamed to `clc config import-cloud`. `clc config import` is an alias to `clc config import-cloud`.
+* `map unlock` was available to the non-interactive mode in the previous version. This is changed to be available to interactive/scripting modes only.
+

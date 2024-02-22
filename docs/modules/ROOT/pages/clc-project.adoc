@@ -129,6 +129,56 @@ Item 1 = bar
 Item 2 = 38
 -----
 
+==== Custom Template Actions
+
+You can include the `template.star` script in the root of your project template to add your own actions to the templates.
+The `template.star` script file is used only during template generation; it is not copied to the final project.
+
+Each function in the `template.star` script is converted to actions, except the ones that start with the underscore (`_`) character.
+The functions can take 0 or more characters, but must return a single value.
+The returned value is one of the following types:
+
+* String
+* Integer
+* Float
+* Boolean
+* Dictionary (map)
+* List
+
+The following `template.star` script defines the `concat` function, which concatenates the passed arguments and returns the final value:
+
+[source,python]
+----
+def concat(a, b):
+    return str(a) + str(b)
+----
+
+You can use it in your template as follows:
+[source]
+----
+{{ $myvar := 38 }}
+Result of concat: {{ concat "a string" $myvar }}
+----
+
+==== Success Note
+
+You can display a success note when a project is created successfully.
+This note can help to direct the user to the next step for using the project.
+
+* `note-unix`: Text to display only on Linux or macOS.
+* `note-windows`: Text to display only on Windows.
+* `note`: Text to display if an OS-specific note is not defined.
+
+The sample `template.yaml` below instructs CLC to display a custom note on Windows and a generic note on other platforms:
+
+[source,yaml]
+----
+note-windows: |
+  This note will be displayed only on Windows.
+note: |
+  This note will be displayed on non-Windows platforms.
+----
+
 === Usage
 
 Example (Linux and macOS):
