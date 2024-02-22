@@ -75,14 +75,26 @@ include::partial$global-parameters.adoc[]
 
 This command imports a subset of Hazelcast Java client configuration and saves it as CLC configuration.
 
-The Java keystore and truststore, referred in the XML configuration, are converted to PEM files.
+=== Limitations
 
-Usage:
+Only PKCS12 keystores/truststores are supported.
 
-[source,bash]
-----
-clc config import-java [target] [source] [flags] [key=value...]
-----
+The following are not supported:
+
+* <import> and <config-replacers> tags
+* Variables in .xml configuration
+
+=== Java KeyStore
+
+If the Java client configuration refers to a Java keystore, the key and certificate in the keystore are imported as `key.pem` and `cert.pem` files respectively.
+The keystore must contain one key and one certificate.
+
+=== Java TrustStore
+
+If the Java client configuration refers to a Java truststore, certificates in the truststore are imported as the ca.pem file.
+The truststore must contain only certificates.
+
+=== Configuration Keys
 
 You can pass `key=value` pairs to override configuration options.
 
@@ -91,6 +103,13 @@ You can pass `key=value` pairs to override configuration options.
 ====
 include::partial$configuration-items.adoc[]
 ====
+
+Usage:
+
+[source,bash]
+----
+clc config import-java [target] [source] [flags] [key=value...]
+----
 
 Parameters:
 
@@ -108,39 +127,13 @@ Parameters:
 |Path to the Java client XML configuration
 |
 
-|`--ca-alias`
-|Optional
-|Alias of the CA certificate in the Java truststore
-|
-
-|`--cert-alias`
-|Optional
-|Alias of the certificate in the Java truststore
-|
-
-|`--key-alias`
-|Optional
-|Alias of the key in the Java keystore
-|
-
 |===
-
-=== Limitations
-
-Only PKCS12 keystores/truststores are supported.
-
-The following are not supported:
-
-* JKS keystores/trustores
-* <import> and <config-replacers> tags
-* Variables in .xml configuration
 
 .Global parameters
 [%collapsible]
 ====
 include::partial$global-parameters.adoc[]
 ====
-
 
 == clc config list
 
