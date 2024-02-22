@@ -12,17 +12,47 @@
 == Installing on macOS
 
 The Hazelcast CLC is supported on macOS 15 or newer versions.
+You can install CLC using either by using an installation script or downloading the binary for your platform manually.
 
-. Run the following command to install CLC using the install script we provide:
-+
+=== Using the Install Script
+
+Run the following command to install CLC using the install script we provide:
+
 [source,shell,subs="attributes"]
 ----
 curl https://hazelcast.com/clc/install.sh | bash
+----
+
+=== Manual Installation
+
+You can download a CLC package manually from our link:https://github.com/hazelcast/hazelcast-commandline-client/releases/latest[Releases] page.
+MacOS compatible packages are named in the `hazelcast-clc-VERSION_darwin_ARCHITECTURE` form.
+Mind the architecture that corresponds to your computer.
+
+You must extract the package once the download is complete.
+Extracting the package will create a folder which we will refer as `CLC_FOLDER` below.
+
+On macOS, binaries downloaded outside of AppStore require your intervention to run. The install script automatically handles this, but if you downloaded a release package you can do it manually:
+
+[source,bash]
+----
+$ xattr -d com.apple.quarantine CLC_FOLDER/clc
+----
+Use the correct path instead of `CLC_FOLDER` in the command above.
+
+You may prefer to copy `clc` to a directory in your `$PATH`.
+Using the `/usr/local/bin` directory is a safe choice:
+[source,bash]
+----
+$ sudo cp CLC_FOLDER/clc /usr/local/bin
 ----
 
 == Installing on Linux
 
-The Hazelcast CLC runs on any recent Linux distribution. We test it on Ubuntu 22.04.
+The Hazelcast CLC runs on any recent Linux distribution.
+You can install CLC using either by using an installation script or downloading the binary for your platform manually.
+
+=== Using the Install Script
 
 . Run the following command to install CLC using the install script we provide:
 +
@@ -31,9 +61,41 @@ The Hazelcast CLC runs on any recent Linux distribution. We test it on Ubuntu 22
 curl https://hazelcast.com/clc/install.sh | bash
 ----
 
+=== Manual Installation
+
+You can download a CLC package manually from our link:https://github.com/hazelcast/hazelcast-commandline-client/releases/latest[Releases] page.
+Linux compatible packages are named in the `hazelcast-clc-VERSION_linux_ARCHITECTURE` form.
+Mind the architecture that corresponds to your computer.
+
+You must extract the package once the download is complete.
+Extracting the package will create a folder which we will refer as `CLC_FOLDER` below.
+
+You may prefer to copy `clc` to a directory in your `$PATH`.
+Using the `/usr/local/bin` directory is a safe choice:
+[source,bash]
+----
+$ sudo cp CLC_FOLDER/clc /usr/local/bin
+----
+
+
 == Installing on Windows
 
 The Hazelcast CLC is supported on Windows 10 or newer versions. We provide pre-built binaries only for 64bit Intel/AMD architecture.
+
+=== Manual Installation
+
+You can download a CLC package manually from our link:https://github.com/hazelcast/hazelcast-commandline-client/releases/latest[Releases] page.
+Linux compatible packages are named in the `hazelcast-clc-VERSION_windows_ARCHITECTURE` form.
+Mind the architecture that corresponds to your computer.
+
+You must extract the package once the download is complete.
+Extracting the package will create a folder which we will refer as `CLC_FOLDER` below.
+
+You may prefer to copy `CLC_FOLDER/clc` in a folder specified in the `%PATH%` environment variable.
+Otherwise add `CLC_FOLDER/clc` to your `%PATH`.
+The following link shows how to do that: link:https://answers.microsoft.com/en-us/windows/forum/all/adding-path-variable/97300613-20cb-4d85-8d0e-cc9d3549ba23[Adding a Path Variable].
+
+=== Using the Installer
 
 . Go to the https://github.com/hazelcast/hazelcast-commandline-client/releases[releases page], and locate the Windows installer file (`hazelcast-clc-setup-v{full-version}.exe`).
 . Download and the run the installer on your system to start the installation wizard.
@@ -45,6 +107,7 @@ The Hazelcast CLC is supported on Windows 10 or newer versions. We provide pre-b
 ----
 clc.exe
 ----
+
 
 == Verifying the Hazelcast CLC Installation
 
