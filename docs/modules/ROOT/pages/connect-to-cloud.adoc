@@ -2,6 +2,7 @@
 :description: To use the Hazelcast CLC with Hazelcast {hazelcast-cloud}, you need to authenticate with {hazelcast-cloud} using your API secret and key. You can then import the configuration of the cluster that you want to connect to. No additional configuration is required.
 
 :page-product: cloud
+:page-aliases: connect-to-viridian.adoc
 
 {description}
 
@@ -13,7 +14,7 @@ You need the following:
 - A {hazelcast-cloud} cluster
 - xref:cloud:ROOT:developer.adoc[{hazelcast-cloud} API key and secret]
 
-[[authenticating-with-viridian]]
+[[authenticating-with-cloud]]
 == Authenticating with {hazelcast-cloud}
 
 To allow the Hazelcast CLC to do cluster operations, you must generate a {hazelcast-cloud} token.
@@ -21,7 +22,7 @@ To allow the Hazelcast CLC to do cluster operations, you must generate a {hazelc
 . Execute the following command to retrieve the token.
 +
 ```bash
-clc viridian login
+clc cloud login
 ```
 +
 . When prompted, enter your API key and secret. If both are correct, the token is retrieved and saved.
@@ -32,7 +33,7 @@ clc viridian login
 Run the following command to list the clusters linked to your {hazelcast-cloud} account:
 
 ```bash
-clc viridian list-clusters
+clc cloud list-clusters
 ```
 
 For each cluster, the following attributes are displayed in order: Cluster ID, Cluster Name, Current Status, Hazelcast Version.
@@ -46,7 +47,7 @@ Import the configuration of the {hazelcast-cloud} cluster that you want to conne
 . Run the following command to save the cluster configuration with the name `dev`. Replace the `$CLUSTER_NAME` placeholder with the name of your cluster.
 +
 ```bash
-clc viridian import-config $CLUSTER-NAME --name dev
+clc cloud import-config $CLUSTER-NAME --name dev
 ```
 . Start an interactive shell session.
 +
@@ -54,6 +55,6 @@ clc viridian import-config $CLUSTER-NAME --name dev
 clc -c dev
 ```
 
-The Hazelcast CLC will start in interactive mode, and you should see a command prompt. You're ready to start managing xref:clc-viridian.adoc[{hazelcast-cloud} clusters].
+The Hazelcast CLC will start in interactive mode, and you should see a command prompt. You're ready to start managing xref:clc-cloud.adoc[{hazelcast-cloud} clusters].
 
 NOTE: The Hazelcast CLC connects to the cluster on demand, that is when you issue a command that requires the connection, such as running a SQL query.

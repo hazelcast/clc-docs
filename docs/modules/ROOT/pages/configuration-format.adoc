@@ -33,15 +33,15 @@ ssl:
 |`dev`
 
 |discovery-token
-|Viridian discovery token.
+|{hazelcast-cloud} discovery token.
 |
 
 |api-base
-|Viridian API base URL or name.
+|{hazelcast-cloud} API base URL or name.
 |
 
-|viridian-id
-|Viridian cluster ID.
+|cloud-id
+|{hazelcast-cloud} cluster ID.
 |
 
 |user

@@ -12,7 +12,7 @@ CLC instances collect usage metrics over a 24-hour period and send phone home da
 - CLC version
 - Acquisition source (e.g Docker, Management Center)
 - Connected Hazelcast Cluster ID
-- Connected Viridian Cluster ID
+- Connected Cloud Cluster ID
 - Number of times commands are run. Command runs are stored separately for each command type.
 - Number of created CLC configurations
 

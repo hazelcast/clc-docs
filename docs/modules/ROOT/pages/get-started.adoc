@@ -19,7 +19,7 @@ To allow the Hazelcast CLC to to interact with {hazelcast-cloud} clusters, you m
 +
 [source,shell]
 ----
-clc viridian login
+clc cloud login
 ----
 
 . When prompted, enter your API key and secret. If both are correct, the token is retrieved and saved. You don't have to run this command again unless you change your API key.
@@ -32,7 +32,7 @@ In this step, you'll create two production clusters called Test1 and Test2 from 
 +
 [source,shell]
 ----
-clc viridian create-cluster --name Test1
+clc cloud create-cluster --name Test1
 ----
 +
 Wait while the cluster is created and the cluster configuration is imported into the Hazelcast CLC.
@@ -42,14 +42,14 @@ Wait while the cluster is created and the cluster configuration is imported into
 +
 [source,shell]
 ----
-clc viridian create-cluster --name Test2
+clc cloud create-cluster --name Test2
 ----
 
 . Try running the following command to check your clusters have been created:
 +
 [source,shell]
 ----
-clc viridian list-clusters
+clc cloud list-clusters
 ----
 +
 The details of all clusters linked to your {hazelcast-cloud} account are returned, including the Cluster ID, Cluster Name, Cluster State, Hazelcast Version.
@@ -65,7 +65,7 @@ To connect to each production cluster, you need to import additional cluster con
 +
 [source, shell]
 ----
-clc viridian import-config Test1
+clc cloud import-config Test1
 ----
 
 . Run the following command to connect to your cluster using the Hazelcast CLC.
@@ -219,8 +219,8 @@ clc -c Test2 script run myscript.sql
 To delete both test clusters from your account.
 [source,shell]
 ----
-clc viridian delete-cluster Test1
-clc viridian delete-cluster Test2
+clc cloud delete-cluster Test1
+clc cloud delete-cluster Test2
 ----
 
 == Summary
@@ -244,7 +244,7 @@ Use these resources to continue learning:
 
 - xref:clc-sql.adoc[].
 
-- xref:managing-viridian-clusters.adoc[]
+- xref:managing-cloud-clusters.adoc[]
 
 - xref:jet-job-management.adoc[]
 

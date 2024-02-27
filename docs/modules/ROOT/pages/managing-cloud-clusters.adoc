@@ -1,6 +1,7 @@
-= Managing Clusters on Hazelcast Viridian Cloud Using the Hazelcast CLC
+= Managing Clusters on Hazelcast Cloud Using the Hazelcast CLC
 
 :description: In this tutorial, you'll learn the basics of managing clusters on Hazelcast {hazelcast-cloud} using the Hazelcast CLC. You'll see how to create, list, and delete clusters, and how to download their logs. You'll also learn how to perform pause/resume operations on the clusters using the Hazelcast CLC.
+:page-aliases: managing-viridian-clusters.adoc
 
 {description}
 
@@ -12,7 +13,7 @@ You need the following:
 - xref:cloud:ROOT:create-account.adoc[{hazelcast-cloud} account]
 - xref:cloud:ROOT:developer.adoc[{hazelcast-cloud} API key and secret]
 
-[[step-1-authenticating-with-viridian]]
+[[step-1-authenticating-with-cloud]]
 == Step 1. Authenticating with {hazelcast-cloud}
 
 To allow the Hazelcast CLC to perform cluster operations, you must generate a {hazelcast-cloud} token.
@@ -21,7 +22,7 @@ To allow the Hazelcast CLC to perform cluster operations, you must generate a {h
 +
 [source, bash]
 ----
-clc viridian login
+clc cloud login
 ----
 
 . When prompted, enter your API key and secret. If both are correct, the output looks like this.
@@ -40,7 +41,7 @@ Next, execute the following command to create a development cluster called `my-c
 
 [source, bash]
 ----
-clc viridian create-cluster --development --name my-cluster
+clc cloud create-cluster --development --name my-cluster
 ----
 
 You should see the following output.
@@ -60,7 +61,7 @@ To check that the `my-cluster` is up and running, use the following command.
 
 [source, bash]
 ----
-clc viridian list-clusters
+clc cloud list-clusters
 ----
 The details of all clusters linked to your {hazelcast-cloud} account are returned, including the Cluster ID, Cluster Name, Current Status, Hazelcast Version.
 
@@ -113,7 +114,7 @@ You can download logs from your cluster to your local machine. Hazelcast CLC giv
 +
 [source, bash]
 ----
-clc viridian download-logs my-cluster
+clc cloud download-logs my-cluster
 ----
 +
 In this command `my-cluster` is the cluster name rather than the configuration name.
@@ -122,7 +123,7 @@ In this command `my-cluster` is the cluster name rather than the configuration n
 +
 [source, bash]
 ----
-clc viridian download-logs my-cluster --output-dir $DIRECTORY_PATH
+clc cloud download-logs my-cluster --output-dir $DIRECTORY_PATH
 ----
 
 == Step 6. Stop/Resume Your Cluster
@@ -133,14 +134,14 @@ To avoid charges accumulating in your account, you can xref:cloud:ROOT:stop-and-
 +
 [source, bash]
 ----
-clc viridian stop-cluster my-cluster
+clc cloud stop-cluster my-cluster
 ----
 
 . When you're ready to resume the cluster, run the following command.
 +
 [source, bash]
 ----
-clc viridian resume-cluster my-cluster
+clc cloud resume-cluster my-cluster
 ----
 
 . If you get the `Cannot resume cluster because state 'STOP_IN_PROGRESS' cannot be transitioned into 'RESUME_IN_PROGRESS'` error, wait a couple of minutes and try again.
@@ -153,7 +154,7 @@ You can also xref:cloud:ROOT:deleting-a-cluster.adoc[delete an existing cluster]
 +
 [source, bash]
 ----
-clc viridian delete-cluster my-cluster
+clc cloud delete-cluster my-cluster
 ----
 +
 A confirmation message is displayed.
@@ -171,7 +172,7 @@ To avoid receiving a confirmation message on cluster deletion, add `--yes` to yo
 +
 [source, bash]
 ----
-clc viridian delete-cluster my-cluster --yes
+clc cloud delete-cluster my-cluster --yes
 ----
 
 == Summary
@@ -188,6 +189,6 @@ In this tutorial, you learned how to do the following:
 
 Use these resources to continue learning:
 
-- xref:clc-viridian.adoc[].
+- xref:clc-cloud.adoc[].
 
 - xref:configuration.adoc[].
