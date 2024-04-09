@@ -23,7 +23,7 @@ clc job [command] [options]
 
 == clc job submit
 
-Creates a Jet job using the provided Jar file or yaml job definition.
+Creates a Jet job using the provided JAR file or YAML job definition.
 
 This command requires a Hazelcast {hazelcast-cloud} or Hazelcast Platform cluster of version 5.3.0 or above.
 
