@@ -1,5 +1,5 @@
 = clc script run
-:description: Runs the script in the given local or HTTP location. Advanced script currently only supports local files.
+:description: Runs the script in the given location.
 
 {description}
 
@@ -10,10 +10,9 @@ Two kinds of scripts are supported:
 * Shell scripts: CLC commands or SQL
 * Advanced scripts: a Python-like language
 
-The scripts may be in the following locations:
+The scripts may be in the following location:
 
 * Filesystem path: The path may optionally have the file:// prefix.
-* HTTP resource: The path should have the http:// or https:// prefix.
 
 == Shell Script
 
