@@ -1,0 +1,33 @@
+= 5.4.0 Release Notes
+
+== New Features
+
+=== CPMap
+
+Hazelcast CPMap is a distributed implementation of a minimal key-value interface.
+This release adds support for the CPMap data structures.
+Note that CPMap is an Hazelcast Enterprise feature.
+
+Added the following `cpmap` commands:
+
+* `compare-and-set`
+* `delete`
+* `destroy`
+* `get`
+* `put`
+* `remove`
+* `set`
+
+Added the following advanced script functions for the CPMap:
+
+* `cpmap_compare_and_set`
+* `cpmap_delete`
+* `cpmap_destroy`
+* `cpmap_get`
+* `cpmap_put`
+* `cpmap_remove`
+* `cpmap_set`
+
+== Changes
+
+* Removed the ability to run scripts over HTTP.
