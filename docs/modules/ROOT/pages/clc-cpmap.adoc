@@ -181,7 +181,7 @@ clc cpmap -n my-cpmap set -k string hello -v f32 19.94
 
 == clc cpmap put
 
-Put sthe given value in the given CPMap and return sthe old value.
+Puts the given value in the given CPMap and returns the old value.
 
 Usage:
 
@@ -238,7 +238,7 @@ clc cpmap -n my-cpmap put -k string hello -v f32 19.94
 
 == clc cpmap remove
 
-Removes the value of a given key in a CPMap and returns the key.
+Removes the value of a given key in a CPMap and returns the old value.
 
 Usage:
 

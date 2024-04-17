@@ -154,6 +154,27 @@ The following functions are available for advanced scripts:
 |`VALUES_LIST = map_values(name=MAP_NAME)`
 |Returns the values in the Map as a list.
 
+|`BOOL = cpmap_compare_and_set(KEY, EXPECTED_VALUE, NEW_VALUE, name=CPMAP_NAME)`
+|Sets the value for the given key if it has the expected value.
+
+|`cpmap_delete(KEY, name=CPMAP_NAME)`
+|Deletes the value of a given key in a CPMap.
+
+|`cpmap_destroy(name=CPMAP_NAME)`
+|Deletes the CPMap and all the data in it.
+
+|`cpmap_get(KEY, name=CPMAP_NAME)`
+|Gets a value from the given CPMap.
+
+|`OLD_VALUE = cpmap_put(KEY, VALUE, name=CPMAP_NAME)`
+|Puts the given value in the given CPMap and returns the old value.
+
+|`VALUE = cpmap_remove(KEY, name=CPMAP_NAME)`
+|Removes the value of a given key in a CPMap and returns the old value.
+
+|`cpmap_set(KEY, VALUE, name=CPMAP_NAME)`
+|Sets a value in the given CPMap.
+
 |`TIME = now()`
 |Returns the current time in nanoseconds.
 
