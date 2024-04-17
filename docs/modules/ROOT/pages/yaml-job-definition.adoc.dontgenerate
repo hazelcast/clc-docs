@@ -135,9 +135,9 @@ pipeline:
 
 ==== JDBC Source
 
-You can use a JDBC source to provide data to the pipeline. This source works as a batch stage. For further information on using the JDBC connector as a source, see the xref:integrate:jdbc-connector.adoc#jdbc-as-a-source[] section of the JDBC Connector topic.
+You can use a JDBC source to provide data to the pipeline. This source works as a batch stage. For further information on using the JDBC connector as a source, see the xref:hazelcast:integrate:jdbc-connector.adoc#jdbc-as-a-source[] section of the JDBC Connector topic.
 
-TIP: Ensure that Hazelcast can serialize your object type. For further information on serialization, see the xref:serialization:serialization.adoc[] topic.
+TIP: Ensure that Hazelcast can serialize your object type. For further information on serialization, see the xref:hazelcast:serialization:serialization.adoc[] topic.
 
 [cols="1m,1a,2a,1a"]
 |===
@@ -172,7 +172,7 @@ pipeline:
 
 ==== Kafka Source
 
-You can define a Kafka topic as a source. This source works as a stream stage. For further information on connecting to a Kafka topic, see the xref:integrate:kafka-connector.adoc[] topic.
+You can define a Kafka topic as a source. This source works as a stream stage. For further information on connecting to a Kafka topic, see the xref:hazelcast:integrate:kafka-connector.adoc[] topic.
 
 [cols="1m,1a,2a,1a"]
 |===
@@ -250,7 +250,7 @@ pipeline:
 
 Use a MAP Journal source to work on a entry that is put into defined map. This stage works as a stream.
 
-TIP: To use a MAP Journal source, you must enable _Event Journal_ in your map configuration. For further information on the event journal, see the xref:data-structures:event-journal.adoc[] topic.
+TIP: To use a MAP Journal source, you must enable _Event Journal_ in your map configuration. For further information on the event journal, see the xref:hazelcast:data-structures:event-journal.adoc[] topic.
 
 [cols="1m,1a,2a,1a"]
 |===
@@ -463,7 +463,7 @@ After the streaming process completes, data is sent to the specified sink from t
 
 |query: REPLACE INTO into(value) values(?)
 |Yes
-|Query statement to be run while inserting data to the JDBC. For further information on using JDBC as a sink, see the xref:integrate/jdbc-connector.adoc#jdbc-as-a-sink[] section of the JDBC Connector topic.
+|Query statement to be run while inserting data to the JDBC. For further information on using JDBC as a sink, see the xref:hazelcast:integrate/jdbc-connector.adoc#jdbc-as-a-sink[] section of the JDBC Connector topic.
 |
 
 |===
