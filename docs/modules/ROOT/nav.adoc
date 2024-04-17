@@ -53,6 +53,7 @@
 * xref:phone-homes.adoc[]
 
 .Release Notes
+* xref:release-notes-5.4.0.adoc[5.4.0]
 * xref:release-notes-5.3.7.adoc[5.3.7]
 * xref:release-notes-5.3.6.adoc[5.3.6]
 * xref:release-notes-5.3.5.adoc[5.3.5]
