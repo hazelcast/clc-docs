@@ -99,7 +99,6 @@ Parameters:
 |`MAPPING`
 |Optional
 |Name of the mapping.
-|
 
 |===
 
@@ -122,6 +121,5 @@ Parameters:
 |`MAPPING`
 |Optional
 |Name of the mapping.
-|
 
 |====
