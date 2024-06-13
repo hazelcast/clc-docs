@@ -210,7 +210,7 @@ Returns a view of the entry with the given key.
 This command doesn't affect entry statistics, such as Hits and entry metadata such as Max Idle.
 
 See this documentation for information about per-entry statistics:
-link:https://docs.hazelcast.com/hazelcast/5.3/data-structures/reading-map-metrics#getting-statistics-about-a-specific-map-entry[Getting Statistics about a Specific Map Entry].
+link:https://docs.hazelcast.com/hazelcast/latest/data-structures/reading-map-metrics#getting-statistics-about-a-specific-map-entry[Getting Statistics about a Specific Map Entry].
 
 The following information about the entry is returned:
 
