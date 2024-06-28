@@ -1,0 +1,11 @@
+= 5.4.1 Release Notes
+
+== New Features
+
+There are no new features in this release.
+
+== Fixes
+
+* Custom template actions aren't loaded when a template is cloned initially.
+* `--force` flag is ignored for `job cancel` command.
+
