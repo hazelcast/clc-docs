@@ -6,6 +6,6 @@ There are no new features in this release.
 
 == Fixes
 
-* Custom template actions aren't loaded when a template is cloned initially.
+* Custom template actions aren't initially loaded when a template is cloned.
 * `--force` flag is ignored for `job cancel` command.
 
