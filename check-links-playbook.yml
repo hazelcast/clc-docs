@@ -7,22 +7,22 @@ content:
     branches: HEAD
     start_path: docs
   - url: https://github.com/hazelcast/hz-docs
-    branches: [main]
+    branches: [main, v/5.5]
     start_path: docs
   - url: https://github.com/hazelcast/hazelcast-docs
-    branches: [ main ]
-    start_paths: [ home,tutorials ]
+    branches: [main]
+    start_paths: [home,tutorials]
   - url: https://github.com/hazelcast/imdg-docs
-    branches: [ main ]
+    branches: [main]
     start_path: docs
   - url: https://github.com/hazelcast/management-center-docs
-    branches: [ main, v/5.5 ]
+    branches: [main, v/5.5]
     start_path: docs
   - url: https://github.com/hazelcast/cloud-docs
-    branches: [ main ]
-    start_paths: [ docs, tutorials ]
+    branches: [main]
+    start_paths: [docs, tutorials]
   - url: https://github.com/hazelcast/hazelcast-platform-operator-docs
-    branches: [ main ]
+    branches: [main]
     start_path: docs
   - url: https://github.com/hazelcast-guides/sql_stock_ticker_cloud
     branches: master
