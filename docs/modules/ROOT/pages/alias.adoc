@@ -49,7 +49,6 @@ Parameters:
 |
 |
 
-|
 |===
 
 Examples:
@@ -88,7 +87,6 @@ Parameters:
 |Name of the alias.
 |
 
-|
 |===
 
 Example:
