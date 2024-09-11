@@ -145,7 +145,7 @@ sudo mv ./build/clc /usr/local/bin
 
 The Hazelcast CLC runs on any recent Linux distribution. We test it on Ubuntu 22.04.
 
-[tabs] 
+[tabs]
 ====
 Install Script (AMD64)::
 +
@@ -203,8 +203,8 @@ sudo mv ./build/clc /usr/local/bin
 
 The Hazelcast CLC is supported on Windows 10 or newer versions. We provide pre-built binaries only for 64bit Intel/AMD architecture.
 
-[tabs] 
-==== 
+[tabs]
+====
 Installer::
 +
 . Go to the https://github.com/hazelcast/hazelcast-commandline-client/releases[releases page], and locate the Windows installer file (`hazelcast-clc-setup-v{full-version}.exe`).
@@ -217,6 +217,7 @@ Installer::
 ----
 clc.exe
 ----
+====
 
 endif::[]
 == Verifying the Hazelcast CLC Installation
@@ -234,8 +235,8 @@ If installed, the Hazelcast CLC version information displays.
 
 Choose the option that corresponds to your installation method.
 
-[tabs] 
-==== 
+[tabs]
+====
 Windows::
 +
 . Go to *Apps & Features* setting (*Start menu* -> *Windows Settings* -> *Apps*).
