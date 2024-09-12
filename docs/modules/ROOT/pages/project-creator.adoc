@@ -12,7 +12,7 @@ You can find the templates in the https://github.com/hazelcast-templates[Hazelca
 
 == Create a Viridian Cluster
 
-For this guide, let's create a Hazelcast Viridian Cluster. First, sign in to the link:{https://viridian.hazelcast.com/}[{hazelcast-cloud} console,window=_blank], and follow the xref:get-started.adoc[Get Started with the Hazelcast CLC] tutorial.
+For this guide, let's create a Hazelcast Viridian Cluster. First, sign in to the link:https://cloud.hazelcast.com/[{hazelcast-cloud} console,window=_blank], and follow the xref:get-started.adoc[Get Started with the Hazelcast CLC] tutorial.
 
 == Create Your First Project with Default Hazelcast Templates
 
