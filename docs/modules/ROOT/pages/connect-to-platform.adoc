@@ -63,7 +63,6 @@ NOTE: The Hazelcast CLC connects to the cluster on demand, that is when you issu
 cluster:
   name: "<CLUSTER NAME>"
   address: "<MEMBER IP ADDRESS>"
-credentials:
   user: "<OPTIONAL USERNAME>"
   password: "<OPTIONAL PASSWORD>"
 ssl:
@@ -99,7 +98,6 @@ WARNING: Skipping TLS verification makes you vulnerable to man-in-the-middle att
 cluster:
   name: "<CLUSTER NAME>"
   address: "<MEMBER IP ADDRESS>"
-credentials:
   user: "<OPTIONAL USERNAME>"
   password: "<OPTIONAL PASSWORD>"
 ssl:
@@ -128,7 +126,6 @@ NOTE: Hazelcast CLC connects to the cluster on demand, that is when you issue a 
 cluster:
   name: "<CLUSTER NAME>"
   address: "<MEMBER IP ADDRESS>"
-credentials:
   user: "<OPTIONAL USERNAME>"
   password: "<OPTIONAL PASSWORD>"
 ----
