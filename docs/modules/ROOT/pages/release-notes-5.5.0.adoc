@@ -1,0 +1,9 @@
+= 5.5.0 Release Notes
+
+== New Features
+
+There are no new features in this release.
+
+== Fixes
+
+* Made `project create` template update process more robust.
