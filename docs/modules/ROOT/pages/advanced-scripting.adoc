@@ -386,7 +386,7 @@ print("My home directory:", user_home)
 `now()` function returns the current local time in nanoseconds.
 
 You can convert the time to other units using the predefined time units, such as `MILLISECOND`, `SECOND` and `DAY`.
-For the valid values, see the link:clc-script.adoc[clc script] topic.
+For the valid values, see the xref:clc-script.adoc[clc script run] topic.
 The following example measures the duration of an object_list operation, and prints the result in various time units.
 
 [python,source]
@@ -426,7 +426,7 @@ The operation took:
 
 It is sometimes necessary to wait for a specified period before continuing.
 `sleep` command waits for the given time in nanoseconds.
-You can also specify other time units, such as milliseconds and seconds, as described in the link:clc-script.adoc[clc script] topic.
+You can also specify other time units, such as milliseconds and seconds, as described in the xref:clc-script.adoc[clc script run] topic.
 Here's a script that just waits for two seconds.
 
 [source,python]
@@ -746,4 +746,4 @@ Using the `last_error` function, the existence of an error was checked and `v` w
 
 Advanced Scripting is a powerful tool. It supports many use cases, which are not possible using standard CLC scripts
 
-Be sure to check out the link:clc-script.adoc[script] command reference for all commands.
+Be sure to check out the xref:clc-script.adoc[clc script run] command reference for all commands.
