@@ -7,3 +7,4 @@
 # Eclipse IDE
 .project
 .settings/
+global-antora-playbook.yml
