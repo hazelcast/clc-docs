@@ -18,7 +18,7 @@ In those cases, it may be preferable to let go of a bit of convenience for more 
 CLC v5.6.0 introduced the *Config Safe*, a feature that enables storing cluster configuration, together with SSL certificates and other sensitive data in an encrypted store.
 In this guide, you will learn how to enable the Config Safe and use it.
 
-NOTE: The examples below use a local Hazelcast cluster on `localhost:5701` (the default address). You can see the
+NOTE: The examples below use a local Hazelcast cluster on `localhost:5701` (the default address).
 
 == Enabling the Config Safe
 
