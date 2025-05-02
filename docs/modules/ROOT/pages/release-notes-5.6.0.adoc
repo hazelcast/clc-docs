@@ -4,8 +4,7 @@
 
 === Config Safe
 
-Starting with this version, it is possible to store cluster configuration in encrypted storage.
-More information about this feature is in this guide: xref:config-safe.adoc
+Starting with this version, it is possible to store cluster configuration in encrypted storage. For more information, see xref:config-safe.adoc[Secure Cluster Configuration].
 
 === Other Features
 
