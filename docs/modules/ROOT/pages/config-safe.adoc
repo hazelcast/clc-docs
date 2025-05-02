@@ -23,7 +23,7 @@ NOTE: The examples below use a local Hazelcast cluster on `localhost:5701` (the 
 == Enabling the Config Safe
 
 Use the `--safe` flag with any CLC command to enable the Config Safe.
-The safe is created when that flag is first used, and CLC needs to access the cluster configuration.
+The safe is created when that flag is first used, and CLC needs to write the cluster configuration.
 Let's create it by adding a new configuration to a local Hazelcast cluster:
 
 [source,bash]
