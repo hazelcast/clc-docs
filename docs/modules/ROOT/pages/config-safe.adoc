@@ -53,6 +53,10 @@ So, it is crucial to store the encryption key securely in order to be able to us
 WARNING: Do not share the encryption key or allow it to be leaked.
 Anyone who has access to the encryption key can access the secrets stored in the Config Safe.
 
+NOTE: Q: Why doesn't CLC let me specify my own encryption key?
+A: In order for the encryption to be effective, a cryptographically secure random key must be used.
+If an attacker knows (_or can guess_) some parts of the key, they can reduce the protection of the AES-128 encryption.
+
 == Using the Config Safe
 
 Once the Config Safe is created, you can use it by passing the `--safe` flag to any CLC command.
