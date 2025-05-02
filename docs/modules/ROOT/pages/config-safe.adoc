@@ -1,0 +1,233 @@
+= Securing Cluster Configuration Using the Config Safe
+
+:description: This guide shows you how to store cluster configuration in the encrypted storage.
+
+{description}
+
+== Introduction
+
+Cluster configuration is one of the central ideas of Hazelcast CLC.
+CLC provides a convenient way of connecting to different clusters by their names.
+Although CLC provides several ways of creating new cluster configurations, it is also very easy to add and manipulate them.
+They are just YAML files in `$CLC_HOME/configs` directory after all!
+
+This way of storing configuration is very common among CLI tools, and it is also convenient to the user.
+But some cluster configurations may include sensitive data, such as user credentials and SSL key passwords.
+In those cases, it may be preferable to let go of a bit of convenience for more secure storage of the cluster configuration.
+
+CLC v5.6.0 introduced the *Config Safe*, a feature that enables storing cluster configuration, together with SSL certificates and other sensitive data in an encrypted store.
+In this guide, you will learn how to enable the Config Safe and use it.
+
+NOTE: The examples below use a local Hazelcast cluster on `localhost:5701` (the default address). You can see the
+
+== Enabling the Config Safe
+
+Use the `--safe` flag with any CLC command to enable the Config Safe.
+The safe is created when that flag is first used, and CLC needs to access the cluster configuration.
+Let's create it by adding a new configuration to a local Hazelcast cluster:
+
+[source,bash]
+----
+clc config add dev --safe
+----
+
+If the Config Safe didn't exist, you would get output similar to:
+
+[source,output]
+----
+Config safe is initialized.
+
+The following secure encryption key was generated for you:
+
+        6c1836b9d9c0971ca6764d224a3db561
+
+This key will never be shown again, so keep it in a secure place.
+
+    OK Created the configuration.
+----
+
+CLC generates a cryptographically secure random key and encrypts the Config Safe using AES-128 with that key.
+Whenever CLC needs to access the Config Safe, it will prompt you to enter the encryption key.
+So, it is crucial to store the encryption key securely in order to be able to use the stored cluster configuration later.
+
+WARNING: Do not share the encryption key or allow it to be leaked.
+Anyone who has access to the encryption key can access the secrets stored in the Config Safe.
+
+== Using the Config Safe
+
+Once the Config Safe is created, you can use it by passing the `--safe` flag to any CLC command.
+For instance, set a value in the `default` IMap in the `dev` configuration you've created before:
+
+[source,bash]
+----
+clc -c dev map set key1 value1 --safe
+----
+
+CLC immediately asks for an encryption key after you run that command.
+[source,output]
+----
+  Encryption Key : ********************************
+----
+
+Once you enter (or paste!) the encryption key generated in the previous section, CLC is able to open the safe, use the cluster configuration and return the result:
+
+[source,output]
+----
+OK Set the value into the Map 'default'.
+----
+
+Next, try to read the value from the `default` IMap:
+
+[source,bash]
+----
+clc -c dev map get key1 --safe
+----
+
+CLC asks for the encryption key again!
+Provide the encryption key to see the result:
+
+[source,output]
+----
+--------
+ this
+--------
+ value1
+--------
+    OK Returned 1 row(s).
+----
+
+=== Interactive Mode
+
+CLC asks for the encryption key each time you execute a command in the _non-interactive mode_.
+That may get boring real fast, but there are ways to make it more convenient while keeping it secure.
+
+The first way is, using the CLC shell (or what we call as the _interactive mode_).
+With the default CLC setup, you will be asked for the encryption key only at the start of your session.
+In order to enter the CLC shell, just run CLC with the optional configuration name and the `--safe` flag:
+[source,bash]
+----
+clc -c dev --safe
+----
+
+You'll be asked for the encryption key, but CLC will remember it until the end of the session:
+[source,output]
+----
+  Encryption Key : ********************************
+
+Hazelcast CLC v5.3.6 (c) 2025 Hazelcast Inc.
+
+* Type 'help' for help information.
+* Prefix non-SQL commands with \
+
+Configuration : dev
+Log      INFO : /home/johndoe/.hazelcast/logs/2025-04-21.log
+
+dev SQL>
+----
+
+Let's set another value in the `default` IMap.
+Remember, you must prefix the commands with a backslash in the CLC shell:
+[source]
+----
+\map set key2 value2
+----
+
+No encryption key is asked, and none provided!
+
+Next up, retrieve the value:
+[source]
+----
+\map get key2
+----
+
+You can exit the CLC shell by pressing kbd:[Ctrl+D] or executing `\exit`.
+
+=== Scripting Mode
+
+Another way to avoid entering the encryption key with every command is, writing the commands in a CLC script.
+We cover scripting elsewhere in the documentation, but here's a simple example.
+Write the following in a file named `script1.clc`:
+
+[source]
+----
+\echo "This is the start of the script..."
+\echo
+
+-- Set some values
+\map -n numbers set -k i32 1 one -q
+\map -n numbers set -k i32 2 two -q
+\map -n numbers set -k i32 3 three -q
+
+-- Get all of them
+\map -n numbers entry-set
+----
+
+Note that the commands in a CLC script are written with a backslash prefix, exactly the way they are written in the CLC shell.
+
+Run the script using the `script run` command:
+
+[source,bash]
+----
+clc -c dev script run script1.clc --safe
+----
+
+Observe that the encryption key was asked only before running the script:
+
+[source,output]
+----
+  Encryption Key : ********************************
+
+This is the start of the script...
+
+---------------
+ __key | this
+---------------
+     2 | two
+     1 | one
+     3 | three
+---------------
+    OK Returned 3 row(s).
+----
+
+== Migrating the Config Safe
+
+The Config Safe consists of a bunch of files in the `$CLC_HOME/configsafe-v1` directory.
+You can see its exact location by running the following command:
+
+[source,bash]
+----
+clc home configsafe-v1
+----
+
+A simple way of migrating the Config Safe to another computer is, compressing the `configsafe-v1` directory on the source, and uncompressing it in the destination.
+
+On Linux and macOS, that can be accomplished using the following steps, assuming GNU tar and BASH/ZSH are available:
+
+1. Compress the Config Safe directory:
++
+[source,bash]
+----
+tar cfz configsafe.tar.gz -C $(clc home) configsafe-v1
+----
+
+2. Copy `configsafe.tar.gz` to the destination
+
+3. Uncompress the Config Safe directory in `$CLC_HOME`:
++
+[source,bash]
+----
+tar xfz configsafe.tar.gz -C $(clc home)
+----
+
+4. Verify the migration:
++
+[source,bash]
+----
+clc config list --safe
+----
+
+== Conclusions
+
+In this guide you learned how to enable and use the Config Safe.
+Config Safe provides a mechanism to securely store CLC cluster configuration, which may include credentials.
+

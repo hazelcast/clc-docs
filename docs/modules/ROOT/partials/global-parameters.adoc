@@ -3,12 +3,16 @@
 |Parameter|Description|Default
 
 |`--config`, `-c`
-|Path to the configuration file in YAML format.
+|Name of the configuration or path to the configuration file in YAML format.
 a|The following locations are tried in order for the existence of `config.yaml`
 
 1. Current working directory
 2. The parent directory of the `clc` executable
 3. `$CLC_HOME/default` directory
+
+|`--safe`
+|Use the *Config Safe* encrypted storage to keep cluster configuration, instead of the `$CLC_HOME/configs` directory which stores the configuration in YAML and PEM files.
+|`false`
 
 |`--format`, `-f`
 a|Set the output format
