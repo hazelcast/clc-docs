@@ -6,9 +6,9 @@
 
 == Introduction
 
-By default, cluster configuration is stored as plain text YAML files in the `$CLC_HOME/configs` directory. This provides convenient access, but sensitive data such as user credentials and SSL key passwords should be stored more securely. CLC's *Config Safe* provides encrypted storage for cluster configuration that includes sensitive data.
+By default, cluster configuration is stored as plain text YAML files in the `$CLC_HOME/configs` directory. This provides convenient access, but you may want to use a more secure storage option for sensitive data such as user credentials and SSL key passwords. CLC's *Config Safe* provides encrypted storage for cluster configuration that includes sensitive data.
 
-The Config Safe is an encrypted directory at `$CLC_HOME/configsafe-v1`. It is secured with AES-128 (16 bytes binary, or 32 bytes string key). Configuration in the Config Safe is separate from the default configuration, so it is possible to have different configuration objects with the same name in each directory. You can only access the Config Safe by adding the `--safe` flag to CLC commands and providing the encryption key.
+The Config Safe is an encrypted directory at `$CLC_HOME/configsafe-v1`. It is secured with AES-128 (16 bytes binary, or 32 bytes string key). Configuration in the Config Safe is separate from the unencrypted configuration, so it is possible to have a configuration object in the Config Safe with the same name as a different configuration object in the unencrypted configuration. You can only access configuration in the Config Safe by adding the `--safe` flag to CLC commands and providing the encryption key.
 
 NOTE: The examples in this section use a local Hazelcast cluster on `localhost:5701` (the default address).
 
@@ -60,7 +60,7 @@ CLC responds by asking for an encryption key:
   Encryption Key : ********************************
 ----
 
-Once you enter the encryption key, CLC is able to access the Config Safe, update the cluster configuration, and return the result:
+Once you enter the encryption key, CLC is able to access the Config Safe, use the cluster configuration to connect to the cluster, and return the result of the Map set operation:
 
 [source,output]
 ----
@@ -86,7 +86,7 @@ CLC responds by asking for an encryption key again. Provide the encryption key t
     OK Returned 1 row(s).
 ----
 
-== Persisting the Encryption Key
+== Running Multiple Commands
 
 CLC asks for the encryption key each time you execute a `--safe` command in non-interactive mode. To avoid this, you can use the CLC in interactive mode or scripting mode.
 

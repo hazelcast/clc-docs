@@ -15,9 +15,9 @@
 
 .Guides
 * xref:advanced-scripting.adoc[Advanced Scripting]
-* xref:using-compact-serializer-generator.adoc[Compact Serializer Generator]
+* xref:using-compact-serializer-generator.adoc[Using Compact Serializer Generator]
 * xref:project-creator.adoc[Project Creator]
-* xref:config-safe.adoc[Secure Cluster Configuration]
+* xref:config-safe.adoc[Securing Cluster Configuration Using the Config Safe]
 
 .Reference
 * xref:clc-commands.adoc[Command Reference]
