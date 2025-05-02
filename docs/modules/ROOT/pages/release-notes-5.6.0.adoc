@@ -1,0 +1,19 @@
+= 5.6.0 Release Notes
+
+== New Features
+
+=== Config Safe
+
+Starting with this version, it is possible to store cluster configuration in encrypted storage.
+More information about this feature is in this guide: xref:config-safe.adoc
+
+=== Other Features
+
+* CLC is able to use more than one address. The `cluster.address` field in the CLC configuration, and also `cluster.address` parameter of `config add` and `config import-java` commands can contain multiple cluster addresses separated by commas. Additionally, `config import-java` command is able to use all `cluster-members > address` items of the Java Client XML configuration.
+* CLC configuration and also `config add` and `config import-java` commands support SSL certificates and keys passed as base64 encoded strings via the `ca-b64`, `cert-b64` and `key-b64` fields and parameters.
+* `config import-java` supports SSL keys using the EC key algorithm, alongside RSA.
+* `config import-java` supports base64 encoded certificates and keys in Java Client XML configuration.
+
+== Fixes
+
+None
