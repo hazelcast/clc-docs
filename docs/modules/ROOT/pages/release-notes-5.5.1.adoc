@@ -1,0 +1,12 @@
+= 5.5.1 Release Notes
+
+== New Features
+
+There are no new features in this release.
+
+== Fixes
+
+* Fixed: demo generate-data wikipedia-event-stream command doesn't progress link:https://github.com/hazelcast/hazelcast-commandline-client/issues/448[448].
+* Updated link:https://github.com/go-git/go-git[go-git] to v5.13.2. That fixes link:https://nvd.nist.gov/vuln/detail/CVE-2025-21613[CVE-2025-21613]. Note that CLC doesn't run any servers, so this CVE is not exploitable in  any version of CLC.
+* Updated link:https://pkg.go.dev/golang.org/x/crypto[/golang.org/x/crypto] to v0.41.0. That fixes link:https://nvd.nist.gov/vuln/detail/CVE-2024-45337[CVE-2024-45337]. Note that CLC doesn't run any servers, so this CVE is not exploitable in any version of CLC.
+* Updated builder to Go version 1.25. That fixes link:https://nvd.nist.gov/vuln/detail/CVE-2025-22871[CVE-2025-22871]. Note that CLC doesn't run any servers, so this CVE is not exploitable in  any version of CLC.
