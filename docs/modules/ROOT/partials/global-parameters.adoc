@@ -10,10 +10,6 @@ a|The following locations are tried in order for the existence of `config.yaml`
 2. The parent directory of the `clc` executable
 3. `$CLC_HOME/default` directory
 
-|`--safe`
-|Use the Config Safe encrypted store for cluster configuration instead of the plain text `$CLC_HOME/configs` directory.
-|`false`
-
 |`--format`, `-f`
 a|Set the output format
 
