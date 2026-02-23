@@ -14,7 +14,7 @@ clc -c test/config.yaml
 [source, bash]
 ----
 clc home
-/home/me/.local/share/clc
+/home/me/.hazelcast
 ----
 
 Known configurations can be directly specified by their names, instead of the full path.
@@ -37,7 +37,7 @@ $ clc -c pr-3066
 . If no configuration is specified, but a single configuration exists, that configuration is used.
 . If there are more than one configuration exists, and the `default` configuration exists, the `default` configuration is used.
 . Otherwise CLC displays a selector to choose the cluster.
-The name of the default configuration may be overriden using the `CLC_CONFIG` environment variable.
+The name of the default configuration may be overriden using the `CLC_CONFIG` environment variable, or using the `--config` flag.
 
 == Related Resources
 
