@@ -94,14 +94,19 @@ Parameters:
 |Sets the name of the created cluster. If not given, an auto-generated name will be used.
 |
 
+|`--hazelcast-version`
+|Optional
+|Sets the Hazelcast version to be used in the cluster.
+|
+
 |`--development`
 |Optional
-|Creates a development cluster.
+|This parameter is deprecated and will be removed at v6.0.0.
 |
 
 |`--prerelease`
 |Optional
-|Creates the cluster with a prerelease image.
+|This parameter is deprecated and will be removed at v6.0.0.
 |
 
 |===
