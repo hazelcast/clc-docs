@@ -1,0 +1,16 @@
+= 5.7.0 Release Notes
+
+== New Features
+
+* Added `--hazelcast-version` to `cloud create-cluster` command.
+* Added `hazelcast_version` keyword argument to `Cloud.create_cluster` advanced scripting command.
+* Added `Cloud.list_hazelcast_versions` advanced scripting command that lists available Hazelcast versions in Hazelcast Cloud.
+
+== Deprecations
+
+* Deprecated `--development` and `--prerelease` flags of `cloud create-cluster` command. To be removed in CLC v6.0.0.
+* Deprecated `development` and `prerelease` keyword arguments of `Cloud.create_cluster` advanced scripting command. To be removed in CLC v6.0.0.
+
+== Fixes
+
+* Synchronized the changes with the latest Hazelcast Cloud API.
