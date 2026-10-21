@@ -1,5 +1,5 @@
 = 5.7.1 Release Notes
 
 This release doesn't introduce any changes or fixes.
-The CLC binary is compiled with Go v1.27.3 that rejects vulnerable intermediate CA certificates that may exist in the host sytem.
+The CLC binary now is compiled with Go v1.27.3, which rejects vulnerable intermediate CA certificates that may exist in the host system.
 We recommend updating to this version as soon as possible.
